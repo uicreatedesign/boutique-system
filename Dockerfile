@@ -1,83 +1,100 @@
-# Multi-stage build for Laravel + React application
+# -------------------------------------------------------
+# FRONTEND BUILDER (Vite + React)
+# -------------------------------------------------------
 FROM node:20-alpine AS frontend-builder
 
 WORKDIR /app
 
-# Copy package files first for better caching
+# Copy package files for caching
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY vite.config.ts ./
 COPY components.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (use legacy peer deps for stability)
+RUN npm ci --legacy-peer-deps
 
-# Copy source files
+# Copy source
 COPY resources/ ./resources/
 COPY public/ ./public/
 
-# Build frontend assets
+# Build frontend
 RUN npm run build
 
-# PHP Production Image
+
+# -------------------------------------------------------
+# BACKEND (PHP 8.3 + FPM + NGINX + SUPERVISOR)
+# -------------------------------------------------------
 FROM php:8.3-fpm-alpine
 
+# -------------------------------------------------------
 # Install system dependencies
+# -------------------------------------------------------
 RUN apk add --no-cache \
     nginx \
     supervisor \
     mysql-client \
-    zip \
-    unzip \
-    git \
-    curl \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    libzip-dev \
-    icu-dev \
-    oniguruma-dev
+    zip unzip git curl \
+    libpng-dev libjpeg-turbo-dev freetype-dev \
+    libzip-dev icu-dev oniguruma-dev autoconf make g++
 
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        pdo_mysql \
-        mysqli \
-        gd \
-        zip \
-        intl \
-        mbstring \
-        opcache
 
-# Install Composer
+# -------------------------------------------------------
+# Install PHP Extensions (GD requires Alpine paths)
+# -------------------------------------------------------
+RUN docker-php-ext-configure gd \
+    --with-freetype=/usr/include/ \
+    --with-jpeg=/usr/include/
+
+RUN docker-php-ext-install -j$(nproc) \
+    pdo_mysql mysqli \
+    gd zip intl mbstring opcache
+
+
+# -------------------------------------------------------
+# Composer
+# -------------------------------------------------------
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
+
+# -------------------------------------------------------
+# App Setup
+# -------------------------------------------------------
 WORKDIR /var/www/html
 
-# Copy application files
+# Copy application
 COPY . .
+
+# Copy build assets from frontend container
 COPY --from=frontend-builder /app/public/build ./public/build
 
-# Install PHP dependencies
+
+# -------------------------------------------------------
+# Install PHP Dependencies
+# -------------------------------------------------------
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
 
+# -------------------------------------------------------
+# Permissions
+# -------------------------------------------------------
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 storage \
+    && chmod -R 775 bootstrap/cache
+
+
+# -------------------------------------------------------
 # Copy configuration files
+# -------------------------------------------------------
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/start.sh /start.sh
 
-RUN chmod +x /start.sh
+RUN chmod +x /start.sh \
+    && mkdir -p /run/nginx \
+    && mkdir -p /var/log/supervisor
 
-# Create required directories
-RUN mkdir -p /var/log/supervisor \
-    && mkdir -p /run/nginx
 
 EXPOSE 80
 
