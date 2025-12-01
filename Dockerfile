@@ -9,6 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY vite.config.ts ./
+COPY vite.config.docker.ts ./
 COPY components.json ./
 
 RUN npm ci --legacy-peer-deps
@@ -16,7 +17,7 @@ RUN npm ci --legacy-peer-deps
 COPY resources/ ./resources/
 COPY public/ ./public/
 
-RUN npm run build
+RUN npx vite build --config vite.config.docker.ts
 
 
 
