@@ -16,3 +16,8 @@ bootstrap/cache/*
 vendor
 .phpunit.result.cache
 tests
+.vite
+dist
+build
+public/hot
+public/build
