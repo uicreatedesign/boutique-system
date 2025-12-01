@@ -1,83 +1,36 @@
-# Multi-stage build for Laravel + React application
-FROM node:20-alpine AS frontend-builder
-
+# Stage 1 - Build Frontend (Vite)
+FROM node:18 AS frontend
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-COPY tsconfig.json ./
-COPY vite.config.ts ./
-
-# Install dependencies
-RUN npm ci --only=production
-
-# Copy source files
-COPY resources/ ./resources/
-COPY public/ ./public/
-
-# Build frontend assets
+RUN npm install
+COPY . .
 RUN npm run build
 
-# PHP Production Image
-FROM php:8.3-fpm-alpine
+# Stage 2 - Backend (Laravel + PHP + Composer)
+FROM php:8.2-fpm AS backend
 
 # Install system dependencies
-RUN apk add --no-cache \
-    nginx \
-    supervisor \
-    mysql-client \
-    zip \
-    unzip \
-    git \
-    curl \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    libzip-dev \
-    icu-dev \
-    oniguruma-dev
-
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        pdo_mysql \
-        mysqli \
-        gd \
-        zip \
-        intl \
-        mbstring \
-        opcache
+RUN apt-get update && apt-get install -y \
+    git curl unzip libpq-dev libonig-dev libzip-dev zip \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www/html
+WORKDIR /var/www
 
-# Copy application files
+# Copy app files
 COPY . .
-COPY --from=frontend-builder /app/public/build ./public/build
+
+# Copy built frontend from Stage 1
+COPY --from=frontend /app/public/dist ./public/dist
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
+# Laravel setup
+RUN php artisan config:clear && \
+    php artisan route:clear && \
+    php artisan view:clear
 
-# Copy configuration files
-COPY docker/nginx.conf /etc/nginx/nginx.conf
-COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY docker/start.sh /start.sh
-
-RUN chmod +x /start.sh
-
-# Create required directories
-RUN mkdir -p /var/log/supervisor \
-    && mkdir -p /run/nginx
-
-EXPOSE 80
-
-CMD ["/start.sh"]
+CMD ["php-fpm"]
