@@ -1,6 +1,8 @@
+import CustomerController from './CustomerController'
 import Settings from './Settings'
 const Controllers = {
-    Settings: Object.assign(Settings, Settings),
+    CustomerController: Object.assign(CustomerController, CustomerController),
+Settings: Object.assign(Settings, Settings),
 }
 
 export default Controllers
