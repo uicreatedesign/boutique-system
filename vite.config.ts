@@ -21,6 +21,12 @@ export default defineConfig({
             formVariants: true,
         }),
     ],
+    ssr: {
+        noExternal: [
+            '@laravel/vite-plugin-wayfinder',
+            'babel-plugin-react-compiler',
+        ],
+    },
     esbuild: {
         jsx: 'automatic',
     },

@@ -1,25 +1,23 @@
 # -------------------------------------------------------
 # FRONTEND BUILDER (Vite + React)
+# Debian image required for Wayfinder
 # -------------------------------------------------------
-FROM node:20-alpine AS frontend-builder
+FROM node:20-bullseye AS frontend-builder
 
 WORKDIR /app
 
-# Copy package files for caching
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY vite.config.ts ./
 COPY components.json ./
 
-# Install dependencies (use legacy peer deps for stability)
 RUN npm ci --legacy-peer-deps
 
-# Copy source
 COPY resources/ ./resources/
 COPY public/ ./public/
 
-# Build frontend
 RUN npm run build
+
 
 
 # -------------------------------------------------------
