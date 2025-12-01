@@ -1,16 +1,16 @@
 #!/bin/sh
 
-# Wait for database to be ready
-echo "Waiting for database connection..."
-until php artisan migrate --force; do
-  echo "Database not ready, waiting..."
-  sleep 5
-done
-
-# Run migrations and optimizations
+# Laravel optimizations
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+
+# Run migrations if database is available (non-blocking)
+if php artisan migrate --force 2>/dev/null; then
+    echo "Migrations completed successfully"
+else
+    echo "Database not available or migrations failed - continuing without database"
+fi
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
