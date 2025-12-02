@@ -33,9 +33,12 @@ RUN apk add --no-cache \
     nginx \
     supervisor \
     mysql-client \
+    postgresql-client \
+    postgresql-dev \
     zip unzip git curl \
     libpng-dev libjpeg-turbo-dev freetype-dev \
-    libzip-dev icu-dev oniguruma-dev autoconf make g++
+    libzip-dev icu-dev oniguruma-dev autoconf make g++ \
+    php83-dev
 
 
 # -------------------------------------------------------
@@ -46,7 +49,7 @@ RUN docker-php-ext-configure gd \
     --with-jpeg=/usr/include/
 
 RUN docker-php-ext-install -j$(nproc) \
-    pdo_mysql mysqli \
+    pdo_mysql pdo_pgsql mysqli \
     gd zip intl mbstring opcache
 
 
