@@ -17,6 +17,11 @@ const sidebarNavItems: NavItem[] = [
         icon: null,
     },
     {
+        title: 'SMTP',
+        href: '/settings/smtp',
+        icon: null,
+    },
+    {
         title: 'Password',
         href: editPassword(),
         icon: null,
@@ -31,6 +36,7 @@ const sidebarNavItems: NavItem[] = [
         href: editAppearance(),
         icon: null,
     },
+
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {

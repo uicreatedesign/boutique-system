@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createCustomer } from '@/api/customers';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import CustomerForm from './customer-form';
+import { toast } from 'sonner';
 
 interface CustomerCreateModalProps {
   open: boolean;
@@ -15,10 +16,12 @@ export default function CustomerCreateModal({ open, onClose }: CustomerCreateMod
     try {
       setLoading(true);
       await createCustomer(data);
+      toast.success('Customer created successfully');
       onClose();
-      window.location.reload(); // Simple refresh for now
+      window.location.reload();
     } catch (error) {
       console.error('Failed to create customer:', error);
+      toast.error('Failed to create customer. Please try again.');
     } finally {
       setLoading(false);
     }

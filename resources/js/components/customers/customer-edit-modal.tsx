@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { updateCustomer } from '@/api/customers';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import CustomerForm from './customer-form';
+import { toast } from 'sonner';
 
 interface Customer {
   id: number;
@@ -26,9 +27,11 @@ export default function CustomerEditModal({ customer, open, onClose, onSuccess }
     try {
       setLoading(true);
       await updateCustomer(customer.id, data);
+      toast.success(`${customer.name} updated successfully`);
       onSuccess();
     } catch (error) {
       console.error('Failed to update customer:', error);
+      toast.error('Failed to update customer. Please try again.');
     } finally {
       setLoading(false);
     }

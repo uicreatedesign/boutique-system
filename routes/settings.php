@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\Settings\SmtpController;
 use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,4 +26,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('settings/two-factor', [TwoFactorAuthenticationController::class, 'show'])
         ->name('two-factor.show');
+
+    Route::get('settings/smtp', function () {
+        return Inertia::render('settings/smtp');
+    })->name('smtp.edit');
+
+    Route::get('api/settings/smtp', [SmtpController::class, 'show'])->name('smtp.show');
+    Route::put('api/settings/smtp', [SmtpController::class, 'update'])->name('smtp.update');
 });

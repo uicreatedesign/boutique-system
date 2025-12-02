@@ -67,7 +67,7 @@ export default function CustomerTable({ search }: CustomerTableProps) {
           </thead>
           <tbody>
             {customers.map((customer) => (
-              <tr key={customer.id} className="border-b hover:bg-gray-50">
+              <tr key={customer.id} className="border-b hover:bg-gray-50 dark:hover:bg-[oklch(0.269_0_0)]">
                 <td className="p-4 font-medium">{customer.name}</td>
                 <td className="p-4">
                   <div className="space-y-1">

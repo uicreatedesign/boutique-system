@@ -9,6 +9,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 interface Customer {
   id: number;
@@ -31,10 +32,12 @@ export default function CustomerDeleteDialog({ customer, open, onClose, onSucces
     try {
       setLoading(true);
       await deleteCustomer(customer.id);
+      toast.success(`${customer.name} has been successfully deleted`);
       onSuccess();
       onClose();
     } catch (error) {
       console.error('Failed to delete customer:', error);
+      toast.error('Failed to delete customer. Please try again.');
     } finally {
       setLoading(false);
     }
