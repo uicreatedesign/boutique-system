@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
  * @see app/Http/Controllers/Settings/SmtpController.php:12
@@ -42,41 +42,6 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
-    /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
- * @route '/api/settings/smtp'
- */
-    const showForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: show.url(options),
-        method: 'get',
-    })
-
-            /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
- * @route '/api/settings/smtp'
- */
-        showForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: show.url(options),
-            method: 'get',
-        })
-            /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
- * @route '/api/settings/smtp'
- */
-        showForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: show.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    show.form = showForm
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::update
  * @see app/Http/Controllers/Settings/SmtpController.php:25
@@ -110,38 +75,6 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
     method: 'put',
 })
-
-    /**
-* @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:25
- * @route '/api/settings/smtp'
- */
-    const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: update.url({
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'PUT',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
-
-            /**
-* @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:25
- * @route '/api/settings/smtp'
- */
-        updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PUT',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    update.form = updateForm
 const SmtpController = { show, update }
 
 export default SmtpController
