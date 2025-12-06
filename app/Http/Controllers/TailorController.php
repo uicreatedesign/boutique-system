@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Tailor;
+use Illuminate\Http\Request;
+
+class TailorController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = Tailor::query();
+
+        if ($search = $request->get('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        if ($status = $request->get('status')) {
+            $query->where('status', $status);
+        }
+
+        return $query->paginate($request->get('per_page', 15));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:191',
+            'phone' => 'required|string|max:20',
+            'email' => 'nullable|email|max:191|unique:tailors,email',
+            'skill_level' => 'required|in:beginner,intermediate,expert',
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive,on_leave',
+            'hourly_rate' => 'nullable|numeric|min:0',
+            'specialization' => 'nullable|string',
+            'join_date' => 'nullable|date',
+        ]);
+
+        return Tailor::create($validated);
+    }
+
+    public function show(Tailor $tailor)
+    {
+        return $tailor;
+    }
+
+    public function update(Request $request, Tailor $tailor)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:191',
+            'phone' => 'required|string|max:20',
+            'email' => 'nullable|email|max:191|unique:tailors,email,' . $tailor->id,
+            'skill_level' => 'required|in:beginner,intermediate,expert',
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive,on_leave',
+            'hourly_rate' => 'nullable|numeric|min:0',
+            'specialization' => 'nullable|string',
+            'join_date' => 'nullable|date',
+        ]);
+
+        $tailor->update($validated);
+        return $tailor;
+    }
+
+    public function destroy(Tailor $tailor)
+    {
+        $tailor->delete();
+        return response()->json(['message' => 'Tailor deleted successfully']);
+    }
+}
