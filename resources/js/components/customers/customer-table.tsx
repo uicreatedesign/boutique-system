@@ -6,6 +6,7 @@ import { Trash2, Edit, Eye } from 'lucide-react';
 import CustomerEditModal from './customer-edit-modal';
 import CustomerDetailModal from './customer-detail-modal';
 import CustomerDeleteDialog from './customer-delete-dialog';
+import Pagination from '@/components/ui/pagination';
 
 interface Customer {
   id: number;
@@ -26,12 +27,22 @@ export default function CustomerTable({ search }: CustomerTableProps) {
   const [editCustomer, setEditCustomer] = useState<Customer | null>(null);
   const [detailCustomer, setDetailCustomer] = useState<Customer | null>(null);
   const [deleteCustomer, setDeleteCustomer] = useState<Customer | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [from, setFrom] = useState(0);
+  const [to, setTo] = useState(0);
 
-  const fetchCustomers = async () => {
+  const fetchCustomers = async (page = 1) => {
     try {
       setLoading(true);
-      const response = await getCustomers({ search });
+      const response = await getCustomers({ search, page });
       setCustomers(response.data.data);
+      setCurrentPage(response.data.current_page);
+      setTotalPages(response.data.last_page);
+      setTotal(response.data.total);
+      setFrom(response.data.from || 0);
+      setTo(response.data.to || 0);
     } catch (error) {
       console.error('Failed to fetch customers:', error);
     } finally {
@@ -41,10 +52,16 @@ export default function CustomerTable({ search }: CustomerTableProps) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      fetchCustomers();
+      setCurrentPage(1);
+      fetchCustomers(1);
     }, 300);
     return () => clearTimeout(timer);
   }, [search]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    fetchCustomers(page);
+  };
 
 
 
@@ -112,6 +129,15 @@ export default function CustomerTable({ search }: CustomerTableProps) {
         </table>
       </div>
 
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        showingFrom={from}
+        showingTo={to}
+        total={total}
+      />
+
       {editCustomer && (
         <CustomerEditModal
           customer={editCustomer}
@@ -119,7 +145,7 @@ export default function CustomerTable({ search }: CustomerTableProps) {
           onClose={() => setEditCustomer(null)}
           onSuccess={() => {
             setEditCustomer(null);
-            fetchCustomers();
+            fetchCustomers(currentPage);
           }}
         />
       )}
@@ -138,7 +164,7 @@ export default function CustomerTable({ search }: CustomerTableProps) {
         onClose={() => setDeleteCustomer(null)}
         onSuccess={() => {
           setDeleteCustomer(null);
-          fetchCustomers();
+          fetchCustomers(currentPage);
         }}
       />
     </>

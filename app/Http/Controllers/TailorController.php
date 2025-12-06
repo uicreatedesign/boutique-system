@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class TailorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:view_tailors')->only(['index', 'show']);
+        $this->middleware('permission:create_tailors')->only(['store']);
+        $this->middleware('permission:edit_tailors')->only(['update']);
+        $this->middleware('permission:delete_tailors')->only(['destroy']);
+    }
     public function index(Request $request)
     {
         $query = Tailor::query();

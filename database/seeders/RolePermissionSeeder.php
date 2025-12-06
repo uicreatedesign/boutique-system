@@ -15,6 +15,14 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'create_customers', 'description' => 'Create customers'],
             ['name' => 'edit_customers', 'description' => 'Edit customers'],
             ['name' => 'delete_customers', 'description' => 'Delete customers'],
+            ['name' => 'view_tailors', 'description' => 'View tailors'],
+            ['name' => 'create_tailors', 'description' => 'Create tailors'],
+            ['name' => 'edit_tailors', 'description' => 'Edit tailors'],
+            ['name' => 'delete_tailors', 'description' => 'Delete tailors'],
+            ['name' => 'view_users', 'description' => 'View users'],
+            ['name' => 'create_users', 'description' => 'Create users'],
+            ['name' => 'edit_users', 'description' => 'Edit users'],
+            ['name' => 'delete_users', 'description' => 'Delete users'],
             ['name' => 'manage_roles', 'description' => 'Manage roles and permissions'],
         ];
 
@@ -33,7 +41,11 @@ class RolePermissionSeeder extends Seeder
             ['description' => 'Can manage customers']
         );
         $managerRole->permissions()->sync(
-            Permission::whereIn('name', ['view_customers', 'create_customers', 'edit_customers'])->pluck('id')
+            Permission::whereIn('name', [
+                'view_customers', 'create_customers', 'edit_customers',
+                'view_tailors', 'create_tailors', 'edit_tailors',
+                'view_users'
+            ])->pluck('id')
         );
 
         $viewerRole = Role::firstOrCreate(
@@ -41,7 +53,7 @@ class RolePermissionSeeder extends Seeder
             ['description' => 'Read-only access']
         );
         $viewerRole->permissions()->sync(
-            Permission::where('name', 'view_customers')->pluck('id')
+            Permission::whereIn('name', ['view_customers', 'view_tailors', 'view_users'])->pluck('id')
         );
     }
 }
