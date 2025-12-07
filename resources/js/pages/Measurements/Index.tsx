@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
+import Pagination from '@/components/ui/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +28,7 @@ interface Props {
 
 export default function MeasurementsIndex({ measurements, search }: Props) {
   const [searchTerm, setSearchTerm] = useState(search || '');
+  const [perPage, setPerPage] = useState(15);
 
   return (
     <AppLayout>
@@ -131,6 +133,23 @@ export default function MeasurementsIndex({ measurements, search }: Props) {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            )}
+            {measurements.data.length > 0 && (
+              <div className="mt-4">
+                <Pagination
+                  currentPage={measurements.current_page}
+                  totalPages={measurements.last_page}
+                  onPageChange={(page) => router.get('/measurements', { page, per_page: perPage, search: searchTerm }, { preserveState: true })}
+                  showingFrom={(measurements.current_page - 1) * perPage + 1}
+                  showingTo={Math.min(measurements.current_page * perPage, measurements.total)}
+                  total={measurements.total}
+                  perPage={perPage}
+                  onPerPageChange={(newPerPage) => {
+                    setPerPage(newPerPage);
+                    router.get('/measurements', { per_page: newPerPage, search: searchTerm }, { preserveState: true });
+                  }}
+                />
               </div>
             )}
           </CardContent>

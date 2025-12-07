@@ -25,11 +25,12 @@ class OrderController extends Controller
         $this->middleware('can:delete_orders')->only(['destroy']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = min($request->get('per_page', 15), 100);
         $orders = Order::with(['customer', 'garmentType', 'tailor', 'stitchingStatus'])
             ->latest()
-            ->paginate(15);
+            ->paginate($perPage);
 
         return Inertia::render('Orders/Index', [
             'orders' => $orders,

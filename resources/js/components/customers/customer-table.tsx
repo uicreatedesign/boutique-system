@@ -7,6 +7,7 @@ import CustomerEditModal from './customer-edit-modal';
 import CustomerDetailModal from './customer-detail-modal';
 import CustomerDeleteDialog from './customer-delete-dialog';
 import Pagination from '@/components/ui/pagination';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Customer {
   id: number;
@@ -96,7 +97,49 @@ export default function CustomerTable({ search }: CustomerTableProps) {
 
 
   if (loading && customers.length === 0) {
-    return <div className="text-center py-4">Loading...</div>;
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-4">Name</th>
+              <th className="text-left p-4">Contact</th>
+              <th className="text-left p-4">Orders</th>
+              <th className="text-left p-4">Last Order</th>
+              <th className="text-left p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, i) => (
+              <tr key={i} className="border-b">
+                <td className="p-4">
+                  <Skeleton className="h-5 w-32" />
+                </td>
+                <td className="p-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-4 w-36" />
+                  </div>
+                </td>
+                <td className="p-4">
+                  <Skeleton className="h-6 w-8" />
+                </td>
+                <td className="p-4">
+                  <Skeleton className="h-4 w-24" />
+                </td>
+                <td className="p-4">
+                  <div className="flex space-x-2">
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   }
 
   return (

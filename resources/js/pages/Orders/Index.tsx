@@ -1,4 +1,6 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
+import { useState } from 'react';
+import Pagination from '@/components/ui/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,6 +29,8 @@ interface Props {
 }
 
 export default function OrdersIndex({ orders, canCreate = false }: Props) {
+  const [perPage, setPerPage] = useState(15);
+
   return (
     <AppLayout>
       <Head title="Orders" />
@@ -101,6 +105,24 @@ export default function OrdersIndex({ orders, canCreate = false }: Props) {
             )}
           </CardContent>
         </Card>
+
+        {orders.data.length > 0 && (
+          <div className="mt-4">
+            <Pagination
+              currentPage={orders.current_page}
+              totalPages={orders.last_page}
+              onPageChange={(page) => router.get('/orders', { page, per_page: perPage }, { preserveState: true })}
+              showingFrom={(orders.current_page - 1) * perPage + 1}
+              showingTo={Math.min(orders.current_page * perPage, orders.data.length)}
+              total={orders.data.length}
+              perPage={perPage}
+              onPerPageChange={(newPerPage) => {
+                setPerPage(newPerPage);
+                router.get('/orders', { per_page: newPerPage }, { preserveState: true });
+              }}
+            />
+          </div>
+        )}
       </div>
     </AppLayout>
   );

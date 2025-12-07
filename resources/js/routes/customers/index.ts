@@ -307,7 +307,7 @@ show.head = (args: { customer: number | { id: number } } | [customer: number | {
     show.form = showForm
 /**
 * @see \App\Http\Controllers\CustomerController::update
- * @see app/Http/Controllers/CustomerController.php:48
+ * @see app/Http/Controllers/CustomerController.php:49
  * @route '/api/customers/{customer}'
  */
 export const update = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -322,7 +322,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\CustomerController::update
- * @see app/Http/Controllers/CustomerController.php:48
+ * @see app/Http/Controllers/CustomerController.php:49
  * @route '/api/customers/{customer}'
  */
 update.url = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -355,7 +355,7 @@ update.url = (args: { customer: number | { id: number } } | [customer: number | 
 
 /**
 * @see \App\Http\Controllers\CustomerController::update
- * @see app/Http/Controllers/CustomerController.php:48
+ * @see app/Http/Controllers/CustomerController.php:49
  * @route '/api/customers/{customer}'
  */
 update.put = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -364,7 +364,7 @@ update.put = (args: { customer: number | { id: number } } | [customer: number | 
 })
 /**
 * @see \App\Http\Controllers\CustomerController::update
- * @see app/Http/Controllers/CustomerController.php:48
+ * @see app/Http/Controllers/CustomerController.php:49
  * @route '/api/customers/{customer}'
  */
 update.patch = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -374,7 +374,7 @@ update.patch = (args: { customer: number | { id: number } } | [customer: number 
 
     /**
 * @see \App\Http\Controllers\CustomerController::update
- * @see app/Http/Controllers/CustomerController.php:48
+ * @see app/Http/Controllers/CustomerController.php:49
  * @route '/api/customers/{customer}'
  */
     const updateForm = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -389,7 +389,7 @@ update.patch = (args: { customer: number | { id: number } } | [customer: number 
 
             /**
 * @see \App\Http\Controllers\CustomerController::update
- * @see app/Http/Controllers/CustomerController.php:48
+ * @see app/Http/Controllers/CustomerController.php:49
  * @route '/api/customers/{customer}'
  */
         updateForm.put = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -403,7 +403,7 @@ update.patch = (args: { customer: number | { id: number } } | [customer: number 
         })
             /**
 * @see \App\Http\Controllers\CustomerController::update
- * @see app/Http/Controllers/CustomerController.php:48
+ * @see app/Http/Controllers/CustomerController.php:49
  * @route '/api/customers/{customer}'
  */
         updateForm.patch = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -419,7 +419,7 @@ update.patch = (args: { customer: number | { id: number } } | [customer: number 
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\CustomerController::destroy
- * @see app/Http/Controllers/CustomerController.php:54
+ * @see app/Http/Controllers/CustomerController.php:55
  * @route '/api/customers/{customer}'
  */
 export const destroy = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -434,7 +434,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\CustomerController::destroy
- * @see app/Http/Controllers/CustomerController.php:54
+ * @see app/Http/Controllers/CustomerController.php:55
  * @route '/api/customers/{customer}'
  */
 destroy.url = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -467,7 +467,7 @@ destroy.url = (args: { customer: number | { id: number } } | [customer: number |
 
 /**
 * @see \App\Http\Controllers\CustomerController::destroy
- * @see app/Http/Controllers/CustomerController.php:54
+ * @see app/Http/Controllers/CustomerController.php:55
  * @route '/api/customers/{customer}'
  */
 destroy.delete = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -477,7 +477,7 @@ destroy.delete = (args: { customer: number | { id: number } } | [customer: numbe
 
     /**
 * @see \App\Http\Controllers\CustomerController::destroy
- * @see app/Http/Controllers/CustomerController.php:54
+ * @see app/Http/Controllers/CustomerController.php:55
  * @route '/api/customers/{customer}'
  */
     const destroyForm = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -492,7 +492,7 @@ destroy.delete = (args: { customer: number | { id: number } } | [customer: numbe
 
             /**
 * @see \App\Http\Controllers\CustomerController::destroy
- * @see app/Http/Controllers/CustomerController.php:54
+ * @see app/Http/Controllers/CustomerController.php:55
  * @route '/api/customers/{customer}'
  */
         destroyForm.delete = (args: { customer: number | { id: number } } | [customer: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

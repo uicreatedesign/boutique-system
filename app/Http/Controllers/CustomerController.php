@@ -42,6 +42,7 @@ class CustomerController extends Controller
 
     public function show(Customer $customer): CustomerResource
     {
+        $customer->loadCount('orders');
         return new CustomerResource($customer);
     }
 

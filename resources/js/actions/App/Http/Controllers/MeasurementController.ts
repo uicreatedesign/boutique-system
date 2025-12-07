@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\MeasurementController::create
- * @see app/Http/Controllers/MeasurementController.php:37
+ * @see app/Http/Controllers/MeasurementController.php:38
  * @route '/measurements/create'
  */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::create
- * @see app/Http/Controllers/MeasurementController.php:37
+ * @see app/Http/Controllers/MeasurementController.php:38
  * @route '/measurements/create'
  */
 create.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::create
- * @see app/Http/Controllers/MeasurementController.php:37
+ * @see app/Http/Controllers/MeasurementController.php:38
  * @route '/measurements/create'
  */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\MeasurementController::create
- * @see app/Http/Controllers/MeasurementController.php:37
+ * @see app/Http/Controllers/MeasurementController.php:38
  * @route '/measurements/create'
  */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\MeasurementController::create
- * @see app/Http/Controllers/MeasurementController.php:37
+ * @see app/Http/Controllers/MeasurementController.php:38
  * @route '/measurements/create'
  */
     const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\MeasurementController::create
- * @see app/Http/Controllers/MeasurementController.php:37
+ * @see app/Http/Controllers/MeasurementController.php:38
  * @route '/measurements/create'
  */
         createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\MeasurementController::create
- * @see app/Http/Controllers/MeasurementController.php:37
+ * @see app/Http/Controllers/MeasurementController.php:38
  * @route '/measurements/create'
  */
         createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\MeasurementController::store
- * @see app/Http/Controllers/MeasurementController.php:50
+ * @see app/Http/Controllers/MeasurementController.php:51
  * @route '/measurements'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -172,7 +172,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::store
- * @see app/Http/Controllers/MeasurementController.php:50
+ * @see app/Http/Controllers/MeasurementController.php:51
  * @route '/measurements'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::store
- * @see app/Http/Controllers/MeasurementController.php:50
+ * @see app/Http/Controllers/MeasurementController.php:51
  * @route '/measurements'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -191,7 +191,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\MeasurementController::store
- * @see app/Http/Controllers/MeasurementController.php:50
+ * @see app/Http/Controllers/MeasurementController.php:51
  * @route '/measurements'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -201,7 +201,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\MeasurementController::store
- * @see app/Http/Controllers/MeasurementController.php:50
+ * @see app/Http/Controllers/MeasurementController.php:51
  * @route '/measurements'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -212,7 +212,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\MeasurementController::show
- * @see app/Http/Controllers/MeasurementController.php:65
+ * @see app/Http/Controllers/MeasurementController.php:66
  * @route '/measurements/{measurement}'
  */
 export const show = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -227,7 +227,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::show
- * @see app/Http/Controllers/MeasurementController.php:65
+ * @see app/Http/Controllers/MeasurementController.php:66
  * @route '/measurements/{measurement}'
  */
 show.url = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -260,7 +260,7 @@ show.url = (args: { measurement: number | { id: number } } | [measurement: numbe
 
 /**
 * @see \App\Http\Controllers\MeasurementController::show
- * @see app/Http/Controllers/MeasurementController.php:65
+ * @see app/Http/Controllers/MeasurementController.php:66
  * @route '/measurements/{measurement}'
  */
 show.get = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -269,7 +269,7 @@ show.get = (args: { measurement: number | { id: number } } | [measurement: numbe
 })
 /**
 * @see \App\Http\Controllers\MeasurementController::show
- * @see app/Http/Controllers/MeasurementController.php:65
+ * @see app/Http/Controllers/MeasurementController.php:66
  * @route '/measurements/{measurement}'
  */
 show.head = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -279,7 +279,7 @@ show.head = (args: { measurement: number | { id: number } } | [measurement: numb
 
     /**
 * @see \App\Http\Controllers\MeasurementController::show
- * @see app/Http/Controllers/MeasurementController.php:65
+ * @see app/Http/Controllers/MeasurementController.php:66
  * @route '/measurements/{measurement}'
  */
     const showForm = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -289,7 +289,7 @@ show.head = (args: { measurement: number | { id: number } } | [measurement: numb
 
             /**
 * @see \App\Http\Controllers\MeasurementController::show
- * @see app/Http/Controllers/MeasurementController.php:65
+ * @see app/Http/Controllers/MeasurementController.php:66
  * @route '/measurements/{measurement}'
  */
         showForm.get = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -298,7 +298,7 @@ show.head = (args: { measurement: number | { id: number } } | [measurement: numb
         })
             /**
 * @see \App\Http\Controllers\MeasurementController::show
- * @see app/Http/Controllers/MeasurementController.php:65
+ * @see app/Http/Controllers/MeasurementController.php:66
  * @route '/measurements/{measurement}'
  */
         showForm.head = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -314,7 +314,7 @@ show.head = (args: { measurement: number | { id: number } } | [measurement: numb
     show.form = showForm
 /**
 * @see \App\Http\Controllers\MeasurementController::edit
- * @see app/Http/Controllers/MeasurementController.php:76
+ * @see app/Http/Controllers/MeasurementController.php:77
  * @route '/measurements/{measurement}/edit'
  */
 export const edit = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -329,7 +329,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::edit
- * @see app/Http/Controllers/MeasurementController.php:76
+ * @see app/Http/Controllers/MeasurementController.php:77
  * @route '/measurements/{measurement}/edit'
  */
 edit.url = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -362,7 +362,7 @@ edit.url = (args: { measurement: number | { id: number } } | [measurement: numbe
 
 /**
 * @see \App\Http\Controllers\MeasurementController::edit
- * @see app/Http/Controllers/MeasurementController.php:76
+ * @see app/Http/Controllers/MeasurementController.php:77
  * @route '/measurements/{measurement}/edit'
  */
 edit.get = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -371,7 +371,7 @@ edit.get = (args: { measurement: number | { id: number } } | [measurement: numbe
 })
 /**
 * @see \App\Http\Controllers\MeasurementController::edit
- * @see app/Http/Controllers/MeasurementController.php:76
+ * @see app/Http/Controllers/MeasurementController.php:77
  * @route '/measurements/{measurement}/edit'
  */
 edit.head = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -381,7 +381,7 @@ edit.head = (args: { measurement: number | { id: number } } | [measurement: numb
 
     /**
 * @see \App\Http\Controllers\MeasurementController::edit
- * @see app/Http/Controllers/MeasurementController.php:76
+ * @see app/Http/Controllers/MeasurementController.php:77
  * @route '/measurements/{measurement}/edit'
  */
     const editForm = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -391,7 +391,7 @@ edit.head = (args: { measurement: number | { id: number } } | [measurement: numb
 
             /**
 * @see \App\Http\Controllers\MeasurementController::edit
- * @see app/Http/Controllers/MeasurementController.php:76
+ * @see app/Http/Controllers/MeasurementController.php:77
  * @route '/measurements/{measurement}/edit'
  */
         editForm.get = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -400,7 +400,7 @@ edit.head = (args: { measurement: number | { id: number } } | [measurement: numb
         })
             /**
 * @see \App\Http\Controllers\MeasurementController::edit
- * @see app/Http/Controllers/MeasurementController.php:76
+ * @see app/Http/Controllers/MeasurementController.php:77
  * @route '/measurements/{measurement}/edit'
  */
         editForm.head = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -416,7 +416,7 @@ edit.head = (args: { measurement: number | { id: number } } | [measurement: numb
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\MeasurementController::update
- * @see app/Http/Controllers/MeasurementController.php:91
+ * @see app/Http/Controllers/MeasurementController.php:92
  * @route '/measurements/{measurement}'
  */
 export const update = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -431,7 +431,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::update
- * @see app/Http/Controllers/MeasurementController.php:91
+ * @see app/Http/Controllers/MeasurementController.php:92
  * @route '/measurements/{measurement}'
  */
 update.url = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -464,7 +464,7 @@ update.url = (args: { measurement: number | { id: number } } | [measurement: num
 
 /**
 * @see \App\Http\Controllers\MeasurementController::update
- * @see app/Http/Controllers/MeasurementController.php:91
+ * @see app/Http/Controllers/MeasurementController.php:92
  * @route '/measurements/{measurement}'
  */
 update.put = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -473,7 +473,7 @@ update.put = (args: { measurement: number | { id: number } } | [measurement: num
 })
 /**
 * @see \App\Http\Controllers\MeasurementController::update
- * @see app/Http/Controllers/MeasurementController.php:91
+ * @see app/Http/Controllers/MeasurementController.php:92
  * @route '/measurements/{measurement}'
  */
 update.patch = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -483,7 +483,7 @@ update.patch = (args: { measurement: number | { id: number } } | [measurement: n
 
     /**
 * @see \App\Http\Controllers\MeasurementController::update
- * @see app/Http/Controllers/MeasurementController.php:91
+ * @see app/Http/Controllers/MeasurementController.php:92
  * @route '/measurements/{measurement}'
  */
     const updateForm = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -498,7 +498,7 @@ update.patch = (args: { measurement: number | { id: number } } | [measurement: n
 
             /**
 * @see \App\Http\Controllers\MeasurementController::update
- * @see app/Http/Controllers/MeasurementController.php:91
+ * @see app/Http/Controllers/MeasurementController.php:92
  * @route '/measurements/{measurement}'
  */
         updateForm.put = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -512,7 +512,7 @@ update.patch = (args: { measurement: number | { id: number } } | [measurement: n
         })
             /**
 * @see \App\Http\Controllers\MeasurementController::update
- * @see app/Http/Controllers/MeasurementController.php:91
+ * @see app/Http/Controllers/MeasurementController.php:92
  * @route '/measurements/{measurement}'
  */
         updateForm.patch = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -528,7 +528,7 @@ update.patch = (args: { measurement: number | { id: number } } | [measurement: n
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\MeasurementController::destroy
- * @see app/Http/Controllers/MeasurementController.php:106
+ * @see app/Http/Controllers/MeasurementController.php:107
  * @route '/measurements/{measurement}'
  */
 export const destroy = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -543,7 +543,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\MeasurementController::destroy
- * @see app/Http/Controllers/MeasurementController.php:106
+ * @see app/Http/Controllers/MeasurementController.php:107
  * @route '/measurements/{measurement}'
  */
 destroy.url = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -576,7 +576,7 @@ destroy.url = (args: { measurement: number | { id: number } } | [measurement: nu
 
 /**
 * @see \App\Http\Controllers\MeasurementController::destroy
- * @see app/Http/Controllers/MeasurementController.php:106
+ * @see app/Http/Controllers/MeasurementController.php:107
  * @route '/measurements/{measurement}'
  */
 destroy.delete = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -586,7 +586,7 @@ destroy.delete = (args: { measurement: number | { id: number } } | [measurement:
 
     /**
 * @see \App\Http\Controllers\MeasurementController::destroy
- * @see app/Http/Controllers/MeasurementController.php:106
+ * @see app/Http/Controllers/MeasurementController.php:107
  * @route '/measurements/{measurement}'
  */
     const destroyForm = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -601,7 +601,7 @@ destroy.delete = (args: { measurement: number | { id: number } } | [measurement:
 
             /**
 * @see \App\Http\Controllers\MeasurementController::destroy
- * @see app/Http/Controllers/MeasurementController.php:106
+ * @see app/Http/Controllers/MeasurementController.php:107
  * @route '/measurements/{measurement}'
  */
         destroyForm.delete = (args: { measurement: number | { id: number } } | [measurement: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -26,7 +26,8 @@ class MeasurementController extends Controller
             });
         }
 
-        $measurements = $query->paginate(15);
+        $perPage = min($request->get('per_page', 15), 100);
+        $measurements = $query->paginate($perPage);
 
         return Inertia::render('Measurements/Index', [
             'measurements' => $measurements,
