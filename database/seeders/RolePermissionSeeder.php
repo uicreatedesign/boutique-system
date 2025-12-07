@@ -29,6 +29,10 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'edit_measurements', 'description' => 'Edit measurements'],
             ['name' => 'delete_measurements', 'description' => 'Delete measurements'],
             ['name' => 'manage_measurement_settings', 'description' => 'Manage measurement categories and fields'],
+            ['name' => 'view_garment_types', 'description' => 'View garment types'],
+            ['name' => 'create_garment_types', 'description' => 'Create garment types'],
+            ['name' => 'edit_garment_types', 'description' => 'Edit garment types'],
+            ['name' => 'delete_garment_types', 'description' => 'Delete garment types'],
         ];
 
         foreach ($permissions as $permission) {
@@ -50,7 +54,8 @@ class RolePermissionSeeder extends Seeder
                 'view_customers', 'create_customers', 'edit_customers',
                 'view_tailors', 'create_tailors', 'edit_tailors',
                 'view_users',
-                'view_measurements', 'create_measurements', 'edit_measurements'
+                'view_measurements', 'create_measurements', 'edit_measurements',
+                'view_garment_types', 'create_garment_types', 'edit_garment_types'
             ])->pluck('id')
         );
 
@@ -59,7 +64,7 @@ class RolePermissionSeeder extends Seeder
             ['description' => 'Read-only access']
         );
         $viewerRole->permissions()->sync(
-            Permission::whereIn('name', ['view_customers', 'view_tailors', 'view_users', 'view_measurements'])->pluck('id')
+            Permission::whereIn('name', ['view_customers', 'view_tailors', 'view_users', 'view_measurements', 'view_garment_types'])->pluck('id')
         );
     }
 }
