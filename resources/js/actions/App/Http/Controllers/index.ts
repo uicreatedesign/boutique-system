@@ -9,6 +9,7 @@ import Settings from './Settings'
 import TailorDashboardController from './TailorDashboardController'
 import MeasurementController from './MeasurementController'
 import GarmentTypeController from './GarmentTypeController'
+import FabricController from './FabricController'
 const Controllers = {
     CustomerController: Object.assign(CustomerController, CustomerController),
 RoleController: Object.assign(RoleController, RoleController),
@@ -21,6 +22,7 @@ Settings: Object.assign(Settings, Settings),
 TailorDashboardController: Object.assign(TailorDashboardController, TailorDashboardController),
 MeasurementController: Object.assign(MeasurementController, MeasurementController),
 GarmentTypeController: Object.assign(GarmentTypeController, GarmentTypeController),
+FabricController: Object.assign(FabricController, FabricController),
 }
 
 export default Controllers
