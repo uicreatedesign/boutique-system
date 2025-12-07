@@ -37,6 +37,14 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'create_fabrics', 'description' => 'Create fabrics'],
             ['name' => 'edit_fabrics', 'description' => 'Edit fabrics'],
             ['name' => 'delete_fabrics', 'description' => 'Delete fabrics'],
+            ['name' => 'view_stitching_statuses', 'description' => 'View stitching statuses'],
+            ['name' => 'create_stitching_statuses', 'description' => 'Create stitching statuses'],
+            ['name' => 'edit_stitching_statuses', 'description' => 'Edit stitching statuses'],
+            ['name' => 'delete_stitching_statuses', 'description' => 'Delete stitching statuses'],
+            ['name' => 'view_orders', 'description' => 'View orders'],
+            ['name' => 'create_orders', 'description' => 'Create orders'],
+            ['name' => 'edit_orders', 'description' => 'Edit orders'],
+            ['name' => 'delete_orders', 'description' => 'Delete orders'],
         ];
 
         foreach ($permissions as $permission) {
@@ -60,7 +68,9 @@ class RolePermissionSeeder extends Seeder
                 'view_users',
                 'view_measurements', 'create_measurements', 'edit_measurements',
                 'view_garment_types', 'create_garment_types', 'edit_garment_types',
-                'view_fabrics', 'create_fabrics', 'edit_fabrics'
+                'view_fabrics', 'create_fabrics', 'edit_fabrics',
+                'view_stitching_statuses', 'create_stitching_statuses', 'edit_stitching_statuses',
+                'view_orders', 'create_orders', 'edit_orders'
             ])->pluck('id')
         );
 
@@ -69,7 +79,7 @@ class RolePermissionSeeder extends Seeder
             ['description' => 'Read-only access']
         );
         $viewerRole->permissions()->sync(
-            Permission::whereIn('name', ['view_customers', 'view_tailors', 'view_users', 'view_measurements', 'view_garment_types', 'view_fabrics'])->pluck('id')
+            Permission::whereIn('name', ['view_customers', 'view_tailors', 'view_users', 'view_measurements', 'view_garment_types', 'view_fabrics', 'view_stitching_statuses', 'view_orders'])->pluck('id')
         );
     }
 }

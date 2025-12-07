@@ -137,7 +137,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/FabricController.php:46
  * @route '/fabrics/{fabric}'
  */
-export const update = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -152,7 +152,7 @@ update.definition = {
  * @see app/Http/Controllers/FabricController.php:46
  * @route '/fabrics/{fabric}'
  */
-update.url = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { fabric: args }
     }
@@ -185,7 +185,7 @@ update.url = (args: { fabric: string | number | { id: string | number } } | [fab
  * @see app/Http/Controllers/FabricController.php:46
  * @route '/fabrics/{fabric}'
  */
-update.put = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -195,7 +195,7 @@ update.put = (args: { fabric: string | number | { id: string | number } } | [fab
  * @see app/Http/Controllers/FabricController.php:46
  * @route '/fabrics/{fabric}'
  */
-    const updateForm = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -210,7 +210,7 @@ update.put = (args: { fabric: string | number | { id: string | number } } | [fab
  * @see app/Http/Controllers/FabricController.php:46
  * @route '/fabrics/{fabric}'
  */
-        updateForm.put = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -226,7 +226,7 @@ update.put = (args: { fabric: string | number | { id: string | number } } | [fab
  * @see app/Http/Controllers/FabricController.php:63
  * @route '/fabrics/{fabric}'
  */
-export const destroy = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -241,7 +241,7 @@ destroy.definition = {
  * @see app/Http/Controllers/FabricController.php:63
  * @route '/fabrics/{fabric}'
  */
-destroy.url = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { fabric: args }
     }
@@ -274,7 +274,7 @@ destroy.url = (args: { fabric: string | number | { id: string | number } } | [fa
  * @see app/Http/Controllers/FabricController.php:63
  * @route '/fabrics/{fabric}'
  */
-destroy.delete = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -284,7 +284,7 @@ destroy.delete = (args: { fabric: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/FabricController.php:63
  * @route '/fabrics/{fabric}'
  */
-    const destroyForm = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -299,7 +299,7 @@ destroy.delete = (args: { fabric: string | number | { id: string | number } } | 
  * @see app/Http/Controllers/FabricController.php:63
  * @route '/fabrics/{fabric}'
  */
-        destroyForm.delete = (args: { fabric: string | number | { id: string | number } } | [fabric: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { fabric: number | { id: number } } | [fabric: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

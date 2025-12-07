@@ -13,7 +13,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Users2Icon, Shield, Scissors, UserCheck, Ruler, Settings, Shirt, Package } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Users2Icon, Shield, Scissors, UserCheck, Ruler, Settings, Shirt, Package, ListChecks, ShoppingCart } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -26,6 +26,11 @@ const mainNavItems: NavItem[] = [
         title: 'Customers',
         href: '/customers',
         icon: Users2Icon,
+    },
+    {
+        title: 'Orders',
+        href: '/orders',
+        icon: ShoppingCart,
     },
     {
         title: 'Tailors',
@@ -58,6 +63,11 @@ const mainNavItems: NavItem[] = [
         title: 'Fabrics & Materials',
         href: '/fabrics',
         icon: Package,
+    },
+    {
+        title: 'Stitching Statuses',
+        href: '/stitching-statuses',
+        icon: ListChecks,
     },
     {
         title: 'Users',

@@ -26,3 +26,5 @@ require __DIR__.'/users.php';
 require __DIR__.'/measurements.php';
 require __DIR__.'/garment-types.php';
 require __DIR__.'/fabrics.php';
+require __DIR__.'/stitching-statuses.php';
+require __DIR__.'/orders.php';

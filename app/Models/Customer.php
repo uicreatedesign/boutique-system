@@ -23,13 +23,13 @@ class Customer extends Model
         'dob' => 'date',
     ];
 
-    // public function orders(): HasMany
-    // {
-    //     return $this->hasMany(Order::class);
-    // }
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 
-    // public function measurements(): HasMany
-    // {
-    //     return $this->hasMany(Measurement::class);
-    // }
+    public function measurements(): HasMany
+    {
+        return $this->hasMany(CustomerMeasurement::class);
+    }
 }

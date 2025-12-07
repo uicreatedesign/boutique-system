@@ -18,7 +18,7 @@ class CustomerController extends Controller
 
     public function index(Request $request): AnonymousResourceCollection
     {
-        $query = Customer::query();
+        $query = Customer::query()->withCount('orders');
 
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
@@ -59,6 +59,7 @@ class CustomerController extends Controller
 
     public function orders(Customer $customer): \Illuminate\Http\JsonResponse
     {
-        return response()->json(['data' => [], 'total' => 0]);
+        $orders = $customer->orders()->with(['garmentType', 'stitchingStatus'])->latest()->get();
+        return response()->json(['data' => $orders, 'total' => $orders->count()]);
     }
 }

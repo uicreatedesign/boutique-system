@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class CustomerResource extends JsonResource
 {
@@ -17,8 +18,8 @@ class CustomerResource extends JsonResource
             'address' => $this->address,
             'dob' => $this->dob?->format('Y-m-d'),
             'meta' => $this->meta,
-            'orders_count' => 0,
-            'last_order_at' => null,
+            'orders_count' => $this->orders_count ?? 0,
+            'last_order_at' => $this->orders()->latest()->first()?->order_date?->format('Y-m-d'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
