@@ -14,12 +14,19 @@ A comprehensive boutique management system built with Laravel 11 and React 19 us
 
 ## Features
 
-- 👥 Customer Management (CRUD, search, filtering)
-- ✂️ Tailor Management (skills, rates, specializations)
-- 🔐 Role-based Access Control (Admin, Manager, Tailor)
-- 📧 Email Notifications (password reset)
-- 🎨 Modern Responsive UI
-- 🔍 Advanced Search & Filtering
+- 📊 **Dashboard Analytics** - Revenue tracking, order statistics, performance metrics
+- 👥 **Customer Management** - CRUD, search, filtering, order history
+- 🛍️ **Order Management** - Complete order lifecycle, payments, PDF invoices
+- ✂️ **Tailor Management** - Skills, rates, specializations, performance tracking
+- 📏 **Measurements** - Dynamic measurement fields, categories, customer measurements
+- 👔 **Garment Types** - Manage stitching items (Shirt, Pant, Kurti, etc.)
+- 🧵 **Fabrics & Materials** - Inventory management with stock tracking
+- 📋 **Stitching Status** - Customizable workflow statuses with color coding
+- 💰 **Payment Tracking** - Multiple payment methods, balance calculations
+- 🔐 **Role-based Access Control** - Dynamic roles & permissions
+- 📧 **Email Notifications** - Password reset, order updates
+- 🎨 **Modern Responsive UI** - Tailwind CSS, shadcn/ui components
+- 🔍 **Advanced Search & Filtering** - Across all modules
 
 ## Installation
 
@@ -55,6 +62,7 @@ php artisan key:generate
 
 # Run migrations and seeders
 php artisan migrate --seed
+php artisan db:seed --class=StitchingStatusSeeder
 
 # Build frontend assets
 npm run build
@@ -151,9 +159,63 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 After running seeders:
 
-- **Admin**: admin@boutique.com / password
-- **Manager**: manager@boutique.com / password
-- **Tailor**: tailor@boutique.com / password
+- **Admin**: admin@boutique.com / password (Full access)
+- **Manager**: manager@boutique.com / password (Limited access)
+- **Tailor**: tailor@boutique.com / password (Tailor dashboard)
+
+## Modules Overview
+
+### Core Modules
+1. **Dashboard** - Analytics, revenue tracking, order statistics
+2. **Customers** - Customer database with order history
+3. **Orders** - Order management with payments and invoices
+4. **Tailors** - Tailor management with performance metrics
+5. **Measurements** - Customer measurements with dynamic fields
+6. **Garment Types** - Stitching item categories
+7. **Fabrics & Materials** - Fabric inventory management
+8. **Stitching Statuses** - Customizable order workflow
+9. **Users** - User management
+10. **Roles & Permissions** - Access control management
+
+### Key Features by Module
+
+**Orders:**
+- Auto-generated order numbers (ORD-YYYYMMDD-0001)
+- Customer, tailor, garment type, measurement linking
+- Fabric selection or customer-provided option
+- Priority levels (normal/urgent)
+- Payment tracking with multiple methods
+- Balance due calculations
+- PDF invoice generation
+- Status tracking through workflow
+
+**Dashboard:**
+- Today/Month/Year revenue statistics
+- Order status distribution
+- Pending payments alerts
+- Upcoming deliveries (7 days)
+- Recent orders list
+- Top customers by order count
+- Tailor performance metrics
+- Monthly revenue trend chart
+
+**Measurements:**
+- Dynamic measurement categories
+- Custom measurement fields
+- Customer-specific measurements
+- Measurement history
+
+**Fabrics:**
+- Stock quantity tracking
+- Price per unit (meter/yard/piece)
+- Status management (available/out of stock/discontinued)
+- Customer fabric option in orders
+
+**Stitching Statuses:**
+- Customizable workflow stages
+- Color-coded statuses
+- Default statuses: Pending, Cutting, Stitching, Finishing, Ironing, Ready for Trial, Delivered, Cancelled
+- Drag-and-drop ordering
 
 ## Development
 
@@ -168,6 +230,8 @@ php artisan test
 # Generate test data
 php artisan db:seed --class=CustomerSeeder
 php artisan db:seed --class=TailorSeeder
+php artisan db:seed --class=StitchingStatusSeeder
+php artisan db:seed --class=RolePermissionSeeder
 ```
 
 ## License
