@@ -134,7 +134,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\TailorController::show
- * @see app/Http/Controllers/TailorController.php:54
+ * @see app/Http/Controllers/TailorController.php:75
  * @route '/api/tailors/{tailor}'
  */
 export const show = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -149,7 +149,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\TailorController::show
- * @see app/Http/Controllers/TailorController.php:54
+ * @see app/Http/Controllers/TailorController.php:75
  * @route '/api/tailors/{tailor}'
  */
 show.url = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -182,7 +182,7 @@ show.url = (args: { tailor: number | { id: number } } | [tailor: number | { id: 
 
 /**
 * @see \App\Http\Controllers\TailorController::show
- * @see app/Http/Controllers/TailorController.php:54
+ * @see app/Http/Controllers/TailorController.php:75
  * @route '/api/tailors/{tailor}'
  */
 show.get = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -191,7 +191,7 @@ show.get = (args: { tailor: number | { id: number } } | [tailor: number | { id: 
 })
 /**
 * @see \App\Http\Controllers\TailorController::show
- * @see app/Http/Controllers/TailorController.php:54
+ * @see app/Http/Controllers/TailorController.php:75
  * @route '/api/tailors/{tailor}'
  */
 show.head = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -201,7 +201,7 @@ show.head = (args: { tailor: number | { id: number } } | [tailor: number | { id:
 
     /**
 * @see \App\Http\Controllers\TailorController::show
- * @see app/Http/Controllers/TailorController.php:54
+ * @see app/Http/Controllers/TailorController.php:75
  * @route '/api/tailors/{tailor}'
  */
     const showForm = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -211,7 +211,7 @@ show.head = (args: { tailor: number | { id: number } } | [tailor: number | { id:
 
             /**
 * @see \App\Http\Controllers\TailorController::show
- * @see app/Http/Controllers/TailorController.php:54
+ * @see app/Http/Controllers/TailorController.php:75
  * @route '/api/tailors/{tailor}'
  */
         showForm.get = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -220,7 +220,7 @@ show.head = (args: { tailor: number | { id: number } } | [tailor: number | { id:
         })
             /**
 * @see \App\Http\Controllers\TailorController::show
- * @see app/Http/Controllers/TailorController.php:54
+ * @see app/Http/Controllers/TailorController.php:75
  * @route '/api/tailors/{tailor}'
  */
         showForm.head = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -236,7 +236,7 @@ show.head = (args: { tailor: number | { id: number } } | [tailor: number | { id:
     show.form = showForm
 /**
 * @see \App\Http\Controllers\TailorController::update
- * @see app/Http/Controllers/TailorController.php:59
+ * @see app/Http/Controllers/TailorController.php:80
  * @route '/api/tailors/{tailor}'
  */
 export const update = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -251,7 +251,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\TailorController::update
- * @see app/Http/Controllers/TailorController.php:59
+ * @see app/Http/Controllers/TailorController.php:80
  * @route '/api/tailors/{tailor}'
  */
 update.url = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -284,7 +284,7 @@ update.url = (args: { tailor: number | { id: number } } | [tailor: number | { id
 
 /**
 * @see \App\Http\Controllers\TailorController::update
- * @see app/Http/Controllers/TailorController.php:59
+ * @see app/Http/Controllers/TailorController.php:80
  * @route '/api/tailors/{tailor}'
  */
 update.put = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -293,7 +293,7 @@ update.put = (args: { tailor: number | { id: number } } | [tailor: number | { id
 })
 /**
 * @see \App\Http\Controllers\TailorController::update
- * @see app/Http/Controllers/TailorController.php:59
+ * @see app/Http/Controllers/TailorController.php:80
  * @route '/api/tailors/{tailor}'
  */
 update.patch = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -303,7 +303,7 @@ update.patch = (args: { tailor: number | { id: number } } | [tailor: number | { 
 
     /**
 * @see \App\Http\Controllers\TailorController::update
- * @see app/Http/Controllers/TailorController.php:59
+ * @see app/Http/Controllers/TailorController.php:80
  * @route '/api/tailors/{tailor}'
  */
     const updateForm = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -318,7 +318,7 @@ update.patch = (args: { tailor: number | { id: number } } | [tailor: number | { 
 
             /**
 * @see \App\Http\Controllers\TailorController::update
- * @see app/Http/Controllers/TailorController.php:59
+ * @see app/Http/Controllers/TailorController.php:80
  * @route '/api/tailors/{tailor}'
  */
         updateForm.put = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -332,7 +332,7 @@ update.patch = (args: { tailor: number | { id: number } } | [tailor: number | { 
         })
             /**
 * @see \App\Http\Controllers\TailorController::update
- * @see app/Http/Controllers/TailorController.php:59
+ * @see app/Http/Controllers/TailorController.php:80
  * @route '/api/tailors/{tailor}'
  */
         updateForm.patch = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -348,7 +348,7 @@ update.patch = (args: { tailor: number | { id: number } } | [tailor: number | { 
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\TailorController::destroy
- * @see app/Http/Controllers/TailorController.php:77
+ * @see app/Http/Controllers/TailorController.php:98
  * @route '/api/tailors/{tailor}'
  */
 export const destroy = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -363,7 +363,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\TailorController::destroy
- * @see app/Http/Controllers/TailorController.php:77
+ * @see app/Http/Controllers/TailorController.php:98
  * @route '/api/tailors/{tailor}'
  */
 destroy.url = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -396,7 +396,7 @@ destroy.url = (args: { tailor: number | { id: number } } | [tailor: number | { i
 
 /**
 * @see \App\Http\Controllers\TailorController::destroy
- * @see app/Http/Controllers/TailorController.php:77
+ * @see app/Http/Controllers/TailorController.php:98
  * @route '/api/tailors/{tailor}'
  */
 destroy.delete = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -406,7 +406,7 @@ destroy.delete = (args: { tailor: number | { id: number } } | [tailor: number | 
 
     /**
 * @see \App\Http\Controllers\TailorController::destroy
- * @see app/Http/Controllers/TailorController.php:77
+ * @see app/Http/Controllers/TailorController.php:98
  * @route '/api/tailors/{tailor}'
  */
     const destroyForm = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -421,7 +421,7 @@ destroy.delete = (args: { tailor: number | { id: number } } | [tailor: number | 
 
             /**
 * @see \App\Http\Controllers\TailorController::destroy
- * @see app/Http/Controllers/TailorController.php:77
+ * @see app/Http/Controllers/TailorController.php:98
  * @route '/api/tailors/{tailor}'
  */
         destroyForm.delete = (args: { tailor: number | { id: number } } | [tailor: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

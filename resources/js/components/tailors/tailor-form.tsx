@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const tailorSchema = z.object({
   name: z.string().min(1, 'Name is required').max(191),
@@ -17,6 +18,8 @@ const tailorSchema = z.object({
   hourly_rate: z.string().optional().or(z.literal('')),
   specialization: z.string().optional().or(z.literal('')),
   join_date: z.string().optional().or(z.literal('')),
+  create_user_account: z.boolean().optional(),
+  password: z.string().min(8).optional().or(z.literal('')),
 });
 
 type TailorFormData = z.infer<typeof tailorSchema>;
@@ -39,12 +42,14 @@ export default function TailorForm({ onSubmit, loading, initialData }: TailorFor
     defaultValues: {
       skill_level: 'intermediate',
       status: 'active',
+      create_user_account: false,
       ...initialData,
     },
   });
 
   const skillLevel = watch('skill_level');
   const status = watch('status');
+  const createUserAccount = watch('create_user_account');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -158,6 +163,34 @@ export default function TailorForm({ onSubmit, loading, initialData }: TailorFor
         />
         {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
       </div>
+
+      {!initialData && (
+        <>
+          <div className="flex items-center space-x-2 border-t pt-4">
+            <Checkbox
+              id="create_user_account"
+              checked={createUserAccount}
+              onCheckedChange={(checked) => setValue('create_user_account', checked as boolean)}
+            />
+            <label htmlFor="create_user_account" className="text-sm cursor-pointer">
+              Create user account for tailor dashboard access
+            </label>
+          </div>
+
+          {createUserAccount && (
+            <div>
+              <Label htmlFor="password">Password *</Label>
+              <Input
+                id="password"
+                type="password"
+                {...register('password')}
+                className={errors.password ? 'border-red-500' : ''}
+              />
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+            </div>
+          )}
+        </>
+      )}
 
       <Button type="submit" disabled={loading} className="w-full">
         {loading ? 'Saving...' : 'Save Tailor'}

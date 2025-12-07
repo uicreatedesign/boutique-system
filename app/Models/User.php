@@ -62,4 +62,14 @@ class User extends Authenticatable
             $query->where('name', $permission);
         })->exists();
     }
+
+    public function tailor()
+    {
+        return $this->hasOne(Tailor::class);
+    }
+
+    public function isTailor(): bool
+    {
+        return $this->roles()->where('name', 'Tailor')->exists();
+    }
 }

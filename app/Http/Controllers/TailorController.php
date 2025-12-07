@@ -46,7 +46,28 @@ class TailorController extends Controller
             'hourly_rate' => 'nullable|numeric|min:0',
             'specialization' => 'nullable|string',
             'join_date' => 'nullable|date',
+            'create_user_account' => 'boolean',
+            'password' => 'required_if:create_user_account,true|nullable|string|min:8',
         ]);
+
+        $userId = null;
+        if ($request->create_user_account && $validated['email']) {
+            $user = \App\Models\User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+            ]);
+            
+            $tailorRole = \App\Models\Role::where('name', 'Tailor')->first();
+            if ($tailorRole) {
+                $user->roles()->attach($tailorRole->id);
+            }
+            
+            $userId = $user->id;
+        }
+
+        $validated['user_id'] = $userId;
+        unset($validated['create_user_account'], $validated['password']);
 
         return Tailor::create($validated);
     }

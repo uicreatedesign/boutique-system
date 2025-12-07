@@ -20,4 +20,5 @@ require __DIR__.'/settings.php';
 require __DIR__.'/customers.php';
 require __DIR__.'/roles.php';
 require __DIR__.'/tailors.php';
+require __DIR__.'/tailor-dashboard.php';
 require __DIR__.'/users.php';
