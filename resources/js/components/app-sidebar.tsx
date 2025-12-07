@@ -23,7 +23,7 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'customers',
+        title: 'Customers',
         href: '/customers',
         icon: Users2Icon,
     },
@@ -36,6 +36,18 @@ const mainNavItems: NavItem[] = [
         title: 'Measurements',
         href: '/measurements',
         icon: Ruler,
+        items: [
+            {
+                title: 'Measurements',
+                href: '/measurements',
+                icon: null,
+            },
+            {
+                title: 'Measurement Settings',
+                href: '/measurement-settings',
+                icon: null,
+            },
+        ],
     },
     {
         title: 'Users',
@@ -47,21 +59,16 @@ const mainNavItems: NavItem[] = [
         href: '/roles',
         icon: Shield,
     },
-    {
-        title: 'Measurement Settings',
-        href: '/measurement-settings',
-        icon: Settings,
-    },
 ];
 
 const footerNavItems: NavItem[] = [
     {
         title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        href: 'https://github.com/uicreatedesign/boutique-system',
         icon: Folder,
     },
     {
-        title: 'Documentation',
+        title: 'Support',
         href: 'https://laravel.com/docs/starter-kits#react',
         icon: BookOpen,
     },
