@@ -28,7 +28,8 @@ class CustomerController extends Controller
             });
         }
 
-        $customers = $query->paginate($request->get('per_page', 15));
+        $perPage = min($request->get('per_page', 15), 100);
+        $customers = $query->paginate($perPage);
 
         return CustomerResource::collection($customers);
     }

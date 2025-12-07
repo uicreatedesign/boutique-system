@@ -1,5 +1,7 @@
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
 
 interface PaginationProps {
   currentPage: number;
@@ -8,6 +10,8 @@ interface PaginationProps {
   showingFrom: number;
   showingTo: number;
   total: number;
+  perPage?: number;
+  onPerPageChange?: (perPage: number) => void;
 }
 
 export default function Pagination({
@@ -17,6 +21,8 @@ export default function Pagination({
   showingFrom,
   showingTo,
   total,
+  perPage = 10,
+  onPerPageChange,
 }: PaginationProps) {
   const getVisiblePages = () => {
     const delta = 2;
@@ -44,12 +50,36 @@ export default function Pagination({
     return rangeWithDots;
   };
 
-  if (totalPages <= 1) return null;
+  // Always show pagination for consistency
 
   return (
     <div className="flex items-center justify-between px-2">
-      <div className="text-sm text-gray-700 dark:text-gray-300">
-        Showing {showingFrom} to {showingTo} of {total} results
+      <div className="flex items-center gap-4">
+        <div className="text-sm text-gray-700 dark:text-gray-300">
+          Showing {showingFrom} to {showingTo} of {total} results
+        </div>
+        {onPerPageChange && (
+          <div className="flex items-center gap-2">
+            <Label htmlFor="rows-per-page" className="text-sm font-medium">
+              Rows per page
+            </Label>
+            <Select
+              value={perPage.toString()}
+              onValueChange={(value) => onPerPageChange(Number(value))}
+            >
+              <SelectTrigger className="w-20" id="rows-per-page">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[10, 20, 30, 50].map((size) => (
+                  <SelectItem key={size} value={size.toString()}>
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
       
       <div className="flex items-center space-x-2">

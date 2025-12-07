@@ -32,17 +32,20 @@ export default function CustomerTable({ search }: CustomerTableProps) {
   const [total, setTotal] = useState(0);
   const [from, setFrom] = useState(0);
   const [to, setTo] = useState(0);
+  const [perPage, setPerPage] = useState(10);
 
-  const fetchCustomers = async (page = 1) => {
+  const fetchCustomers = async (page = 1, pageSize = perPage) => {
     try {
       setLoading(true);
-      const response = await getCustomers({ search, page });
-      setCustomers(response.data.data);
-      setCurrentPage(response.data.current_page);
-      setTotalPages(response.data.last_page);
-      setTotal(response.data.total);
-      setFrom(response.data.from || 0);
-      setTo(response.data.to || 0);
+      const response = await getCustomers({ search, page, per_page: pageSize });
+      console.log('API Response:', response.data);
+      const paginationData = response.data;
+      setCustomers(paginationData.data || []);
+      setCurrentPage(paginationData.current_page || 1);
+      setTotalPages(paginationData.last_page || 1);
+      setTotal(paginationData.total || 0);
+      setFrom(paginationData.from || 0);
+      setTo(paginationData.to || 0);
     } catch (error) {
       console.error('Failed to fetch customers:', error);
     } finally {
@@ -53,15 +56,25 @@ export default function CustomerTable({ search }: CustomerTableProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentPage(1);
-      fetchCustomers(1);
+      fetchCustomers(1, perPage);
     }, 300);
     return () => clearTimeout(timer);
-  }, [search]);
+  }, [search, perPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     fetchCustomers(page);
   };
+
+  const handlePerPageChange = (newPerPage: number) => {
+    setPerPage(newPerPage);
+    setCurrentPage(1);
+    fetchCustomers(1, newPerPage);
+  };
+
+  useEffect(() => {
+    fetchCustomers(1, perPage);
+  }, []);
 
 
 
@@ -129,14 +142,18 @@ export default function CustomerTable({ search }: CustomerTableProps) {
         </table>
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        showingFrom={from}
-        showingTo={to}
-        total={total}
-      />
+      <div className="mt-4">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          showingFrom={from}
+          showingTo={to}
+          total={total}
+          perPage={perPage}
+          onPerPageChange={handlePerPageChange}
+        />
+      </div>
 
       {editCustomer && (
         <CustomerEditModal
