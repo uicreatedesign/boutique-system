@@ -5,6 +5,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TailorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MeasurementCategoryController;
+use App\Http\Controllers\MeasurementFieldController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +22,6 @@ Route::middleware('web')->group(function () {
     Route::apiResource('tailors', TailorController::class);
     Route::apiResource('users', UserController::class);
     Route::get('roles-list', [UserController::class, 'roles']);
+    Route::apiResource('measurement-categories', MeasurementCategoryController::class);
+    Route::apiResource('measurement-fields', MeasurementFieldController::class);
 });

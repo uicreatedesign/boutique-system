@@ -13,7 +13,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Users2Icon, Shield, Scissors, UserCheck } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Users2Icon, Shield, Scissors, UserCheck, Ruler, Settings } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -33,6 +33,11 @@ const mainNavItems: NavItem[] = [
         icon: Scissors,
     },
     {
+        title: 'Measurements',
+        href: '/measurements',
+        icon: Ruler,
+    },
+    {
         title: 'Users',
         href: '/users',
         icon: UserCheck,
@@ -41,6 +46,11 @@ const mainNavItems: NavItem[] = [
         title: 'Roles & Permissions',
         href: '/roles',
         icon: Shield,
+    },
+    {
+        title: 'Measurement Settings',
+        href: '/measurement-settings',
+        icon: Settings,
     },
 ];
 
