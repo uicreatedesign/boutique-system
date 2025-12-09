@@ -17,11 +17,6 @@ const sidebarNavItems: NavItem[] = [
         icon: null,
     },
     {
-        title: 'SMTP',
-        href: '/settings/smtp',
-        icon: null,
-    },
-    {
         title: 'Password',
         href: editPassword(),
         icon: null,
@@ -32,11 +27,20 @@ const sidebarNavItems: NavItem[] = [
         icon: null,
     },
     {
+        title: 'SMTP',
+        href: '/settings/smtp',
+        icon: null,
+    },
+    {
         title: 'Appearance',
         href: editAppearance(),
         icon: null,
     },
-
+    {
+        title: 'Backup',
+        href: '/settings/backup',
+        icon: null,
+    },
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
@@ -54,9 +58,9 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                 description="Manage your profile and account settings"
             />
 
-            <div className="flex flex-col lg:flex-row lg:space-x-12">
-                <aside className="w-full max-w-xl lg:w-48">
-                    <nav className="flex flex-col space-y-1 space-x-0">
+            <div className="flex flex-col space-y-6 lg:flex-row lg:space-y-0 lg:space-x-12">
+                <aside className="w-full lg:w-64 xl:w-72">
+                    <nav className="flex flex-col space-y-1">
                         {sidebarNavItems.map((item, index) => (
                             <Button
                                 key={`${resolveUrl(item.href)}-${index}`}
@@ -83,8 +87,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
                 <Separator className="my-6 lg:hidden" />
 
-                <div className="flex-1 md:max-w-2xl">
-                    <section className="max-w-xl space-y-12">
+                <div className="flex-1 lg:max-w-3xl xl:max-w-4xl">
+                    <section className="space-y-8">
                         {children}
                     </section>
                 </div>

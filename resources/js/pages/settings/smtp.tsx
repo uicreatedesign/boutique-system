@@ -11,6 +11,7 @@ import SettingsLayout from '@/layouts/settings/layout';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { type BreadcrumbItem } from '@/types';
+import TestEmailModal from '@/components/settings/test-email-modal';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -138,6 +139,7 @@ export default function SmtpSettings() {
                 onChange={(e) => handleChange('smtp_password', e.target.value)}
                 placeholder="Your app password"
                 className="mt-1 block w-full"
+                autoComplete="current-password"
               />
               <InputError message={errors.smtp_password?.[0]} />
             </div>
@@ -188,6 +190,7 @@ export default function SmtpSettings() {
               <Button type="submit" disabled={loading}>
                 {loading ? 'Saving...' : 'Save'}
               </Button>
+              <TestEmailModal />
             </div>
           </form>
         </div>

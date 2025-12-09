@@ -20,7 +20,7 @@ interface TwoFactorProps {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Two-Factor Authentication',
-        href: show.url(),
+        href: '/settings/two-factor',
     },
 ];
 

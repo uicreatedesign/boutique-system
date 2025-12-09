@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
+ * @see app/Http/Controllers/Settings/SmtpController.php:14
  * @route '/api/settings/smtp'
  */
 export const show = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
+ * @see app/Http/Controllers/Settings/SmtpController.php:14
  * @route '/api/settings/smtp'
  */
 show.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ show.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
+ * @see app/Http/Controllers/Settings/SmtpController.php:14
  * @route '/api/settings/smtp'
  */
 show.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ show.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
+ * @see app/Http/Controllers/Settings/SmtpController.php:14
  * @route '/api/settings/smtp'
  */
 show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
+ * @see app/Http/Controllers/Settings/SmtpController.php:14
  * @route '/api/settings/smtp'
  */
     const showForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
+ * @see app/Http/Controllers/Settings/SmtpController.php:14
  * @route '/api/settings/smtp'
  */
         showForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:12
+ * @see app/Http/Controllers/Settings/SmtpController.php:14
  * @route '/api/settings/smtp'
  */
         showForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     show.form = showForm
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:25
+ * @see app/Http/Controllers/Settings/SmtpController.php:27
  * @route '/api/settings/smtp'
  */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -94,7 +94,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:25
+ * @see app/Http/Controllers/Settings/SmtpController.php:27
  * @route '/api/settings/smtp'
  */
 update.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ update.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:25
+ * @see app/Http/Controllers/Settings/SmtpController.php:27
  * @route '/api/settings/smtp'
  */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -113,7 +113,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
     /**
 * @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:25
+ * @see app/Http/Controllers/Settings/SmtpController.php:27
  * @route '/api/settings/smtp'
  */
     const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -128,7 +128,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
             /**
 * @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:25
+ * @see app/Http/Controllers/Settings/SmtpController.php:27
  * @route '/api/settings/smtp'
  */
         updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -142,6 +142,61 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
         })
     
     update.form = updateForm
-const SmtpController = { show, update }
+/**
+* @see \App\Http\Controllers\Settings\SmtpController::testEmail
+ * @see app/Http/Controllers/Settings/SmtpController.php:49
+ * @route '/api/settings/smtp/test'
+ */
+export const testEmail = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: testEmail.url(options),
+    method: 'post',
+})
+
+testEmail.definition = {
+    methods: ["post"],
+    url: '/api/settings/smtp/test',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Settings\SmtpController::testEmail
+ * @see app/Http/Controllers/Settings/SmtpController.php:49
+ * @route '/api/settings/smtp/test'
+ */
+testEmail.url = (options?: RouteQueryOptions) => {
+    return testEmail.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Settings\SmtpController::testEmail
+ * @see app/Http/Controllers/Settings/SmtpController.php:49
+ * @route '/api/settings/smtp/test'
+ */
+testEmail.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: testEmail.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\Settings\SmtpController::testEmail
+ * @see app/Http/Controllers/Settings/SmtpController.php:49
+ * @route '/api/settings/smtp/test'
+ */
+    const testEmailForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: testEmail.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Settings\SmtpController::testEmail
+ * @see app/Http/Controllers/Settings/SmtpController.php:49
+ * @route '/api/settings/smtp/test'
+ */
+        testEmailForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: testEmail.url(options),
+            method: 'post',
+        })
+    
+    testEmail.form = testEmailForm
+const SmtpController = { show, update, testEmail }
 
 export default SmtpController

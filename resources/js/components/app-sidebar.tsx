@@ -85,6 +85,11 @@ const mainNavItems: NavItem[] = [
         icon: Bell,
     },
     {
+        title: 'Settings',
+        href: '/settings/profile',
+        icon: Settings,
+    },
+    {
         title: 'Reports & Analytics',
         href: '/reports',
         icon: LayoutGrid,

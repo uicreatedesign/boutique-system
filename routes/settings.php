@@ -33,4 +33,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('api/settings/smtp', [SmtpController::class, 'show'])->name('smtp.show');
     Route::put('api/settings/smtp', [SmtpController::class, 'update'])->name('smtp.update');
+    Route::post('api/settings/smtp/test', [SmtpController::class, 'testEmail'])->name('smtp.test');
+    
+    Route::get('settings/backup', function () {
+        return Inertia::render('settings/backup');
+    })->name('backup.index');
 });
