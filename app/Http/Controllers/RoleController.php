@@ -3,13 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:view_roles')->only(['index', 'show']);
+        $this->middleware('can:create_roles')->only(['create', 'store']);
+        $this->middleware('can:edit_roles')->only(['edit', 'update']);
+        $this->middleware('can:delete_roles')->only(['destroy']);
+    }
     public function index()
     {
-        return Role::with('permissions')->get();
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::all()->groupBy(function($permission) {
+            return explode('_', $permission->name)[1] ?? 'general';
+        });
+        
+        return Inertia::render('roles/index', [
+            'roles' => $roles,
+            'permissions' => $permissions,
+        ]);
     }
 
     public function store(Request $request)

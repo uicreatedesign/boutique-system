@@ -26,19 +26,6 @@ export function AppSidebarHeader({
             <div className="flex items-center gap-2">
                 <NotificationBell />
             </div>
-            <div className="md:hidden sm:hidden">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm" className="gap-2">
-                            <UserInfo user={auth.user} />
-                            <ChevronDown className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56">
-                        <UserMenuContent user={auth.user} />
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
         </header>
     );
 }

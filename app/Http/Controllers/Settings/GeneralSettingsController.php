@@ -11,6 +11,7 @@ class GeneralSettingsController extends Controller
 {
     public function show()
     {
+        $this->authorize('manage_general_settings');
         $settings = GeneralSetting::getAll();
         
         return response()->json($settings);
@@ -18,11 +19,13 @@ class GeneralSettingsController extends Controller
 
     public function edit()
     {
+        $this->authorize('access_settings');
         return Inertia::render('settings/general');
     }
 
     public function update(Request $request)
     {
+        $this->authorize('manage_general_settings');
         $request->validate([
             'app_name' => 'required|string|max:255',
             'currency' => 'required|string|max:10',

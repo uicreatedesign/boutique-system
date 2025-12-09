@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { getRoles } from '@/api/roles';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Trash2, Edit } from 'lucide-react';
@@ -10,33 +9,19 @@ interface Role {
   id: number;
   name: string;
   description: string;
-  permissions: Array<{ id: number; name: string }>;
+  permissions: Array<{ id: number; name: string; description: string }>;
 }
 
-export default function RoleTable() {
-  const [roles, setRoles] = useState<Role[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Props {
+  roles: Role[];
+}
+
+export default function RoleTable({ roles }: Props) {
   const [editRole, setEditRole] = useState<Role | null>(null);
   const [deleteRole, setDeleteRole] = useState<Role | null>(null);
 
-  const fetchRoles = async () => {
-    try {
-      setLoading(true);
-      const response = await getRoles();
-      setRoles(response.data);
-    } catch (error) {
-      console.error('Failed to fetch roles:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchRoles();
-  }, []);
-
-  if (loading) {
-    return <div className="text-center py-4">Loading...</div>;
+  if (!roles || roles.length === 0) {
+    return <div className="text-center py-4">No roles found</div>;
   }
 
   return (
@@ -52,7 +37,7 @@ export default function RoleTable() {
             </tr>
           </thead>
           <tbody>
-            {roles.map((role) => (
+            {Array.isArray(roles) && roles.map((role) => (
               <tr key={role.id} className="border-b hover:bg-gray-50 dark:hover:bg-[oklch(0.269_0_0)]">
                 <td className="p-4 font-medium">{role.name}</td>
                 <td className="p-4 text-sm text-gray-600">{role.description || '-'}</td>
@@ -94,7 +79,7 @@ export default function RoleTable() {
           onClose={() => setEditRole(null)}
           onSuccess={() => {
             setEditRole(null);
-            fetchRoles();
+            window.location.reload();
           }}
         />
       )}
@@ -105,7 +90,7 @@ export default function RoleTable() {
         onClose={() => setDeleteRole(null)}
         onSuccess={() => {
           setDeleteRole(null);
-          fetchRoles();
+          window.location.reload();
         }}
       />
     </>

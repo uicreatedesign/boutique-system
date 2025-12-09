@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -62,6 +63,25 @@ class User extends Authenticatable
         return $this->roles()->whereHas('permissions', function ($query) use ($permission) {
             $query->where('name', $permission);
         })->exists();
+    }
+
+    public function can($ability, $arguments = [])
+    {
+        if (is_string($ability)) {
+            return $this->hasPermission($ability);
+        }
+        
+        return parent::can($ability, $arguments);
+    }
+
+    public function getAllPermissions()
+    {
+        return $this->roles()->with('permissions')->get()
+            ->pluck('permissions')
+            ->flatten()
+            ->pluck('name')
+            ->unique()
+            ->values();
     }
 
     public function tailor()

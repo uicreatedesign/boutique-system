@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:20
  * @route '/settings/general'
  */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:20
  * @route '/settings/general'
  */
 edit.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ edit.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:20
  * @route '/settings/general'
  */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:20
  * @route '/settings/general'
  */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:20
  * @route '/settings/general'
  */
     const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:20
  * @route '/settings/general'
  */
         editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:20
  * @route '/settings/general'
  */
         editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     show.form = showForm
 /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::update
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:26
  * @route '/api/settings/general'
  */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -172,7 +172,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::update
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:26
  * @route '/api/settings/general'
  */
 update.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ update.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::update
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:26
  * @route '/api/settings/general'
  */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -191,7 +191,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
     /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::update
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:26
  * @route '/api/settings/general'
  */
     const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -206,7 +206,7 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 
             /**
 * @see \App\Http\Controllers\Settings\GeneralSettingsController::update
- * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:26
  * @route '/api/settings/general'
  */
         updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

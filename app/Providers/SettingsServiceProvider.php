@@ -25,6 +25,12 @@ class SettingsServiceProvider extends ServiceProvider
                     'business_name' => SettingsService::getBusinessName(),
                 ];
             },
+            'userPermissions' => function () {
+                if (auth()->check()) {
+                    return auth()->user()->getAllPermissions();
+                }
+                return [];
+            },
         ]);
 
         // Set app name dynamically

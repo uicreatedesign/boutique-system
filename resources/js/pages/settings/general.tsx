@@ -74,7 +74,21 @@ export default function GeneralSettings() {
         setLoading(true);
         try {
             const response = await axios.get('/api/settings/general');
-            setSettings(prev => ({ ...prev, ...response.data }));
+            const data = response.data;
+            setSettings(prev => ({ 
+                ...prev, 
+                app_name: data.app_name || '',
+                currency: data.currency || 'USD',
+                currency_symbol: data.currency_symbol || '$',
+                tax_rate: data.tax_rate || '0',
+                order_prefix: data.order_prefix || 'ORD',
+                default_delivery_days: data.default_delivery_days || '7',
+                business_name: data.business_name || '',
+                business_address: data.business_address || '',
+                business_phone: data.business_phone || '',
+                business_email: data.business_email || '',
+                timezone: data.timezone || 'UTC',
+            }));
         } catch (error) {
             toast.error('Failed to load settings');
         } finally {

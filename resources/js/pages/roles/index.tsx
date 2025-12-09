@@ -9,7 +9,25 @@ import PermissionManagement from '@/components/roles/permission-management';
 import { Plus } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default function RolesIndex() {
+interface Role {
+  id: number;
+  name: string;
+  description: string;
+  permissions: Array<{ id: number; name: string; description: string }>;
+}
+
+interface Permission {
+  id: number;
+  name: string;
+  description: string;
+}
+
+interface Props {
+  roles: Role[];
+  permissions: Record<string, Permission[]>;
+}
+
+export default function RolesIndex({ roles, permissions }: Props) {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   return (
@@ -39,13 +57,13 @@ export default function RolesIndex() {
                 </div>
               </CardHeader>
               <CardContent>
-                <RoleTable />
+                <RoleTable roles={roles} />
               </CardContent>
             </Card>
           </TabsContent>
           
           <TabsContent value="permissions">
-            <PermissionManagement />
+            <PermissionManagement permissions={permissions} />
           </TabsContent>
         </Tabs>
 

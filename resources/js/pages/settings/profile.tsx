@@ -2,7 +2,8 @@ import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileCo
 import { send } from '@/routes/verification';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Form, Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage, router, useForm } from '@inertiajs/react';
+import { useState, useRef } from 'react';
 
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
@@ -10,9 +11,12 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
+import { Camera, Trash2 } from 'lucide-react';
+import { useInitials } from '@/hooks/use-initials';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,6 +33,57 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<SharedData>().props;
+    const getInitials = useInitials();
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    
+    const { data, setData, patch, processing, errors, recentlySuccessful } = useForm({
+        name: auth.user.name,
+        email: auth.user.email,
+        avatar: null as File | null,
+    });
+
+    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setData('avatar', file);
+            const url = URL.createObjectURL(file);
+            setPreviewUrl(url);
+        }
+    };
+
+    const removeAvatar = () => {
+        router.delete('/settings/profile/avatar', {
+            preserveScroll: true,
+            onSuccess: () => {
+                setData('avatar', null);
+                setPreviewUrl(null);
+            },
+        });
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('email', data.email);
+        formData.append('_method', 'PATCH');
+        
+        if (data.avatar) {
+            formData.append('avatar', data.avatar);
+        }
+        
+        router.post('/settings/profile', formData, {
+            preserveScroll: true,
+            onSuccess: () => {
+                setData('avatar', null);
+                setPreviewUrl(null);
+            },
+        });
+    };
+
+    const avatarUrl = previewUrl || (auth.user.avatar ? `/storage/${auth.user.avatar}` : null);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -38,25 +93,63 @@ export default function Profile({
                 <div className="space-y-6">
                     <HeadingSmall
                         title="Profile information"
-                        description="Update your name and email address"
+                        description="Update your profile picture, name and email address"
                     />
 
-                    <Form
-                        {...ProfileController.update()}
-                        options={{
-                            preserveScroll: true,
-                        }}
-                        className="space-y-6"
-                    >
-                        {({ processing, recentlySuccessful, errors }) => (
-                            <>
+                    {/* Avatar Section */}
+                    <div className="space-y-4">
+                        <Label>Profile Picture</Label>
+                        <div className="flex items-center gap-4">
+                            <Avatar className="h-20 w-20">
+                                <AvatarImage src={avatarUrl || undefined} alt={auth.user.name} />
+                                <AvatarFallback className="text-lg">
+                                    {getInitials(auth.user.name)}
+                                </AvatarFallback>
+                            </Avatar>
+                            <div className="flex gap-2">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => fileInputRef.current?.click()}
+                                >
+                                    <Camera className="h-4 w-4 mr-2" />
+                                    {auth.user.avatar ? 'Change' : 'Upload'}
+                                </Button>
+                                {(auth.user.avatar || data.avatar) && (
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={removeAvatar}
+                                    >
+                                        <Trash2 className="h-4 w-4 mr-2" />
+                                        Remove
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileSelect}
+                            className="hidden"
+                        />
+                        <p className="text-sm text-muted-foreground">
+                            JPG, PNG or GIF. Max size 2MB.
+                        </p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
 
                                     <Input
                                         id="name"
                                         className="mt-1 block w-full"
-                                        defaultValue={auth.user.name}
+                                        value={data.name}
+                                        onChange={(e) => setData('name', e.target.value)}
                                         name="name"
                                         required
                                         autoComplete="name"
@@ -76,7 +169,8 @@ export default function Profile({
                                         id="email"
                                         type="email"
                                         className="mt-1 block w-full"
-                                        defaultValue={auth.user.email}
+                                        value={data.email}
+                                        onChange={(e) => setData('email', e.target.value)}
                                         name="email"
                                         required
                                         autoComplete="username"
@@ -136,9 +230,7 @@ export default function Profile({
                                         </p>
                                     </Transition>
                                 </div>
-                            </>
-                        )}
-                    </Form>
+                    </form>
                 </div>
 
                 <DeleteUser />

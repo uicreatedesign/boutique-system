@@ -23,6 +23,8 @@ class OrderController extends Controller
         $this->middleware('can:create_orders')->only(['create', 'store']);
         $this->middleware('can:edit_orders')->only(['edit', 'update']);
         $this->middleware('can:delete_orders')->only(['destroy']);
+        $this->middleware('can:manage_order_payments')->only(['addPayment']);
+        $this->middleware('can:generate_invoices')->only(['invoice']);
     }
 
     public function index(Request $request)

@@ -15,6 +15,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can:view_dashboard');
     }
 
     public function index()
