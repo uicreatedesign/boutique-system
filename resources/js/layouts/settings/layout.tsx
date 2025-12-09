@@ -12,6 +12,11 @@ import { type PropsWithChildren } from 'react';
 
 const sidebarNavItems: NavItem[] = [
     {
+        title: 'General',
+        href: '/settings/general',
+        icon: null,
+    },
+    {
         title: 'Profile',
         href: edit(),
         icon: null,
@@ -55,7 +60,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
         <div className="px-4 py-6">
             <Heading
                 title="Settings"
-                description="Manage your profile and account settings"
+                description="Manage your application and account settings"
             />
 
             <div className="flex flex-col space-y-6 lg:flex-row lg:space-y-0 lg:space-x-12">

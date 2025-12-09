@@ -5,6 +5,7 @@ import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { DollarSign, ShoppingCart, Users, Scissors, TrendingUp, Clock, AlertCircle } from 'lucide-react';
+import { useCurrency } from '@/hooks/use-currency';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -72,21 +73,22 @@ interface Props {
 }
 
 export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, recentOrders, topCustomers, tailorPerformance, monthlyRevenue, statusDistribution }: Props) {
+    const { formatCurrency } = useCurrency();
     const maxRevenue = Math.max(...monthlyRevenue.map(m => m.revenue));
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <div className="flex flex-col gap-4 p-4">
+            <div className="container mx-auto px-4 py-6 space-y-6">
                 {/* Revenue Stats */}
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">Today's Revenue</CardTitle>
                             <DollarSign className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">${stats.todayRevenue.toFixed(2)}</div>
+                            <div className="text-2xl font-bold">{formatCurrency(stats.todayRevenue)}</div>
                             <p className="text-xs text-muted-foreground">Payments received today</p>
                         </CardContent>
                     </Card>
@@ -96,7 +98,7 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                             <TrendingUp className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">${stats.monthRevenue.toFixed(2)}</div>
+                            <div className="text-2xl font-bold">{formatCurrency(stats.monthRevenue)}</div>
                             <p className="text-xs text-muted-foreground">Monthly revenue</p>
                         </CardContent>
                     </Card>
@@ -106,14 +108,14 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                             <DollarSign className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">${stats.yearRevenue.toFixed(2)}</div>
+                            <div className="text-2xl font-bold">{formatCurrency(stats.yearRevenue)}</div>
                             <p className="text-xs text-muted-foreground">Yearly revenue</p>
                         </CardContent>
                     </Card>
                 </div>
 
                 {/* Order & Business Stats */}
-                <div className="grid gap-4 md:grid-cols-4">
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
@@ -152,7 +154,7 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                     </Card>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">Customers</CardTitle>
@@ -174,7 +176,7 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                 </div>
 
                 {/* Charts & Lists */}
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
                     {/* Monthly Revenue Chart */}
                     <Card>
                         <CardHeader>
@@ -193,7 +195,7 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-24 text-sm font-medium text-right">${item.revenue.toFixed(0)}</div>
+                                        <div className="w-24 text-sm font-medium text-right">{formatCurrency(item.revenue)}</div>
                                     </div>
                                 ))}
                             </div>
@@ -224,7 +226,7 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                     </Card>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
                     {/* Pending Payments */}
                     <Card>
                         <CardHeader>
@@ -238,12 +240,12 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                                     {pendingPayments.map((payment) => (
                                         <Link key={payment.id} href={`/orders/${payment.id}`}>
                                             <div className="flex items-center justify-between p-3 border rounded hover:bg-gray-50 cursor-pointer">
-                                                <div>
-                                                    <p className="font-medium">{payment.order_number}</p>
-                                                    <p className="text-sm text-gray-600">{payment.customer_name}</p>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="font-medium truncate">{payment.order_number}</p>
+                                                    <p className="text-sm text-gray-600 truncate">{payment.customer_name}</p>
                                                 </div>
-                                                <div className="text-right">
-                                                    <p className="font-bold text-red-600">${payment.balance_due}</p>
+                                                <div className="text-right flex-shrink-0 ml-2">
+                                                    <p className="font-bold text-red-600">{formatCurrency(payment.balance_due)}</p>
                                                     <p className="text-xs text-gray-500">{payment.status}</p>
                                                 </div>
                                             </div>
@@ -267,11 +269,11 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                                     {upcomingDeliveries.map((delivery) => (
                                         <Link key={delivery.id} href={`/orders/${delivery.id}`}>
                                             <div className="flex items-center justify-between p-3 border rounded hover:bg-gray-50 cursor-pointer">
-                                                <div>
-                                                    <p className="font-medium">{delivery.order_number}</p>
-                                                    <p className="text-sm text-gray-600">{delivery.customer_name}</p>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="font-medium truncate">{delivery.order_number}</p>
+                                                    <p className="text-sm text-gray-600 truncate">{delivery.customer_name}</p>
                                                 </div>
-                                                <div className="text-right">
+                                                <div className="text-right flex-shrink-0 ml-2">
                                                     <p className="text-sm font-medium">{new Date(delivery.delivery_date).toLocaleDateString()}</p>
                                                     <Badge style={{ backgroundColor: delivery.status_color }} className="text-xs">
                                                         {delivery.status}
@@ -286,22 +288,22 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                     </Card>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-4 grid-cols-1 xl:grid-cols-3">
                     {/* Recent Orders */}
-                    <Card className="md:col-span-2">
+                    <Card className="xl:col-span-2">
                         <CardHeader>
                             <CardTitle>Recent Orders</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="overflow-x-auto">
-                                <table className="w-full">
+                                <table className="w-full min-w-[500px]">
                                     <thead>
                                         <tr className="border-b text-left text-sm">
-                                            <th className="pb-2">Order #</th>
-                                            <th className="pb-2">Customer</th>
-                                            <th className="pb-2">Garment</th>
-                                            <th className="pb-2">Amount</th>
-                                            <th className="pb-2">Status</th>
+                                            <th className="pb-2 whitespace-nowrap">Order #</th>
+                                            <th className="pb-2 whitespace-nowrap">Customer</th>
+                                            <th className="pb-2 whitespace-nowrap hidden sm:table-cell">Garment</th>
+                                            <th className="pb-2 whitespace-nowrap">Amount</th>
+                                            <th className="pb-2 whitespace-nowrap">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -312,11 +314,11 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                                                         {order.order_number}
                                                     </Link>
                                                 </td>
-                                                <td className="py-3">{order.customer_name}</td>
-                                                <td className="py-3">{order.garment_type}</td>
-                                                <td className="py-3">${order.total_amount}</td>
+                                                <td className="py-3 truncate max-w-[120px]">{order.customer_name}</td>
+                                                <td className="py-3 hidden sm:table-cell">{order.garment_type}</td>
+                                                <td className="py-3">{formatCurrency(order.total_amount)}</td>
                                                 <td className="py-3">
-                                                    <Badge style={{ backgroundColor: order.status_color }}>
+                                                    <Badge style={{ backgroundColor: order.status_color }} className="text-xs">
                                                         {order.status}
                                                     </Badge>
                                                 </td>
@@ -338,11 +340,11 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                                 <div className="space-y-2">
                                     {topCustomers.map((customer, index) => (
                                         <div key={customer.id} className="flex items-center justify-between">
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-sm font-medium text-gray-500">#{index + 1}</span>
-                                                <span className="text-sm">{customer.name}</span>
+                                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                                                <span className="text-sm font-medium text-gray-500 flex-shrink-0">#{index + 1}</span>
+                                                <span className="text-sm truncate">{customer.name}</span>
                                             </div>
-                                            <Badge variant="secondary">{customer.orders_count} orders</Badge>
+                                            <Badge variant="secondary" className="flex-shrink-0 ml-2">{customer.orders_count} orders</Badge>
                                         </div>
                                     ))}
                                 </div>
@@ -357,11 +359,11 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                                 <div className="space-y-2">
                                     {tailorPerformance.map((tailor, index) => (
                                         <div key={tailor.id} className="flex items-center justify-between">
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-sm font-medium text-gray-500">#{index + 1}</span>
-                                                <span className="text-sm">{tailor.name}</span>
+                                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                                                <span className="text-sm font-medium text-gray-500 flex-shrink-0">#{index + 1}</span>
+                                                <span className="text-sm truncate">{tailor.name}</span>
                                             </div>
-                                            <Badge variant="secondary">{tailor.completed_orders} completed</Badge>
+                                            <Badge variant="secondary" className="flex-shrink-0 ml-2">{tailor.completed_orders} completed</Badge>
                                         </div>
                                     ))}
                                 </div>

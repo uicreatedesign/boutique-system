@@ -1,7 +1,8 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
- * @see routes/settings.php:35
- * @route '/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @route '/settings/general'
  */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(options),
@@ -10,28 +11,31 @@ export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 edit.definition = {
     methods: ["get","head"],
-    url: '/settings/smtp',
+    url: '/settings/general',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/settings.php:35
- * @route '/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @route '/settings/general'
  */
 edit.url = (options?: RouteQueryOptions) => {
     return edit.definition.url + queryParams(options)
 }
 
 /**
- * @see routes/settings.php:35
- * @route '/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @route '/settings/general'
  */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(options),
     method: 'get',
 })
 /**
- * @see routes/settings.php:35
- * @route '/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @route '/settings/general'
  */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(options),
@@ -39,8 +43,9 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/settings.php:35
- * @route '/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @route '/settings/general'
  */
     const editForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: edit.url(options),
@@ -48,16 +53,18 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/settings.php:35
- * @route '/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @route '/settings/general'
  */
         editForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url(options),
             method: 'get',
         })
             /**
- * @see routes/settings.php:35
- * @route '/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::edit
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:19
+ * @route '/settings/general'
  */
         editForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: edit.url({
@@ -71,9 +78,9 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     edit.form = editForm
 /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:14
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::show
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:12
+ * @route '/api/settings/general'
  */
 export const show = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(options),
@@ -82,31 +89,31 @@ export const show = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 show.definition = {
     methods: ["get","head"],
-    url: '/api/settings/smtp',
+    url: '/api/settings/general',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:14
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::show
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:12
+ * @route '/api/settings/general'
  */
 show.url = (options?: RouteQueryOptions) => {
     return show.definition.url + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:14
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::show
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:12
+ * @route '/api/settings/general'
  */
 show.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(options),
     method: 'get',
 })
 /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:14
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::show
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:12
+ * @route '/api/settings/general'
  */
 show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(options),
@@ -114,9 +121,9 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:14
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::show
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:12
+ * @route '/api/settings/general'
  */
     const showForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(options),
@@ -124,18 +131,18 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:14
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::show
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:12
+ * @route '/api/settings/general'
  */
         showForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(options),
             method: 'get',
         })
             /**
-* @see \App\Http\Controllers\Settings\SmtpController::show
- * @see app/Http/Controllers/Settings/SmtpController.php:14
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::show
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:12
+ * @route '/api/settings/general'
  */
         showForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url({
@@ -149,9 +156,9 @@ show.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     show.form = showForm
 /**
-* @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:27
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::update
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @route '/api/settings/general'
  */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
@@ -160,22 +167,22 @@ export const update = (options?: RouteQueryOptions): RouteDefinition<'put'> => (
 
 update.definition = {
     methods: ["put"],
-    url: '/api/settings/smtp',
+    url: '/api/settings/general',
 } satisfies RouteDefinition<["put"]>
 
 /**
-* @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:27
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::update
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @route '/api/settings/general'
  */
 update.url = (options?: RouteQueryOptions) => {
     return update.definition.url + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:27
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::update
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @route '/api/settings/general'
  */
 update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(options),
@@ -183,9 +190,9 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
 })
 
     /**
-* @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:27
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::update
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @route '/api/settings/general'
  */
     const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url({
@@ -198,9 +205,9 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     })
 
             /**
-* @see \App\Http\Controllers\Settings\SmtpController::update
- * @see app/Http/Controllers/Settings/SmtpController.php:27
- * @route '/api/settings/smtp'
+* @see \App\Http\Controllers\Settings\GeneralSettingsController::update
+ * @see app/Http/Controllers/Settings/GeneralSettingsController.php:24
+ * @route '/api/settings/general'
  */
         updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url({
@@ -213,66 +220,10 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
         })
     
     update.form = updateForm
-/**
-* @see \App\Http\Controllers\Settings\SmtpController::test
- * @see app/Http/Controllers/Settings/SmtpController.php:49
- * @route '/api/settings/smtp/test'
- */
-export const test = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: test.url(options),
-    method: 'post',
-})
-
-test.definition = {
-    methods: ["post"],
-    url: '/api/settings/smtp/test',
-} satisfies RouteDefinition<["post"]>
-
-/**
-* @see \App\Http\Controllers\Settings\SmtpController::test
- * @see app/Http/Controllers/Settings/SmtpController.php:49
- * @route '/api/settings/smtp/test'
- */
-test.url = (options?: RouteQueryOptions) => {
-    return test.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\Settings\SmtpController::test
- * @see app/Http/Controllers/Settings/SmtpController.php:49
- * @route '/api/settings/smtp/test'
- */
-test.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: test.url(options),
-    method: 'post',
-})
-
-    /**
-* @see \App\Http\Controllers\Settings\SmtpController::test
- * @see app/Http/Controllers/Settings/SmtpController.php:49
- * @route '/api/settings/smtp/test'
- */
-    const testForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: test.url(options),
-        method: 'post',
-    })
-
-            /**
-* @see \App\Http\Controllers\Settings\SmtpController::test
- * @see app/Http/Controllers/Settings/SmtpController.php:49
- * @route '/api/settings/smtp/test'
- */
-        testForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: test.url(options),
-            method: 'post',
-        })
-    
-    test.form = testForm
-const smtp = {
+const general = {
     edit: Object.assign(edit, edit),
 show: Object.assign(show, show),
 update: Object.assign(update, update),
-test: Object.assign(test, test),
 }
 
-export default smtp
+export default general

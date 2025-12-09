@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Settings\GeneralSettingsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\SmtpController;
@@ -8,7 +9,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
-    Route::redirect('settings', '/settings/profile');
+    Route::redirect('settings', '/settings/general');
+
+    Route::get('settings/general', [GeneralSettingsController::class, 'edit'])->name('general.edit');
+    Route::get('api/settings/general', [GeneralSettingsController::class, 'show'])->name('general.show');
+    Route::put('api/settings/general', [GeneralSettingsController::class, 'update'])->name('general.update');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');

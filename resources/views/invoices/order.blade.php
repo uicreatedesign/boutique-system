@@ -95,8 +95,20 @@
 <body>
     <div class="header">
         <h1>INVOICE</h1>
-        <p>{{ config('app.name') }}</p>
+        <p>{{ \App\Services\SettingsService::getBusinessName() }}</p>
         <p>Invoice #: {{ $order->order_number }}</p>
+        @php
+            $businessInfo = \App\Services\SettingsService::getBusinessInfo();
+        @endphp
+        @if($businessInfo['address'])
+        <p>{{ $businessInfo['address'] }}</p>
+        @endif
+        @if($businessInfo['phone'])
+        <p>Phone: {{ $businessInfo['phone'] }}</p>
+        @endif
+        @if($businessInfo['email'])
+        <p>Email: {{ $businessInfo['email'] }}</p>
+        @endif
     </div>
 
     <div class="invoice-info">
@@ -140,7 +152,7 @@
                     Fabric: {{ $order->fabric->name }}
                     @endif
                 </td>
-                <td style="text-align: right;">${{ number_format($order->total_amount, 2) }}</td>
+                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->total_amount) }}</td>
             </tr>
             @if($order->special_instructions)
             <tr>
@@ -157,25 +169,25 @@
         <table>
             <tr>
                 <td>Subtotal:</td>
-                <td style="text-align: right;">${{ number_format($order->total_amount, 2) }}</td>
+                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->total_amount) }}</td>
             </tr>
             @if($order->discount > 0)
             <tr>
                 <td>Discount:</td>
-                <td style="text-align: right;">-${{ number_format($order->discount, 2) }}</td>
+                <td style="text-align: right;">-{{ \App\Services\SettingsService::formatCurrency($order->discount) }}</td>
             </tr>
             @endif
             <tr class="total-row">
                 <td>Total:</td>
-                <td style="text-align: right;">${{ number_format($order->total_amount - $order->discount, 2) }}</td>
+                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->total_amount - $order->discount) }}</td>
             </tr>
             <tr>
                 <td>Paid:</td>
-                <td style="text-align: right;">${{ number_format($order->payments->sum('amount'), 2) }}</td>
+                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->payments->sum('amount')) }}</td>
             </tr>
             <tr class="total-row">
                 <td>Balance Due:</td>
-                <td style="text-align: right;">${{ number_format($order->balance_due, 2) }}</td>
+                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->balance_due) }}</td>
             </tr>
         </table>
     </div>
@@ -197,7 +209,7 @@
             @foreach($order->payments as $payment)
             <tr>
                 <td>{{ $payment->payment_date->format('d M, Y') }}</td>
-                <td>${{ number_format($payment->amount, 2) }}</td>
+                <td>{{ \App\Services\SettingsService::formatCurrency($payment->amount) }}</td>
                 <td>{{ ucfirst($payment->payment_method) }}</td>
                 <td>{{ ucfirst($payment->payment_type) }}</td>
             </tr>
@@ -208,7 +220,7 @@
 
     <div class="footer">
         <p>Thank you for your business!</p>
-        <p>{{ config('app.name') }} - Boutique Management System</p>
+        <p>{{ \App\Services\SettingsService::getBusinessName() }} - Boutique Management System</p>
     </div>
 </body>
 </html>

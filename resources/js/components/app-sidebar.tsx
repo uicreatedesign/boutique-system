@@ -85,11 +85,6 @@ const mainNavItems: NavItem[] = [
         icon: Bell,
     },
     {
-        title: 'Settings',
-        href: '/settings/profile',
-        icon: Settings,
-    },
-    {
         title: 'Reports & Analytics',
         href: '/reports',
         icon: LayoutGrid,
@@ -102,11 +97,11 @@ const footerNavItems: NavItem[] = [
         href: 'https://github.com/uicreatedesign/boutique-system',
         icon: Folder,
     },
-    {
-        title: 'Support',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
+    // {
+    //     title: 'Support',
+    //     href: 'https://laravel.com/docs/starter-kits#react',
+    //     icon: BookOpen,
+    // },
 ];
 
 export function AppSidebar() {

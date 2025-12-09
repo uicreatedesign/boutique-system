@@ -26,7 +26,7 @@ export function AppSidebarHeader({
             <div className="flex items-center gap-2">
                 <NotificationBell />
             </div>
-            <div className="md:hidden">
+            <div className="md:hidden sm:hidden">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="sm" className="gap-2">

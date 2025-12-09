@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Eye } from 'lucide-react';
+import { useCurrency } from '@/hooks/use-currency';
 
 interface Order {
   id: number;
@@ -30,6 +31,7 @@ interface Props {
 
 export default function OrdersIndex({ orders, canCreate = false }: Props) {
   const [perPage, setPerPage] = useState(15);
+  const { formatCurrency } = useCurrency();
 
   return (
     <AppLayout>
@@ -89,7 +91,7 @@ export default function OrdersIndex({ orders, canCreate = false }: Props) {
                           </Badge>
                         </td>
                         <td className="p-4 text-sm">{new Date(order.delivery_date).toLocaleDateString()}</td>
-                        <td className="p-4">${order.total_amount}</td>
+                        <td className="p-4">{formatCurrency(order.total_amount)}</td>
                         <td className="p-4">
                           <Link href={`/orders/${order.id}`}>
                             <Button size="sm" variant="outline">
