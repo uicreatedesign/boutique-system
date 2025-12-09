@@ -45,6 +45,7 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'create_orders', 'description' => 'Create orders'],
             ['name' => 'edit_orders', 'description' => 'Edit orders'],
             ['name' => 'delete_orders', 'description' => 'Delete orders'],
+            ['name' => 'view_reports', 'description' => 'View reports and analytics'],
         ];
 
         foreach ($permissions as $permission) {
@@ -70,7 +71,8 @@ class RolePermissionSeeder extends Seeder
                 'view_garment_types', 'create_garment_types', 'edit_garment_types',
                 'view_fabrics', 'create_fabrics', 'edit_fabrics',
                 'view_stitching_statuses', 'create_stitching_statuses', 'edit_stitching_statuses',
-                'view_orders', 'create_orders', 'edit_orders'
+                'view_orders', 'create_orders', 'edit_orders',
+                'view_reports'
             ])->pluck('id')
         );
 
@@ -79,7 +81,7 @@ class RolePermissionSeeder extends Seeder
             ['description' => 'Read-only access']
         );
         $viewerRole->permissions()->sync(
-            Permission::whereIn('name', ['view_customers', 'view_tailors', 'view_users', 'view_measurements', 'view_garment_types', 'view_fabrics', 'view_stitching_statuses', 'view_orders'])->pluck('id')
+            Permission::whereIn('name', ['view_customers', 'view_tailors', 'view_users', 'view_measurements', 'view_garment_types', 'view_fabrics', 'view_stitching_statuses', 'view_orders', 'view_reports'])->pluck('id')
         );
     }
 }

@@ -79,6 +79,11 @@ const mainNavItems: NavItem[] = [
         href: '/roles',
         icon: Shield,
     },
+    {
+        title: 'Reports & Analytics',
+        href: '/reports',
+        icon: LayoutGrid,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

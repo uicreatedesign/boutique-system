@@ -13,6 +13,7 @@ import GarmentTypeController from './GarmentTypeController'
 import FabricController from './FabricController'
 import StitchingStatusController from './StitchingStatusController'
 import OrderController from './OrderController'
+import ReportController from './ReportController'
 const Controllers = {
     CustomerController: Object.assign(CustomerController, CustomerController),
 RoleController: Object.assign(RoleController, RoleController),
@@ -29,6 +30,7 @@ GarmentTypeController: Object.assign(GarmentTypeController, GarmentTypeControlle
 FabricController: Object.assign(FabricController, FabricController),
 StitchingStatusController: Object.assign(StitchingStatusController, StitchingStatusController),
 OrderController: Object.assign(OrderController, OrderController),
+ReportController: Object.assign(ReportController, ReportController),
 }
 
 export default Controllers
