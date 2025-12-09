@@ -9,6 +9,7 @@ import { usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { ChevronDown } from 'lucide-react';
 import NotificationBell from '@/components/notifications/notification-bell';
+import SimpleSearch from '@/components/simple-search';
 
 export function AppSidebarHeader({
     breadcrumbs = [],
@@ -24,7 +25,21 @@ export function AppSidebarHeader({
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
             </div>
             <div className="flex items-center gap-2">
+                <SimpleSearch />
                 <NotificationBell />
+                <div className="hidden md:block">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="sm" className="gap-2">
+                                <UserInfo user={auth.user} />
+                                <ChevronDown className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-56">
+                            <UserMenuContent user={auth.user} />
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
         </header>
     );

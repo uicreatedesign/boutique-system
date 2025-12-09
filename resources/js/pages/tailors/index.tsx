@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Head } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
+import { Head, usePage, router } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,9 +10,19 @@ import { Plus, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function TailorsIndex() {
+  const { url } = usePage();
+  const urlParams = new URLSearchParams(window.location.search);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(urlParams.get('search') || '');
   const [statusFilter, setStatusFilter] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const searchParam = params.get('search');
+    if (searchParam) {
+      setSearch(searchParam);
+    }
+  }, [url]);
 
   return (
     <AppLayout>
@@ -37,7 +47,16 @@ export default function TailorsIndex() {
                   <Input
                     placeholder="Search tailors..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                      const params = new URLSearchParams(window.location.search);
+                      if (e.target.value) {
+                        params.set('search', e.target.value);
+                      } else {
+                        params.delete('search');
+                      }
+                      router.get('/tailors', Object.fromEntries(params), { preserveState: true, replace: true });
+                    }}
                     className="pl-10 w-64"
                   />
                 </div>

@@ -1,11 +1,12 @@
-import { Head, Link, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
 import Pagination from '@/components/ui/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Eye } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Plus, Eye, Search } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
 
 interface Order {
@@ -30,8 +31,19 @@ interface Props {
 }
 
 export default function OrdersIndex({ orders, canCreate = false }: Props) {
+  const { url } = usePage();
+  const urlParams = new URLSearchParams(window.location.search);
   const [perPage, setPerPage] = useState(15);
+  const [search, setSearch] = useState(urlParams.get('search') || '');
   const { formatCurrency } = useCurrency();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const searchParam = params.get('search');
+    if (searchParam) {
+      setSearch(searchParam);
+    }
+  }, [url]);
 
   return (
     <AppLayout>
@@ -52,7 +64,27 @@ export default function OrdersIndex({ orders, canCreate = false }: Props) {
 
         <Card>
           <CardHeader>
-            <CardTitle>Order List</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle>Order List</CardTitle>
+              <div className="relative max-w-sm">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search orders..."
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    const params = new URLSearchParams(window.location.search);
+                    if (e.target.value) {
+                      params.set('search', e.target.value);
+                    } else {
+                      params.delete('search');
+                    }
+                    router.get('/orders', Object.fromEntries(params), { preserveState: true, replace: true });
+                  }}
+                  className="pl-10"
+                />
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             {orders.data.length === 0 ? (

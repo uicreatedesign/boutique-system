@@ -74,7 +74,7 @@ interface Props {
 
 export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, recentOrders, topCustomers, tailorPerformance, monthlyRevenue, statusDistribution }: Props) {
     const { formatCurrency } = useCurrency();
-    const maxRevenue = Math.max(...monthlyRevenue.map(m => m.revenue));
+    const maxRevenue = Math.max(...monthlyRevenue.map(m => Number(m.revenue) || 0));
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -191,7 +191,7 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                                             <div className="h-8 bg-gray-200 rounded overflow-hidden">
                                                 <div
                                                     className="h-full bg-blue-500"
-                                                    style={{ width: `${(item.revenue / maxRevenue) * 100}%` }}
+                                                    style={{ width: `${((Number(item.revenue) || 0) / maxRevenue) * 100}%` }}
                                                 />
                                             </div>
                                         </div>
