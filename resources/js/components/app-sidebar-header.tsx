@@ -8,6 +8,7 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { usePage } from '@inertiajs/react';
 import { type SharedData } from '@/types';
 import { ChevronDown } from 'lucide-react';
+import NotificationBell from '@/components/notifications/notification-bell';
 
 export function AppSidebarHeader({
     breadcrumbs = [],
@@ -21,6 +22,9 @@ export function AppSidebarHeader({
             <div className="flex items-center gap-2">
                 <SidebarTrigger className="-ml-1" />
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
+            </div>
+            <div className="flex items-center gap-2">
+                <NotificationBell />
             </div>
             <div className="md:hidden">
                 <DropdownMenu>

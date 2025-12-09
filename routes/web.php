@@ -27,3 +27,4 @@ require __DIR__.'/fabrics.php';
 require __DIR__.'/stitching-statuses.php';
 require __DIR__.'/orders.php';
 require __DIR__.'/reports.php';
+require __DIR__.'/notifications.php';
