@@ -37,6 +37,7 @@ class OrderController extends Controller
         return Inertia::render('Orders/Index', [
             'orders' => $orders,
             'canCreate' => auth()->user()->can('create_orders'),
+            'canEdit' => auth()->user()->can('edit_orders'),
         ]);
     }
 

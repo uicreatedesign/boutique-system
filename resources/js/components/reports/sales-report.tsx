@@ -7,8 +7,10 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Download, TrendingUp, DollarSign, ShoppingCart, CreditCard } from 'lucide-react';
 import Chart from 'react-apexcharts';
+import { useCurrency } from '@/hooks/use-currency';
 
 export default function SalesReport() {
+  const { formatCurrency } = useCurrency();
   const [startDate, setStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
   const [groupBy, setGroupBy] = useState('day');
@@ -98,7 +100,7 @@ export default function SalesReport() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Total Revenue</p>
-                    <p className="text-2xl font-bold">${Number(data.summary.total_revenue).toFixed(2)}</p>
+                    <p className="text-2xl font-bold">{formatCurrency(data.summary.total_revenue)}</p>
                   </div>
                   <DollarSign className="h-8 w-8 text-muted-foreground" />
                 </div>
@@ -110,7 +112,7 @@ export default function SalesReport() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Total Paid</p>
-                    <p className="text-2xl font-bold">${Number(data.summary.total_paid).toFixed(2)}</p>
+                    <p className="text-2xl font-bold">{formatCurrency(data.summary.total_paid)}</p>
                   </div>
                   <CreditCard className="h-8 w-8 text-muted-foreground" />
                 </div>
@@ -122,7 +124,7 @@ export default function SalesReport() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Avg Order Value</p>
-                    <p className="text-2xl font-bold">${Number(data.summary.average_order_value).toFixed(2)}</p>
+                    <p className="text-2xl font-bold">{formatCurrency(data.summary.average_order_value)}</p>
                   </div>
                   <TrendingUp className="h-8 w-8 text-muted-foreground" />
                 </div>
@@ -175,7 +177,7 @@ export default function SalesReport() {
                         <td className="p-4">{order.customer.name}</td>
                         <td className="p-4">{order.garment_type.name}</td>
                         <td className="p-4">{order.stitching_status.name}</td>
-                        <td className="p-4">${Number(order.total_amount).toFixed(2)}</td>
+                        <td className="p-4">{formatCurrency(order.total_amount)}</td>
                       </tr>
                     ))}
                   </tbody>

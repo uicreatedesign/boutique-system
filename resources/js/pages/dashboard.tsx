@@ -6,6 +6,8 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { DollarSign, ShoppingCart, Users, Scissors, TrendingUp, Clock, AlertCircle } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -64,6 +66,7 @@ interface Props {
     monthlyRevenue: Array<{
         month: string;
         revenue: number;
+        orders: number;
     }>;
     statusDistribution: Array<{
         name: string;
@@ -74,7 +77,6 @@ interface Props {
 
 export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, recentOrders, topCustomers, tailorPerformance, monthlyRevenue, statusDistribution }: Props) {
     const { formatCurrency } = useCurrency();
-    const maxRevenue = Math.max(...monthlyRevenue.map(m => Number(m.revenue) || 0));
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -183,22 +185,51 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                             <CardTitle>Revenue Trend (Last 6 Months)</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="space-y-2">
-                                {monthlyRevenue.map((item, index) => (
-                                    <div key={index} className="flex items-center gap-2">
-                                        <div className="w-20 text-sm text-gray-600">{item.month}</div>
-                                        <div className="flex-1">
-                                            <div className="h-8 bg-gray-200 rounded overflow-hidden">
-                                                <div
-                                                    className="h-full bg-blue-500"
-                                                    style={{ width: `${((Number(item.revenue) || 0) / maxRevenue) * 100}%` }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="w-24 text-sm font-medium text-right">{formatCurrency(item.revenue)}</div>
-                                    </div>
-                                ))}
-                            </div>
+                            <ChartContainer
+                                config={{
+                                    revenue: {
+                                        label: "Revenue",
+                                        theme: {
+                                            light: "hsl(221.2 83.2% 53.3%)",
+                                            dark: "hsl(217.2 91.2% 59.8%)",
+                                        },
+                                    },
+                                }}
+                                className="h-[250px] w-full"
+                            >
+                                <BarChart
+                                    data={monthlyRevenue.map(item => ({
+                                        month: item.month,
+                                        revenue: Number(item.revenue) || 0,
+                                    }))}
+                                    margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" vertical={false} />
+                                    <XAxis
+                                        dataKey="month"
+                                        tickLine={false}
+                                        axisLine={false}
+                                        tickMargin={8}
+                                        className="text-xs"
+                                    />
+                                    <YAxis
+                                        tickLine={false}
+                                        axisLine={false}
+                                        tickMargin={8}
+                                        tickFormatter={(value) => formatCurrency(value)}
+                                        className="text-xs"
+                                    />
+                                    <ChartTooltip
+                                        content={<ChartTooltipContent />}
+                                        formatter={(value) => formatCurrency(Number(value))}
+                                    />
+                                    <Bar
+                                        dataKey="revenue"
+                                        fill="var(--color-revenue)"
+                                        radius={[4, 4, 0, 0]}
+                                    />
+                                </BarChart>
+                            </ChartContainer>
                         </CardContent>
                     </Card>
 

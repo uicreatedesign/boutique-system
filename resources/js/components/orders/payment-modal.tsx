@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
+import { useCurrency } from '@/hooks/use-currency';
 
 interface PaymentModalProps {
   open: boolean;
@@ -15,6 +16,7 @@ interface PaymentModalProps {
 }
 
 export default function PaymentModal({ open, onClose, orderId, balanceDue }: PaymentModalProps) {
+  const { formatCurrency } = useCurrency();
   const { data, setData, post, processing, errors, reset } = useForm({
     payment_date: new Date().toISOString().split('T')[0],
     amount: balanceDue?.toString() || '0',
@@ -64,7 +66,7 @@ export default function PaymentModal({ open, onClose, orderId, balanceDue }: Pay
               onChange={(e) => setData('amount', e.target.value)}
               placeholder="0.00"
             />
-            <p className="text-sm text-gray-600 mt-1">Balance Due: ${balanceDue || 0}</p>
+            <p className="text-sm text-gray-600 mt-1">Balance Due: {formatCurrency(balanceDue || 0)}</p>
             {errors.amount && <p className="text-sm text-red-500 mt-1">{errors.amount}</p>}
           </div>
 

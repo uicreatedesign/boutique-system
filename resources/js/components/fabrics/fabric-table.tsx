@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Edit, Trash2 } from 'lucide-react';
 import FabricEditModal from './fabric-edit-modal';
 import FabricDeleteDialog from './fabric-delete-dialog';
+import { useCurrency } from '@/hooks/use-currency';
 
 interface Fabric {
   id: number;
@@ -25,6 +26,7 @@ interface FabricTableProps {
 }
 
 export default function FabricTable({ search, statusFilter, canEdit = false, canDelete = false }: FabricTableProps) {
+  const { formatCurrency } = useCurrency();
   const [fabrics, setFabrics] = useState<Fabric[]>([]);
   const [filteredFabrics, setFilteredFabrics] = useState<Fabric[]>([]);
   const [editFabric, setEditFabric] = useState<Fabric | null>(null);
@@ -99,7 +101,7 @@ export default function FabricTable({ search, statusFilter, canEdit = false, can
                 <td className="p-4 font-medium">{fabric.name}</td>
                 <td className="p-4 text-sm">{fabric.type || '-'}</td>
                 <td className="p-4 text-sm">{fabric.color || '-'}</td>
-                <td className="p-4 text-sm">${fabric.price_per_meter || 0}/{fabric.unit}</td>
+                <td className="p-4 text-sm">{formatCurrency(fabric.price_per_meter || 0)}/{fabric.unit}</td>
                 <td className="p-4 text-sm">
                   <Badge variant={fabric.quantity_in_stock > 0 ? 'default' : 'secondary'}>
                     {fabric.quantity_in_stock} {fabric.unit}

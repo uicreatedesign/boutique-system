@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Plus, Eye, Search } from 'lucide-react';
+import { Plus, Eye, Search, Edit } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
 
 interface Order {
@@ -28,9 +28,10 @@ interface Props {
     last_page: number;
   };
   canCreate?: boolean;
+  canEdit?: boolean;
 }
 
-export default function OrdersIndex({ orders, canCreate = false }: Props) {
+export default function OrdersIndex({ orders, canCreate = false, canEdit = false }: Props) {
   const { url } = usePage();
   const urlParams = new URLSearchParams(window.location.search);
   const [perPage, setPerPage] = useState(15);
@@ -125,11 +126,20 @@ export default function OrdersIndex({ orders, canCreate = false }: Props) {
                         <td className="p-4 text-sm">{new Date(order.delivery_date).toLocaleDateString()}</td>
                         <td className="p-4">{formatCurrency(order.total_amount)}</td>
                         <td className="p-4">
-                          <Link href={`/orders/${order.id}`}>
-                            <Button size="sm" variant="outline">
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                          </Link>
+                          <div className="flex gap-2">
+                            <Link href={`/orders/${order.id}`}>
+                              <Button size="sm" variant="outline">
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                            {canEdit && (
+                              <Link href={`/orders/${order.id}/edit`}>
+                                <Button size="sm" variant="outline">
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                              </Link>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}

@@ -4,8 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { RefreshCw } from 'lucide-react';
+import { useCurrency } from '@/hooks/use-currency';
 
 export default function InventoryReport() {
+  const { formatCurrency } = useCurrency();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any[]>([]);
 
@@ -70,8 +72,8 @@ export default function InventoryReport() {
                       <td className="p-4">{fabric.color}</td>
                       <td className="p-4">{fabric.quantity_in_stock}</td>
                       <td className="p-4">{fabric.unit}</td>
-                      <td className="p-4">${Number(fabric.price_per_meter).toFixed(2)}</td>
-                      <td className="p-4">${Number(fabric.stock_value).toFixed(2)}</td>
+                      <td className="p-4">{formatCurrency(fabric.price_per_meter)}</td>
+                      <td className="p-4">{formatCurrency(fabric.stock_value)}</td>
                       <td className="p-4">{fabric.usage_count}</td>
                       <td className="p-4">{getStockBadge(fabric.stock_status)}</td>
                     </tr>

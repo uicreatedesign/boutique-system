@@ -131,9 +131,13 @@ class DashboardController extends Controller
             $revenue = OrderPayment::whereMonth('payment_date', $date->month)
                 ->whereYear('payment_date', $date->year)
                 ->sum('amount');
+            $orders = Order::whereMonth('order_date', $date->month)
+                ->whereYear('order_date', $date->year)
+                ->count();
             $monthlyRevenue[] = [
                 'month' => $date->format('M Y'),
                 'revenue' => (float) $revenue,
+                'orders' => $orders,
             ];
         }
 

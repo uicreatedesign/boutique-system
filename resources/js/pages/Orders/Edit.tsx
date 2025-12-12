@@ -52,8 +52,8 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
     <AppLayout>
       <Head title={`Edit Order ${order.order_number}`} />
       
-      <div className="space-y-6 p-4">
-        <h1 className="text-3xl font-bold">Edit Order {order.order_number}</h1>
+      <div className="space-y-6 p-4 max-w-4xl mx-auto">
+        <h1 className="text-2xl sm:text-3xl font-bold">Edit Order {order.order_number}</h1>
 
         <form onSubmit={handleSubmit}>
           <Card>
@@ -61,7 +61,7 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
               <CardTitle>Order Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Customer *</Label>
                   <Select value={data.customer_id} onValueChange={(value) => setData('customer_id', value)}>
@@ -97,7 +97,7 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Tailor *</Label>
                   <Select value={data.tailor_id} onValueChange={(value) => setData('tailor_id', value)}>
@@ -161,7 +161,7 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                 </div>
               )}
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
                   <Label>Order Date *</Label>
                   <Input
@@ -196,7 +196,7 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Total Amount *</Label>
                   <Input
@@ -237,11 +237,11 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                 />
               </div>
 
-              <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => window.history.back()}>
+              <div className="flex flex-col sm:flex-row justify-end gap-2">
+                <Button type="button" variant="outline" onClick={() => window.history.back()} className="w-full sm:w-auto">
                   Cancel
                 </Button>
-                <Button type="submit" disabled={processing}>
+                <Button type="submit" disabled={processing} className="w-full sm:w-auto">
                   {processing ? 'Updating...' : 'Update Order'}
                 </Button>
               </div>

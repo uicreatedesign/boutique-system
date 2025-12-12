@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { useCurrency } from '@/hooks/use-currency';
 
 export default function TailorPerformanceReport() {
+  const { formatCurrency } = useCurrency();
   const [startDate, setStartDate] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
   const [loading, setLoading] = useState(false);
@@ -87,7 +89,7 @@ export default function TailorPerformanceReport() {
                       <td className="p-4 text-yellow-600">{tailor.pending_orders}</td>
                       <td className="p-4 text-red-600">{tailor.cancelled_orders}</td>
                       <td className="p-4">{tailor.completion_rate}%</td>
-                      <td className="p-4">${Number(tailor.total_revenue).toFixed(2)}</td>
+                      <td className="p-4">{formatCurrency(tailor.total_revenue)}</td>
                     </tr>
                   ))}
                 </tbody>

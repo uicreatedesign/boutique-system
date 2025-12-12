@@ -4,8 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useCurrency } from '@/hooks/use-currency';
 
 export default function CustomerReport() {
+  const { formatCurrency } = useCurrency();
   const [startDate, setStartDate] = useState(new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
   const [loading, setLoading] = useState(false);
@@ -84,9 +86,9 @@ export default function CustomerReport() {
                         </div>
                       </td>
                       <td className="p-4">{customer.total_orders}</td>
-                      <td className="p-4">${Number(customer.total_spent).toFixed(2)}</td>
-                      <td className="p-4 text-green-600">${Number(customer.total_paid).toFixed(2)}</td>
-                      <td className="p-4 text-red-600">${Number(customer.pending_amount).toFixed(2)}</td>
+                      <td className="p-4">{formatCurrency(customer.total_spent)}</td>
+                      <td className="p-4 text-green-600">{formatCurrency(customer.total_paid)}</td>
+                      <td className="p-4 text-red-600">{formatCurrency(customer.pending_amount)}</td>
                       <td className="p-4">{customer.last_order_date ? new Date(customer.last_order_date).toLocaleDateString() : 'N/A'}</td>
                     </tr>
                   ))}
