@@ -7,6 +7,7 @@ import { Edit, Download, Plus } from 'lucide-react';
 import { useState } from 'react';
 import PaymentModal from '@/components/orders/payment-modal';
 import { useCurrency } from '@/hooks/use-currency';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Order {
   id: number;

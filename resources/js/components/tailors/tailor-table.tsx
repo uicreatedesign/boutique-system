@@ -6,6 +6,7 @@ import { Trash2, Edit, Eye } from 'lucide-react';
 import TailorEditModal from './tailor-edit-modal';
 import TailorDetailModal from './tailor-detail-modal';
 import TailorDeleteDialog from './tailor-delete-dialog';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Tailor {
   id: number;
@@ -72,7 +73,45 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
   };
 
   if (loading) {
-    return <div className="text-center py-4">Loading...</div>;
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-4">Name</th>
+              <th className="text-left p-4">Contact</th>
+              <th className="text-left p-4">Skill Level</th>
+              <th className="text-left p-4">Status</th>
+              <th className="text-left p-4">Hourly Rate</th>
+              <th className="text-left p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, i) => (
+              <tr key={i} className="border-b">
+                <td className="p-4"><Skeleton className="h-5 w-32" /></td>
+                <td className="p-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-4 w-36" />
+                  </div>
+                </td>
+                <td className="p-4"><Skeleton className="h-6 w-24" /></td>
+                <td className="p-4"><Skeleton className="h-6 w-20" /></td>
+                <td className="p-4"><Skeleton className="h-4 w-16" /></td>
+                <td className="p-4">
+                  <div className="flex space-x-2">
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   }
 
   return (

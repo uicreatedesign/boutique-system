@@ -6,6 +6,7 @@ import { Edit, Trash2 } from 'lucide-react';
 import FabricEditModal from './fabric-edit-modal';
 import FabricDeleteDialog from './fabric-delete-dialog';
 import { useCurrency } from '@/hooks/use-currency';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Fabric {
   id: number;
@@ -29,12 +30,15 @@ export default function FabricTable({ search, statusFilter, canEdit = false, can
   const { formatCurrency } = useCurrency();
   const [fabrics, setFabrics] = useState<Fabric[]>([]);
   const [filteredFabrics, setFilteredFabrics] = useState<Fabric[]>([]);
+  const [loading, setLoading] = useState(true);
   const [editFabric, setEditFabric] = useState<Fabric | null>(null);
   const [deleteFabric, setDeleteFabric] = useState<Fabric | null>(null);
 
   useEffect(() => {
+    setLoading(true);
     router.reload({ only: ['fabrics'], onSuccess: (page: any) => {
       setFabrics(page.props.fabrics || []);
+      setLoading(false);
     }});
   }, []);
 
@@ -55,6 +59,44 @@ export default function FabricTable({ search, statusFilter, canEdit = false, can
 
     setFilteredFabrics(filtered);
   }, [fabrics, search, statusFilter]);
+
+  if (loading) {
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-4">Name</th>
+              <th className="text-left p-4">Type</th>
+              <th className="text-left p-4">Color</th>
+              <th className="text-left p-4">Price/{}</th>
+              <th className="text-left p-4">Stock</th>
+              <th className="text-left p-4">Status</th>
+              <th className="text-left p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, i) => (
+              <tr key={i} className="border-b">
+                <td className="p-4"><Skeleton className="h-5 w-32" /></td>
+                <td className="p-4"><Skeleton className="h-4 w-24" /></td>
+                <td className="p-4"><Skeleton className="h-4 w-20" /></td>
+                <td className="p-4"><Skeleton className="h-4 w-24" /></td>
+                <td className="p-4"><Skeleton className="h-6 w-16" /></td>
+                <td className="p-4"><Skeleton className="h-6 w-20" /></td>
+                <td className="p-4">
+                  <div className="flex space-x-2">
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 
   if (filteredFabrics.length === 0) {
     return (

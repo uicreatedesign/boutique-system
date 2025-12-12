@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Search, Eye, Edit, Trash2, Printer } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Measurement {
   id: number;
@@ -29,6 +30,7 @@ interface Props {
 export default function MeasurementsIndex({ measurements, search }: Props) {
   const [searchTerm, setSearchTerm] = useState(search || '');
   const [perPage, setPerPage] = useState(15);
+  const [loading, setLoading] = useState(false);
 
   return (
     <AppLayout>
@@ -61,7 +63,38 @@ export default function MeasurementsIndex({ measurements, search }: Props) {
             </div>
           </CardHeader>
           <CardContent>
-            {measurements.data.length === 0 ? (
+            {loading ? (
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left p-4">Customer</th>
+                      <th className="text-left p-4">Tailor</th>
+                      <th className="text-left p-4">Type</th>
+                      <th className="text-left p-4">Created</th>
+                      <th className="text-left p-4">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...Array(5)].map((_, i) => (
+                      <tr key={i} className="border-b">
+                        <td className="p-4"><Skeleton className="h-5 w-32" /></td>
+                        <td className="p-4"><Skeleton className="h-4 w-28" /></td>
+                        <td className="p-4"><Skeleton className="h-6 w-20" /></td>
+                        <td className="p-4"><Skeleton className="h-4 w-24" /></td>
+                        <td className="p-4">
+                          <div className="flex space-x-2">
+                            <Skeleton className="h-9 w-9" />
+                            <Skeleton className="h-9 w-9" />
+                            <Skeleton className="h-9 w-9" />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : measurements.data.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 px-4">
                 <svg
                   className="w-48 h-48 mb-6 text-gray-300"

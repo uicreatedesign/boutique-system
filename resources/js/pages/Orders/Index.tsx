@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Plus, Eye, Search, Edit } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Order {
   id: number;
@@ -36,6 +37,7 @@ export default function OrdersIndex({ orders, canCreate = false, canEdit = false
   const urlParams = new URLSearchParams(window.location.search);
   const [perPage, setPerPage] = useState(15);
   const [search, setSearch] = useState(urlParams.get('search') || '');
+  const [loading, setLoading] = useState(false);
   const { formatCurrency } = useCurrency();
 
   useEffect(() => {
@@ -88,7 +90,43 @@ export default function OrdersIndex({ orders, canCreate = false, canEdit = false
             </div>
           </CardHeader>
           <CardContent>
-            {orders.data.length === 0 ? (
+            {loading ? (
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left p-4">Order #</th>
+                      <th className="text-left p-4">Customer</th>
+                      <th className="text-left p-4">Garment</th>
+                      <th className="text-left p-4">Tailor</th>
+                      <th className="text-left p-4">Status</th>
+                      <th className="text-left p-4">Delivery</th>
+                      <th className="text-left p-4">Amount</th>
+                      <th className="text-left p-4">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...Array(5)].map((_, i) => (
+                      <tr key={i} className="border-b">
+                        <td className="p-4"><Skeleton className="h-5 w-32" /></td>
+                        <td className="p-4"><Skeleton className="h-4 w-28" /></td>
+                        <td className="p-4"><Skeleton className="h-4 w-24" /></td>
+                        <td className="p-4"><Skeleton className="h-4 w-28" /></td>
+                        <td className="p-4"><Skeleton className="h-6 w-20" /></td>
+                        <td className="p-4"><Skeleton className="h-4 w-24" /></td>
+                        <td className="p-4"><Skeleton className="h-4 w-20" /></td>
+                        <td className="p-4">
+                          <div className="flex gap-2">
+                            <Skeleton className="h-9 w-9" />
+                            <Skeleton className="h-9 w-9" />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : orders.data.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 px-4">
                 <svg className="w-48 h-48 mb-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />

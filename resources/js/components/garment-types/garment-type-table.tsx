@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Edit, Trash2 } from 'lucide-react';
 import GarmentTypeEditModal from './garment-type-edit-modal';
 import GarmentTypeDeleteDialog from './garment-type-delete-dialog';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface GarmentType {
   id: number;
@@ -23,12 +24,15 @@ interface GarmentTypeTableProps {
 export default function GarmentTypeTable({ search, statusFilter, canEdit = false, canDelete = false }: GarmentTypeTableProps) {
   const [garmentTypes, setGarmentTypes] = useState<GarmentType[]>([]);
   const [filteredTypes, setFilteredTypes] = useState<GarmentType[]>([]);
+  const [loading, setLoading] = useState(true);
   const [editType, setEditType] = useState<GarmentType | null>(null);
   const [deleteType, setDeleteType] = useState<GarmentType | null>(null);
 
   useEffect(() => {
+    setLoading(true);
     router.reload({ only: ['garmentTypes'], onSuccess: (page: any) => {
       setGarmentTypes(page.props.garmentTypes || []);
+      setLoading(false);
     }});
   }, []);
 
@@ -48,6 +52,38 @@ export default function GarmentTypeTable({ search, statusFilter, canEdit = false
 
     setFilteredTypes(filtered);
   }, [garmentTypes, search, statusFilter]);
+
+  if (loading) {
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-4">Name</th>
+              <th className="text-left p-4">Description</th>
+              <th className="text-left p-4">Status</th>
+              <th className="text-left p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, i) => (
+              <tr key={i} className="border-b">
+                <td className="p-4"><Skeleton className="h-5 w-32" /></td>
+                <td className="p-4"><Skeleton className="h-4 w-48" /></td>
+                <td className="p-4"><Skeleton className="h-6 w-20" /></td>
+                <td className="p-4">
+                  <div className="flex space-x-2">
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 
   if (filteredTypes.length === 0) {
     return (

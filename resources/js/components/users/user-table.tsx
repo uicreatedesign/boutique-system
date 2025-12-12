@@ -2,16 +2,19 @@ import { useState, useEffect } from 'react';
 import { getUsers } from '@/api/users';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Trash2, Edit, Eye } from 'lucide-react';
 import UserEditModal from './user-edit-modal';
 import UserDetailModal from './user-detail-modal';
 import UserDeleteDialog from './user-delete-dialog';
 import Pagination from '@/components/ui/pagination';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface User {
   id: number;
   name: string;
   email: string;
+  avatar?: string;
   roles: Array<{ id: number; name: string }>;
   created_at: string;
 }
@@ -63,7 +66,43 @@ export default function UserTable({ search }: UserTableProps) {
   };
 
   if (loading) {
-    return <div className="text-center py-4">Loading...</div>;
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-4">Name</th>
+              <th className="text-left p-4">Email</th>
+              <th className="text-left p-4">Roles</th>
+              <th className="text-left p-4">Created</th>
+              <th className="text-left p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, i) => (
+              <tr key={i} className="border-b">
+                <td className="p-4">
+                  <div className="flex items-center gap-3">
+                    <Skeleton className="h-10 w-10 rounded-full" />
+                    <Skeleton className="h-5 w-32" />
+                  </div>
+                </td>
+                <td className="p-4"><Skeleton className="h-4 w-40" /></td>
+                <td className="p-4"><Skeleton className="h-6 w-20" /></td>
+                <td className="p-4"><Skeleton className="h-4 w-24" /></td>
+                <td className="p-4">
+                  <div className="flex space-x-2">
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   }
 
   return (
@@ -82,7 +121,18 @@ export default function UserTable({ search }: UserTableProps) {
           <tbody>
             {users.map((user) => (
               <tr key={user.id} className="border-b hover:bg-gray-50 dark:hover:bg-[oklch(0.269_0_0)]">
-                <td className="p-4 font-medium">{user.name}</td>
+                <td className="p-4">
+                  <div className="flex items-center gap-3">
+                    <Avatar>
+                      {user.avatar ? (
+                        <img src={`/storage/${user.avatar}`} alt={user.name} className="h-full w-full object-cover" />
+                      ) : (
+                        <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
+                      )}
+                    </Avatar>
+                    <span className="font-medium">{user.name}</span>
+                  </div>
+                </td>
                 <td className="p-4">{user.email}</td>
                 <td className="p-4">
                   <div className="flex flex-wrap gap-1">
