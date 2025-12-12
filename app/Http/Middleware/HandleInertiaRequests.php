@@ -46,6 +46,14 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'appSettings' => [
+                'currency' => \App\Services\SettingsService::getCurrency(),
+                'currency_symbol' => \App\Services\SettingsService::getCurrencySymbol(),
+                'app_name' => \App\Services\SettingsService::getAppName(),
+                'business_name' => \App\Services\SettingsService::getBusinessName(),
+                'tax_rate' => \App\Services\SettingsService::getTaxRate(),
+            ],
+            'userPermissions' => $request->user()?->getAllPermissions() ?? [],
         ];
     }
 }

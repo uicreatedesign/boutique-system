@@ -1,18 +1,23 @@
 import { usePage } from '@inertiajs/react';
 
-export function usePermissions() {
+export function usePermissions(): string[] {
     const { userPermissions } = usePage().props as any;
+    return Array.isArray(userPermissions) ? userPermissions : [];
+}
+
+export function useHasPermission() {
+    const permissions = usePermissions();
     
     const hasPermission = (permission: string): boolean => {
-        return Array.isArray(userPermissions) && userPermissions.includes(permission);
+        return permissions.includes(permission);
     };
 
-    const hasAnyPermission = (permissions: string[]): boolean => {
-        return permissions.some(permission => hasPermission(permission));
+    const hasAnyPermission = (perms: string[]): boolean => {
+        return perms.some(permission => hasPermission(permission));
     };
 
-    const hasAllPermissions = (permissions: string[]): boolean => {
-        return permissions.every(permission => hasPermission(permission));
+    const hasAllPermissions = (perms: string[]): boolean => {
+        return perms.every(permission => hasPermission(permission));
     };
 
     const canView = (module: string): boolean => {
@@ -39,6 +44,6 @@ export function usePermissions() {
         canCreate,
         canEdit,
         canDelete,
-        permissions: userPermissions || [],
+        permissions,
     };
 }
