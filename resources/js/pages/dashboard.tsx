@@ -385,7 +385,8 @@ export default function Dashboard({ stats, pendingPayments = [], upcomingDeliver
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className='hidden'>
+
                             <CardHeader>
                                 <CardTitle>Tailor Performance</CardTitle>
                             </CardHeader>
