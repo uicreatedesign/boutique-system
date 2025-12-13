@@ -29,7 +29,7 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $perPage = min($request->get('per_page', 15), 100);
+        $perPage = min($request->get('per_page', 10), 100);
         $orders = Order::with(['customer', 'garmentType', 'tailor', 'stitchingStatus'])
             ->latest()
             ->paginate($perPage);
@@ -66,6 +66,7 @@ class OrderController extends Controller
             'measurement_notes' => 'nullable|string',
             'fabric_id' => 'nullable|exists:fabrics,id',
             'customer_fabric' => 'boolean',
+            'customer_fabric_photo' => 'nullable|image|max:2048',
             'stitching_status_id' => 'required|exists:stitching_statuses,id',
             'order_date' => 'required|date',
             'delivery_date' => 'required|date|after_or_equal:order_date',
@@ -87,6 +88,12 @@ class OrderController extends Controller
                 'notes' => $validated['measurement_notes'] ?? null,
             ]);
             $validated['measurement_id'] = $measurement->id;
+        }
+
+        // Handle customer fabric photo upload
+        if ($request->hasFile('customer_fabric_photo')) {
+            $path = $request->file('customer_fabric_photo')->store('fabric-photos', 'public');
+            $validated['customer_fabric_photo'] = $path;
         }
 
         $order = Order::create($validated);
@@ -138,6 +145,7 @@ class OrderController extends Controller
             'measurement_id' => 'nullable|exists:customer_measurements,id',
             'fabric_id' => 'nullable|exists:fabrics,id',
             'customer_fabric' => 'boolean',
+            'customer_fabric_photo' => 'nullable|image|max:2048',
             'stitching_status_id' => 'required|exists:stitching_statuses,id',
             'order_date' => 'required|date',
             'delivery_date' => 'required|date|after_or_equal:order_date',
@@ -147,6 +155,12 @@ class OrderController extends Controller
             'special_instructions' => 'nullable|string',
             'notes' => 'nullable|string',
         ]);
+
+        // Handle customer fabric photo upload
+        if ($request->hasFile('customer_fabric_photo')) {
+            $path = $request->file('customer_fabric_photo')->store('fabric-photos', 'public');
+            $validated['customer_fabric_photo'] = $path;
+        }
 
         $order->update($validated);
 

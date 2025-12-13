@@ -9,7 +9,7 @@ class Order extends Model
 {
     protected $fillable = [
         'order_number', 'customer_id', 'garment_type_id', 'tailor_id',
-        'measurement_id', 'fabric_id', 'customer_fabric', 'stitching_status_id',
+        'measurement_id', 'fabric_id', 'customer_fabric', 'customer_fabric_photo', 'stitching_status_id',
         'order_date', 'delivery_date', 'priority', 'total_amount',
         'advance_paid', 'discount', 'special_instructions', 'notes'
     ];

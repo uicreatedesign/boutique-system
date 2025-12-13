@@ -35,7 +35,7 @@ interface Props {
 export default function OrdersIndex({ orders, canCreate = false, canEdit = false }: Props) {
   const { url } = usePage();
   const urlParams = new URLSearchParams(window.location.search);
-  const [perPage, setPerPage] = useState(15);
+  const [perPage, setPerPage] = useState(10);
   const [search, setSearch] = useState(urlParams.get('search') || '');
   const [loading, setLoading] = useState(false);
   const { formatCurrency } = useCurrency();
@@ -197,11 +197,6 @@ export default function OrdersIndex({ orders, canCreate = false, canEdit = false
               showingFrom={(orders.current_page - 1) * perPage + 1}
               showingTo={Math.min(orders.current_page * perPage, orders.data.length)}
               total={orders.data.length}
-              perPage={perPage}
-              onPerPageChange={(newPerPage) => {
-                setPerPage(newPerPage);
-                router.get('/orders', { per_page: newPerPage }, { preserveState: true });
-              }}
             />
           </div>
         )}

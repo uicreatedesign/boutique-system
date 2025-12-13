@@ -55,6 +55,7 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
     measurement_notes: '',
     fabric_id: '',
     customer_fabric: false,
+    customer_fabric_photo: null as File | null,
     stitching_status_id: statuses[0]?.id.toString() || '',
     order_date: new Date().toISOString().split('T')[0],
     delivery_date: '',
@@ -336,6 +337,21 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                   Customer provided fabric
                 </label>
               </div>
+
+              {data.customer_fabric && (
+                <div>
+                  <Label>Fabric Photo</Label>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) setData('customer_fabric_photo', file);
+                    }}
+                  />
+                  {errors.customer_fabric_photo && <p className="text-sm text-red-500 mt-1">{errors.customer_fabric_photo}</p>}
+                </div>
+              )}
 
               {!data.customer_fabric && (
                 <div>

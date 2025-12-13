@@ -126,6 +126,71 @@ export default function GeneralSettings() {
         }
     };
 
+    if (loading && !settings.app_name) {
+        return (
+            <AppLayout breadcrumbs={breadcrumbs}>
+                <Head title="General Settings" />
+                <SettingsLayout>
+                    <div className="space-y-6">
+                        <HeadingSmall
+                            title="General Settings"
+                            description="Configure application and business settings"
+                        />
+                        <div className="space-y-6">
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div className="grid gap-2">
+                                    <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                                <div className="grid gap-2">
+                                    <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                                <div className="grid gap-2">
+                                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                                <div className="grid gap-2">
+                                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                                <div className="grid gap-2">
+                                    <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                            </div>
+                            <div className="grid gap-2">
+                                <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+                                <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                            </div>
+                            <div className="grid gap-2">
+                                <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                                <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                            </div>
+                            <div className="grid gap-2">
+                                <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                                <div className="h-24 w-full bg-gray-200 rounded animate-pulse" />
+                            </div>
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div className="grid gap-2">
+                                    <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                                <div className="grid gap-2">
+                                    <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                                    <div className="h-10 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                            </div>
+                            <div className="h-10 w-24 bg-gray-200 rounded animate-pulse" />
+                        </div>
+                    </div>
+                </SettingsLayout>
+            </AppLayout>
+        );
+    }
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="General Settings" />

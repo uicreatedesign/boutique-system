@@ -18,6 +18,7 @@ interface Order {
   measurement: { measurement_type: string } | null;
   fabric: { name: string } | null;
   customer_fabric: boolean;
+  customer_fabric_photo: string | null;
   stitching_status: { name: string; color: string };
   order_date: string;
   delivery_date: string;
@@ -159,6 +160,17 @@ export default function OrdersShow({ order, canEdit = false }: Props) {
                   {order.customer_fabric ? 'Customer Provided' : order.fabric?.name || 'Not specified'}
                 </p>
               </div>
+              {order.customer_fabric && order.customer_fabric_photo && (
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Fabric Photo</p>
+                  <img 
+                    src={`/storage/${order.customer_fabric_photo}`} 
+                    alt="Customer Fabric" 
+                    className="w-full max-w-xs rounded-lg border shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+                    onClick={() => window.open(`/storage/${order.customer_fabric_photo}`, '_blank')}
+                  />
+                </div>
+              )}
               {order.special_instructions && (
                 <div>
                   <p className="text-sm text-gray-600">Special Instructions</p>
