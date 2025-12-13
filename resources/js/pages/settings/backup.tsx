@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { type BreadcrumbItem } from '@/types';
@@ -30,9 +30,10 @@ export default function BackupSettings() {
 
   const handleBackup = () => {
     setIsBackingUp(true);
+    window.location.href = '/api/settings/backup/create';
     setTimeout(() => {
       setIsBackingUp(false);
-    }, 3000);
+    }, 2000);
   };
 
   const backupHistory = [

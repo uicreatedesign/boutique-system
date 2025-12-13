@@ -44,4 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/backup', function () {
         return Inertia::render('settings/backup');
     })->name('backup.index');
+    
+    Route::get('api/settings/backup/create', [\App\Http\Controllers\Settings\BackupController::class, 'create'])->name('backup.create');
 });
