@@ -48,7 +48,9 @@ class SettingsService
 
     public static function formatCurrency(float $amount): string
     {
-        return static::getCurrencySymbol() . number_format($amount, 2);
+        $symbol = static::getCurrencySymbol();
+        $formatted = number_format($amount, 2);
+        return $symbol . ' ' . $formatted;
     }
 
     public static function getBusinessInfo(): array

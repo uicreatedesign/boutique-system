@@ -144,7 +144,7 @@ const getNavGroups = (permissions: string[]): NavGroup[] => {
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
+        title: 'Support',
         href: 'https://github.com/uicreatedesign/boutique-system',
         icon: Folder,
     },
@@ -175,7 +175,7 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                <NavFooter items={footerNavItems} className="mt-auto hidden" />
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

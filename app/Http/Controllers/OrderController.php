@@ -43,12 +43,13 @@ class OrderController extends Controller
 
     public function create()
     {
-        return Inertia::render('Orders/Create', [
+        return Inertia::render('Orders/CreateEnhanced', [
             'customers' => Customer::select('id', 'name')->get(),
             'garmentTypes' => GarmentType::where('status', 'active')->select('id', 'name')->get(),
             'tailors' => Tailor::where('status', 'active')->select('id', 'name')->get(),
             'fabrics' => Fabric::where('status', 'available')->select('id', 'name', 'price_per_meter')->get(),
             'statuses' => StitchingStatus::where('status', 'active')->orderBy('order')->select('id', 'name', 'color')->get(),
+            'categories' => \App\Models\MeasurementCategory::with('fields')->where('is_active', true)->orderBy('sort_order')->get(),
         ]);
     }
 
@@ -59,6 +60,10 @@ class OrderController extends Controller
             'garment_type_id' => 'required|exists:garment_types,id',
             'tailor_id' => 'required|exists:tailors,id',
             'measurement_id' => 'nullable|exists:customer_measurements,id',
+            'measurement_option' => 'nullable|in:existing,new,skip',
+            'new_measurement_type' => 'nullable|required_if:measurement_option,new',
+            'new_measurements' => 'nullable|array',
+            'measurement_notes' => 'nullable|string',
             'fabric_id' => 'nullable|exists:fabrics,id',
             'customer_fabric' => 'boolean',
             'stitching_status_id' => 'required|exists:stitching_statuses,id',
@@ -72,9 +77,21 @@ class OrderController extends Controller
             'notes' => 'nullable|string',
         ]);
 
+        // Create new measurement if option is 'new'
+        if ($request->measurement_option === 'new' && !empty($request->new_measurements)) {
+            $measurement = CustomerMeasurement::create([
+                'customer_id' => $validated['customer_id'],
+                'tailor_id' => $validated['tailor_id'],
+                'measurement_type' => $validated['new_measurement_type'],
+                'measurements' => $validated['new_measurements'],
+                'notes' => $validated['measurement_notes'] ?? null,
+            ]);
+            $validated['measurement_id'] = $measurement->id;
+        }
+
         $order = Order::create($validated);
 
-        if ($validated['advance_paid'] > 0) {
+        if (!empty($validated['advance_paid']) && $validated['advance_paid'] > 0) {
             OrderPayment::create([
                 'order_id' => $order->id,
                 'payment_date' => $validated['order_date'],
@@ -146,7 +163,10 @@ class OrderController extends Controller
     {
         $order->load(['customer', 'garmentType', 'tailor', 'measurement', 'fabric', 'stitchingStatus', 'payments']);
         
-        $pdf = PDF::loadView('invoices.order', ['order' => $order]);
+        $pdf = PDF::loadView('invoices.order', ['order' => $order])
+            ->setPaper('a4', 'portrait')
+            ->setOption('isHtml5ParserEnabled', true)
+            ->setOption('isRemoteEnabled', true);
         return $pdf->download('invoice-' . $order->order_number . '.pdf');
     }
 
@@ -154,7 +174,10 @@ class OrderController extends Controller
     {
         $order->load(['customer', 'garmentType', 'tailor', 'measurement', 'fabric']);
         
-        $pdf = PDF::loadView('measurement-slip', ['order' => $order]);
+        $pdf = PDF::loadView('measurement-slip', ['order' => $order])
+            ->setPaper('a4', 'portrait')
+            ->setOption('isHtml5ParserEnabled', true)
+            ->setOption('isRemoteEnabled', true);
         return $pdf->download('measurement-slip-' . $order->order_number . '.pdf');
     }
 

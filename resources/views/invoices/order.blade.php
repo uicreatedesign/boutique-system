@@ -5,7 +5,7 @@
     <title>Invoice - {{ $order->order_number }}</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: DejaVu Sans, Arial, sans-serif;
             margin: 0;
             padding: 20px;
             color: #333;
@@ -152,7 +152,7 @@
                     Fabric: {{ $order->fabric->name }}
                     @endif
                 </td>
-                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->total_amount) }}</td>
+                <td style="text-align: right;">{!! \App\Services\SettingsService::formatCurrency($order->total_amount) !!}</td>
             </tr>
             @if($order->special_instructions)
             <tr>
@@ -169,25 +169,25 @@
         <table>
             <tr>
                 <td>Subtotal:</td>
-                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->total_amount) }}</td>
+                <td style="text-align: right;">{!! \App\Services\SettingsService::formatCurrency($order->total_amount) !!}</td>
             </tr>
             @if($order->discount > 0)
             <tr>
                 <td>Discount:</td>
-                <td style="text-align: right;">-{{ \App\Services\SettingsService::formatCurrency($order->discount) }}</td>
+                <td style="text-align: right;">-{!! \App\Services\SettingsService::formatCurrency($order->discount) !!}</td>
             </tr>
             @endif
             <tr class="total-row">
                 <td>Total:</td>
-                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->total_amount - $order->discount) }}</td>
+                <td style="text-align: right;">{!! \App\Services\SettingsService::formatCurrency($order->total_amount - $order->discount) !!}</td>
             </tr>
             <tr>
                 <td>Paid:</td>
-                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->payments->sum('amount')) }}</td>
+                <td style="text-align: right;">{!! \App\Services\SettingsService::formatCurrency($order->payments->sum('amount')) !!}</td>
             </tr>
             <tr class="total-row">
                 <td>Balance Due:</td>
-                <td style="text-align: right;">{{ \App\Services\SettingsService::formatCurrency($order->balance_due) }}</td>
+                <td style="text-align: right;">{!! \App\Services\SettingsService::formatCurrency($order->balance_due) !!}</td>
             </tr>
         </table>
     </div>
@@ -209,7 +209,7 @@
             @foreach($order->payments as $payment)
             <tr>
                 <td>{{ $payment->payment_date->format('d M, Y') }}</td>
-                <td>{{ \App\Services\SettingsService::formatCurrency($payment->amount) }}</td>
+                <td>{!! \App\Services\SettingsService::formatCurrency($payment->amount) !!}</td>
                 <td>{{ ucfirst($payment->payment_method) }}</td>
                 <td>{{ ucfirst($payment->payment_type) }}</td>
             </tr>

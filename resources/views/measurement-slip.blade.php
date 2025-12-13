@@ -6,7 +6,7 @@
     <style>
         @page { margin: 0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; padding: 15mm; font-size: 11pt; line-height: 1.4; }
+        body { font-family: DejaVu Sans, Arial, sans-serif; padding: 15mm; font-size: 11pt; line-height: 1.4; }
         .header { text-align: center; margin-bottom: 15px; border-bottom: 3px double #000; padding-bottom: 10px; }
         .header h1 { font-size: 20pt; margin-bottom: 3px; letter-spacing: 2px; }
         .header p { font-size: 12pt; }
