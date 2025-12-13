@@ -22,11 +22,11 @@ export default function FabricsIndex({ canCreate = false }: Props) {
     <AppLayout>
       <Head title="Fabrics & Materials" />
       
-      <div className="space-y-6 p-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Fabrics & Materials</h1>
+      <div className="space-y-4 sm:space-y-6 p-3 sm:p-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+          <h1 className="text-2xl sm:text-3xl font-bold">Fabrics & Materials</h1>
           {canCreate && (
-            <Button onClick={() => setShowCreateModal(true)}>
+            <Button onClick={() => setShowCreateModal(true)} className="w-full sm:w-auto">
               <Plus className="h-4 w-4 mr-2" />
               Add Fabric
             </Button>
@@ -35,20 +35,20 @@ export default function FabricsIndex({ canCreate = false }: Props) {
 
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between gap-4">
-              <CardTitle>Fabric Inventory</CardTitle>
-              <div className="flex gap-2">
-                <div className="relative">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+              <CardTitle className="text-lg sm:text-xl">Fabric Inventory</CardTitle>
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <div className="relative w-full sm:w-64">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
                     placeholder="Search fabrics..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="pl-10 w-64"
+                    className="pl-10 w-full"
                   />
                 </div>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-full sm:w-40">
                     <SelectValue placeholder="All Status" />
                   </SelectTrigger>
                   <SelectContent>

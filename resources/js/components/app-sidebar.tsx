@@ -128,12 +128,12 @@ const getNavGroups = (permissions: string[]): NavGroup[] => {
                     icon: Shield,
                     permission: 'view_roles',
                 },
-                {
-                    title: 'Settings',
-                    href: '/settings',
-                    icon: Settings,
-                    permission: 'access_settings',
-                },
+                // {
+                //     title: 'Settings',
+                //     href: '/settings',
+                //     icon: Settings,
+                //     permission: 'access_settings',
+                // },
             ],
         },
     ].map(group => ({

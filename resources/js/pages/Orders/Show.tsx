@@ -57,16 +57,22 @@ export default function OrdersShow({ order, canEdit = false }: Props) {
             <h1 className="text-2xl sm:text-3xl font-bold">{order.order_number}</h1>
             <p className="text-gray-600 mt-1">Order Details</p>
           </div>
-          <div className="flex gap-2 w-full sm:w-auto">
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <a href={`/orders/${order.id}/invoice`} target="_blank">
-              <Button variant="outline">
+              <Button variant="outline" size="sm">
                 <Download className="h-4 w-4 mr-2" />
                 Invoice
               </Button>
             </a>
+            <a href={`/orders/${order.id}/measurement-slip`} target="_blank">
+              <Button variant="outline" size="sm">
+                <Download className="h-4 w-4 mr-2" />
+                Measurement Slip
+              </Button>
+            </a>
             {canEdit && (
               <Link href={`/orders/${order.id}/edit`}>
-                <Button>
+                <Button size="sm">
                   <Edit className="h-4 w-4 mr-2" />
                   Edit
                 </Button>

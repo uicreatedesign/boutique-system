@@ -24,7 +24,7 @@ class OrderController extends Controller
         $this->middleware('can:edit_orders')->only(['edit', 'update']);
         $this->middleware('can:delete_orders')->only(['destroy']);
         $this->middleware('can:manage_order_payments')->only(['addPayment']);
-        $this->middleware('can:generate_invoices')->only(['invoice']);
+        $this->middleware('can:generate_invoices')->only(['invoice', 'measurementSlip']);
     }
 
     public function index(Request $request)
@@ -148,6 +148,14 @@ class OrderController extends Controller
         
         $pdf = PDF::loadView('invoices.order', ['order' => $order]);
         return $pdf->download('invoice-' . $order->order_number . '.pdf');
+    }
+
+    public function measurementSlip(Order $order)
+    {
+        $order->load(['customer', 'garmentType', 'tailor', 'measurement', 'fabric']);
+        
+        $pdf = PDF::loadView('measurement-slip', ['order' => $order]);
+        return $pdf->download('measurement-slip-' . $order->order_number . '.pdf');
     }
 
     public function addPayment(Request $request, Order $order)

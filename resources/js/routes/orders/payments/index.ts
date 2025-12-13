@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\OrderController::add
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
 export const add = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -16,7 +16,7 @@ add.definition = {
 
 /**
 * @see \App\Http\Controllers\OrderController::add
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
 add.url = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ add.url = (args: { order: number | { id: number } } | [order: number | { id: num
 
 /**
 * @see \App\Http\Controllers\OrderController::add
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
 add.post = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -59,7 +59,7 @@ add.post = (args: { order: number | { id: number } } | [order: number | { id: nu
 
     /**
 * @see \App\Http\Controllers\OrderController::add
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
     const addForm = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -69,7 +69,7 @@ add.post = (args: { order: number | { id: number } } | [order: number | { id: nu
 
             /**
 * @see \App\Http\Controllers\OrderController::add
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
         addForm.post = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

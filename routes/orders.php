@@ -12,6 +12,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
     Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice');
+    Route::get('/orders/{order}/measurement-slip', [OrderController::class, 'measurementSlip'])->name('orders.measurement-slip');
     Route::post('/orders/{order}/payments', [OrderController::class, 'addPayment'])->name('orders.payments.add');
     Route::get('/api/measurements', [OrderController::class, 'getMeasurements'])->name('orders.measurements');
 });

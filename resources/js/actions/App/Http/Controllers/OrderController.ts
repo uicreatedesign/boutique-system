@@ -695,8 +695,110 @@ invoice.head = (args: { order: number | { id: number } } | [order: number | { id
     
     invoice.form = invoiceForm
 /**
-* @see \App\Http\Controllers\OrderController::addPayment
+* @see \App\Http\Controllers\OrderController::measurementSlip
  * @see app/Http/Controllers/OrderController.php:153
+ * @route '/orders/{order}/measurement-slip'
+ */
+export const measurementSlip = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: measurementSlip.url(args, options),
+    method: 'get',
+})
+
+measurementSlip.definition = {
+    methods: ["get","head"],
+    url: '/orders/{order}/measurement-slip',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\OrderController::measurementSlip
+ * @see app/Http/Controllers/OrderController.php:153
+ * @route '/orders/{order}/measurement-slip'
+ */
+measurementSlip.url = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { order: args }
+    }
+
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { order: args.id }
+        }
+    
+    if (Array.isArray(args)) {
+        args = {
+                    order: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        order: typeof args.order === 'object'
+                ? args.order.id
+                : args.order,
+                }
+
+    return measurementSlip.definition.url
+            .replace('{order}', parsedArgs.order.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\OrderController::measurementSlip
+ * @see app/Http/Controllers/OrderController.php:153
+ * @route '/orders/{order}/measurement-slip'
+ */
+measurementSlip.get = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: measurementSlip.url(args, options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\OrderController::measurementSlip
+ * @see app/Http/Controllers/OrderController.php:153
+ * @route '/orders/{order}/measurement-slip'
+ */
+measurementSlip.head = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: measurementSlip.url(args, options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\OrderController::measurementSlip
+ * @see app/Http/Controllers/OrderController.php:153
+ * @route '/orders/{order}/measurement-slip'
+ */
+    const measurementSlipForm = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: measurementSlip.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\OrderController::measurementSlip
+ * @see app/Http/Controllers/OrderController.php:153
+ * @route '/orders/{order}/measurement-slip'
+ */
+        measurementSlipForm.get = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: measurementSlip.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\OrderController::measurementSlip
+ * @see app/Http/Controllers/OrderController.php:153
+ * @route '/orders/{order}/measurement-slip'
+ */
+        measurementSlipForm.head = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: measurementSlip.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    measurementSlip.form = measurementSlipForm
+/**
+* @see \App\Http\Controllers\OrderController::addPayment
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
 export const addPayment = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -711,7 +813,7 @@ addPayment.definition = {
 
 /**
 * @see \App\Http\Controllers\OrderController::addPayment
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
 addPayment.url = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -744,7 +846,7 @@ addPayment.url = (args: { order: number | { id: number } } | [order: number | { 
 
 /**
 * @see \App\Http\Controllers\OrderController::addPayment
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
 addPayment.post = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -754,7 +856,7 @@ addPayment.post = (args: { order: number | { id: number } } | [order: number | {
 
     /**
 * @see \App\Http\Controllers\OrderController::addPayment
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
     const addPaymentForm = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -764,7 +866,7 @@ addPayment.post = (args: { order: number | { id: number } } | [order: number | {
 
             /**
 * @see \App\Http\Controllers\OrderController::addPayment
- * @see app/Http/Controllers/OrderController.php:153
+ * @see app/Http/Controllers/OrderController.php:161
  * @route '/orders/{order}/payments'
  */
         addPaymentForm.post = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -775,7 +877,7 @@ addPayment.post = (args: { order: number | { id: number } } | [order: number | {
     addPayment.form = addPaymentForm
 /**
 * @see \App\Http\Controllers\OrderController::getMeasurements
- * @see app/Http/Controllers/OrderController.php:170
+ * @see app/Http/Controllers/OrderController.php:178
  * @route '/api/measurements'
  */
 export const getMeasurements = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -790,7 +892,7 @@ getMeasurements.definition = {
 
 /**
 * @see \App\Http\Controllers\OrderController::getMeasurements
- * @see app/Http/Controllers/OrderController.php:170
+ * @see app/Http/Controllers/OrderController.php:178
  * @route '/api/measurements'
  */
 getMeasurements.url = (options?: RouteQueryOptions) => {
@@ -799,7 +901,7 @@ getMeasurements.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\OrderController::getMeasurements
- * @see app/Http/Controllers/OrderController.php:170
+ * @see app/Http/Controllers/OrderController.php:178
  * @route '/api/measurements'
  */
 getMeasurements.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -808,7 +910,7 @@ getMeasurements.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => (
 })
 /**
 * @see \App\Http\Controllers\OrderController::getMeasurements
- * @see app/Http/Controllers/OrderController.php:170
+ * @see app/Http/Controllers/OrderController.php:178
  * @route '/api/measurements'
  */
 getMeasurements.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -818,7 +920,7 @@ getMeasurements.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =>
 
     /**
 * @see \App\Http\Controllers\OrderController::getMeasurements
- * @see app/Http/Controllers/OrderController.php:170
+ * @see app/Http/Controllers/OrderController.php:178
  * @route '/api/measurements'
  */
     const getMeasurementsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -828,7 +930,7 @@ getMeasurements.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =>
 
             /**
 * @see \App\Http\Controllers\OrderController::getMeasurements
- * @see app/Http/Controllers/OrderController.php:170
+ * @see app/Http/Controllers/OrderController.php:178
  * @route '/api/measurements'
  */
         getMeasurementsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -837,7 +939,7 @@ getMeasurements.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =>
         })
             /**
 * @see \App\Http\Controllers\OrderController::getMeasurements
- * @see app/Http/Controllers/OrderController.php:170
+ * @see app/Http/Controllers/OrderController.php:178
  * @route '/api/measurements'
  */
         getMeasurementsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -851,6 +953,6 @@ getMeasurements.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =>
         })
     
     getMeasurements.form = getMeasurementsForm
-const OrderController = { index, create, store, show, edit, update, destroy, invoice, addPayment, getMeasurements }
+const OrderController = { index, create, store, show, edit, update, destroy, invoice, measurementSlip, addPayment, getMeasurements }
 
 export default OrderController
