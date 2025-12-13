@@ -29,7 +29,7 @@ interface Props {
 
 export default function MeasurementsIndex({ measurements, search }: Props) {
   const [searchTerm, setSearchTerm] = useState(search || '');
-  const [perPage, setPerPage] = useState(15);
+  const [perPage, setPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
 
   return (

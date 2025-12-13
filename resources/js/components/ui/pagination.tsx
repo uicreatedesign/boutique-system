@@ -58,8 +58,8 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex items-center justify-between px-2 py-4">
-      <div className="flex items-center gap-4">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-2 py-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
         <div className="text-sm text-muted-foreground">
           Showing {showingFrom} to {showingTo} of {total} results
         </div>
@@ -85,7 +85,7 @@ export default function Pagination({
         )}
       </div>
       
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 w-full sm:w-auto justify-center sm:justify-end">
         <Button
           variant="outline"
           size="icon"

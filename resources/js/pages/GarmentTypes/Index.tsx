@@ -24,7 +24,7 @@ export default function GarmentTypesIndex({ canCreate = false }: Props) {
       
       <div className="space-y-6 p-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Garment Types</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">Garment Types</h1>
           {canCreate && (
             <Button onClick={() => setShowCreateModal(true)}>
               <Plus className="h-4 w-4 mr-2" />
@@ -35,20 +35,20 @@ export default function GarmentTypesIndex({ canCreate = false }: Props) {
 
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <CardTitle>Garment Type List</CardTitle>
-              <div className="flex gap-2">
-                <div className="relative">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <div className="relative w-full sm:w-64">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
                     placeholder="Search garment types..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="pl-10 w-64"
+                    className="pl-10 w-full"
                   />
                 </div>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-full sm:w-40">
                     <SelectValue placeholder="All Status" />
                   </SelectTrigger>
                   <SelectContent>

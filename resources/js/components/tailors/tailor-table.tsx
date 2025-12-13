@@ -7,6 +7,7 @@ import TailorEditModal from './tailor-edit-modal';
 import TailorDetailModal from './tailor-detail-modal';
 import TailorDeleteDialog from './tailor-delete-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
+import { usePage } from '@inertiajs/react';
 
 interface Tailor {
   id: number;
@@ -17,6 +18,7 @@ interface Tailor {
   status: string;
   hourly_rate: string;
   specialization: string;
+  orders_count?: number;
 }
 
 interface TailorTableProps {
@@ -25,6 +27,8 @@ interface TailorTableProps {
 }
 
 export default function TailorTable({ search, statusFilter }: TailorTableProps) {
+  const { appSettings } = usePage().props as any;
+  const currencySymbol = appSettings?.currency_symbol || '$';
   const [tailors, setTailors] = useState<Tailor[]>([]);
   const [loading, setLoading] = useState(true);
   const [editTailor, setEditTailor] = useState<Tailor | null>(null);
@@ -83,6 +87,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
               <th className="text-left p-4">Skill Level</th>
               <th className="text-left p-4">Status</th>
               <th className="text-left p-4">Hourly Rate</th>
+              <th className="text-left p-4">Orders</th>
               <th className="text-left p-4">Actions</th>
             </tr>
           </thead>
@@ -99,6 +104,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
                 <td className="p-4"><Skeleton className="h-6 w-24" /></td>
                 <td className="p-4"><Skeleton className="h-6 w-20" /></td>
                 <td className="p-4"><Skeleton className="h-4 w-16" /></td>
+                <td className="p-4"><Skeleton className="h-6 w-12" /></td>
                 <td className="p-4">
                   <div className="flex space-x-2">
                     <Skeleton className="h-9 w-9" />
@@ -125,6 +131,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
               <th className="text-left p-4">Skill Level</th>
               <th className="text-left p-4">Status</th>
               <th className="text-left p-4">Hourly Rate</th>
+              <th className="text-left p-4">Orders</th>
               <th className="text-left p-4">Actions</th>
             </tr>
           </thead>
@@ -149,7 +156,10 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
                   </Badge>
                 </td>
                 <td className="p-4 text-sm">
-                  {tailor.hourly_rate ? `$${tailor.hourly_rate}/hr` : '-'}
+                  {tailor.hourly_rate ? `${currencySymbol}${tailor.hourly_rate}/hr` : '-'}
+                </td>
+                <td className="p-4 text-sm">
+                  <Badge variant="secondary">{tailor.orders_count || 0}</Badge>
                 </td>
                 <td className="p-4">
                   <div className="flex space-x-2">

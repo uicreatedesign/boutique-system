@@ -88,17 +88,18 @@ export default function NotificationsIndex({ notifications, stats, types, filter
       <Head title="Notifications" />
       
       <div className="container mx-auto px-4 py-6 space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Bell className="h-6 w-6" />
-            <h1 className="text-2xl font-bold">Notifications</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold">Notifications</h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <NotificationCreateModal />
             {stats.unread > 0 && (
-              <Button onClick={markAllAsRead} variant="outline" size="sm">
+              <Button onClick={markAllAsRead} variant="outline" size="sm" className="flex-1 sm:flex-none">
                 <CheckCheck className="h-4 w-4 mr-2" />
-                Mark All Read
+                <span className="hidden sm:inline">Mark All Read</span>
+                <span className="sm:hidden">Mark Read</span>
               </Button>
             )}
           </div>

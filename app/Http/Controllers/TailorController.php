@@ -17,7 +17,7 @@ class TailorController extends Controller
     }
     public function index(Request $request)
     {
-        $query = Tailor::query();
+        $query = Tailor::withCount('orders');
 
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
