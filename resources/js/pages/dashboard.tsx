@@ -75,8 +75,11 @@ interface Props {
     }>;
 }
 
-export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, recentOrders, topCustomers, tailorPerformance, monthlyRevenue, statusDistribution }: Props) {
+export default function Dashboard({ stats, pendingPayments = [], upcomingDeliveries, recentOrders, topCustomers, tailorPerformance, monthlyRevenue, statusDistribution }: Props) {
     const { formatCurrency } = useCurrency();
+    
+    // Ensure arrays are properly initialized
+    const safePendingPayments = Array.isArray(pendingPayments) ? pendingPayments : [];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -264,11 +267,11 @@ export default function Dashboard({ stats, pendingPayments, upcomingDeliveries, 
                             <CardTitle>Pending Payments</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            {pendingPayments.length === 0 ? (
+                            {safePendingPayments.length === 0 ? (
                                 <p className="text-sm text-gray-500 text-center py-4">No pending payments</p>
                             ) : (
                                 <div className="space-y-3">
-                                    {pendingPayments.map((payment) => (
+                                    {safePendingPayments.map((payment) => (
                                         <Link key={payment.id} href={`/orders/${payment.id}`}>
                                             <div className="flex items-center justify-between p-3 border rounded hover:bg-gray-50 cursor-pointer">
                                                 <div className="flex-1 min-w-0">

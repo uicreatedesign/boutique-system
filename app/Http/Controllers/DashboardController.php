@@ -54,7 +54,7 @@ class DashboardController extends Controller
                     'balance_due' => $order->balance_due,
                     'status' => $order->stitchingStatus->name,
                 ];
-            });
+            })->values();
 
         // Upcoming Deliveries
         $upcomingDeliveries = Order::with(['customer', 'stitchingStatus'])
