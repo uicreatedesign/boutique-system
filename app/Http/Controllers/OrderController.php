@@ -51,6 +51,7 @@ class OrderController extends Controller
             'filters' => $request->only(['search', 'status', 'per_page']),
             'canCreate' => auth()->user()->can('create_orders'),
             'canEdit' => auth()->user()->can('edit_orders'),
+            'canGenerateInvoice' => auth()->user()->can('generate_invoices'),
         ]);
     }
 

@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Plus, Eye, Search, Edit } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Plus, Eye, Search, Edit, Printer } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -22,21 +23,37 @@ interface Order {
   priority: string;
 }
 
+interface Status {
+  id: number;
+  name: string;
+  color: string;
+}
+
 interface Props {
   orders: {
     data: Order[];
     current_page: number;
     last_page: number;
+    total: number;
+    per_page: number;
+  };
+  statuses: Status[];
+  filters: {
+    search?: string;
+    status?: string;
+    per_page?: number;
   };
   canCreate?: boolean;
   canEdit?: boolean;
+  canGenerateInvoice?: boolean;
 }
 
-export default function OrdersIndex({ orders, canCreate = false, canEdit = false }: Props) {
+export default function OrdersIndex({ orders, statuses, filters, canCreate = false, canEdit = false, canGenerateInvoice = false }: Props) {
   const { url } = usePage();
   const urlParams = new URLSearchParams(window.location.search);
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(filters.per_page || 10);
   const [search, setSearch] = useState(urlParams.get('search') || '');
+  const [statusFilter, setStatusFilter] = useState(urlParams.get('status') || '');
   const [loading, setLoading] = useState(false);
   const { formatCurrency } = useCurrency();
 
@@ -67,25 +84,49 @@ export default function OrdersIndex({ orders, canCreate = false, canEdit = false
 
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <CardTitle>Order List</CardTitle>
-              <div className="relative max-w-sm">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search orders..."
-                  value={search}
-                  onChange={(e) => {
-                    setSearch(e.target.value);
-                    const params = new URLSearchParams(window.location.search);
-                    if (e.target.value) {
-                      params.set('search', e.target.value);
-                    } else {
-                      params.delete('search');
-                    }
-                    router.get('/orders', Object.fromEntries(params), { preserveState: true, replace: true });
-                  }}
-                  className="pl-10"
-                />
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <div className="relative w-full sm:w-64">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input
+                    placeholder="Search orders..."
+                    value={search}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                      const params = new URLSearchParams(window.location.search);
+                      if (e.target.value) {
+                        params.set('search', e.target.value);
+                      } else {
+                        params.delete('search');
+                      }
+                      router.get('/orders', Object.fromEntries(params), { preserveState: true, replace: true });
+                    }}
+                    className="pl-10 w-full"
+                  />
+                </div>
+                <Select value={statusFilter} onValueChange={(value) => {
+                  setStatusFilter(value);
+                  const params = new URLSearchParams(window.location.search);
+                  if (value && value !== 'all') {
+                    params.set('status', value);
+                  } else {
+                    params.delete('status');
+                  }
+                  router.get('/orders', Object.fromEntries(params), { preserveState: true, replace: true });
+                }}>
+                  <SelectTrigger className="w-full sm:w-40">
+                    <SelectValue placeholder="All Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    {statuses.map((status) => (
+                      <SelectItem key={status.id} value={status.id.toString()}>
+                        {status.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </CardHeader>
@@ -177,6 +218,13 @@ export default function OrdersIndex({ orders, canCreate = false, canEdit = false
                                 </Button>
                               </Link>
                             )}
+                            {canGenerateInvoice && (
+                              <a href={`/orders/${order.id}/invoice`} target="_blank" rel="noopener noreferrer">
+                                <Button size="sm" variant="outline">
+                                  <Printer className="h-4 w-4" />
+                                </Button>
+                              </a>
+                            )}
                           </div>
                         </td>
                       </tr>
@@ -189,14 +237,38 @@ export default function OrdersIndex({ orders, canCreate = false, canEdit = false
         </Card>
 
         {orders.data.length > 0 && (
-          <div className="mt-4">
+          <div className="mt-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-600">Rows per page:</span>
+              <Select value={perPage.toString()} onValueChange={(value) => {
+                setPerPage(Number(value));
+                const params = new URLSearchParams(window.location.search);
+                params.set('per_page', value);
+                router.get('/orders', Object.fromEntries(params), { preserveState: true });
+              }}>
+                <SelectTrigger className="w-[70px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="25">25</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <Pagination
               currentPage={orders.current_page}
               totalPages={orders.last_page}
-              onPageChange={(page) => router.get('/orders', { page, per_page: perPage }, { preserveState: true })}
-              showingFrom={(orders.current_page - 1) * perPage + 1}
-              showingTo={Math.min(orders.current_page * perPage, orders.data.length)}
-              total={orders.data.length}
+              onPageChange={(page) => {
+                const params = new URLSearchParams(window.location.search);
+                params.set('page', page.toString());
+                params.set('per_page', perPage.toString());
+                router.get('/orders', Object.fromEntries(params), { preserveState: true });
+              }}
+              showingFrom={(orders.current_page - 1) * orders.per_page + 1}
+              showingTo={Math.min(orders.current_page * orders.per_page, orders.total)}
+              total={orders.total}
             />
           </div>
         )}
