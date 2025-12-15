@@ -9,57 +9,71 @@ import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
+import { useHasPermission } from '@/hooks/use-permissions';
 
-const sidebarNavItems: NavItem[] = [
+const getAllNavItems = (): NavItem[] => [
     {
         title: 'General',
         href: '/settings/general',
         icon: null,
+        permission: 'manage_general_settings',
     },
     {
         title: 'Profile',
         href: edit(),
         icon: null,
+        permission: 'access_profile_settings',
     },
     {
         title: 'Password',
         href: editPassword(),
         icon: null,
+        permission: 'change_own_password',
     },
     {
         title: 'Two-Factor Auth',
         href: show(),
         icon: null,
+        permission: 'manage_own_2fa',
     },
     {
         title: 'SMTP',
         href: '/settings/smtp',
         icon: null,
+        permission: 'manage_smtp_settings',
     },
     {
         title: 'Appearance',
         href: editAppearance(),
         icon: null,
+        permission: 'manage_appearance_settings',
     },
     {
         title: 'Notifications',
         href: '/settings/notifications',
         icon: null,
+        permission: 'view_own_notifications',
     },
     {
         title: 'Backup',
         href: '/settings/backup',
         icon: null,
+        permission: 'manage_backup_settings',
     },
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
+    const { hasPermission } = useHasPermission();
+    
     // When server-side rendering, we only render the layout on the client...
     if (typeof window === 'undefined') {
         return null;
     }
 
     const currentPath = window.location.pathname;
+    const sidebarNavItems = getAllNavItems().filter(item => 
+        !item.permission || hasPermission(item.permission)
+    );
 
     return (
         <div className="px-4 py-6">

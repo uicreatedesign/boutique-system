@@ -15,6 +15,10 @@ class CustomerRoleSeeder extends Seeder
             'view_own_orders' => 'View own orders',
             'view_own_measurements' => 'View own measurements',
             'download_own_invoices' => 'Download own invoices',
+            'access_profile_settings' => 'Access profile settings',
+            'change_own_password' => 'Change own password',
+            'manage_own_2fa' => 'Manage own two-factor authentication',
+            'view_own_notifications' => 'View own notification settings',
         ];
 
         $createdPermissions = [];

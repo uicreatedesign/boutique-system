@@ -97,6 +97,13 @@ class RolePermissionSeeder extends Seeder
             ['description' => 'Full system access']
         );
         $adminRole->permissions()->sync(Permission::all());
+        
+        // Ensure admin has access_settings permission
+        $accessSettingsPermission = Permission::firstOrCreate(
+            ['name' => 'access_settings'],
+            ['description' => 'Access settings module']
+        );
+        $adminRole->permissions()->syncWithoutDetaching([$accessSettingsPermission->id]);
 
         $managerRole = Role::firstOrCreate(
             ['name' => 'Manager'],

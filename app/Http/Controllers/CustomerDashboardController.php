@@ -18,29 +18,36 @@ class CustomerDashboardController extends Controller
             abort(403, 'No customer profile linked to this account');
         }
 
-        $orders = $customer->orders()
-            ->with(['garmentType', 'stitchingStatus', 'payments'])
-            ->latest()
-            ->get()
-            ->map(function($order) {
-                return [
-                    'id' => $order->id,
-                    'order_number' => $order->order_number,
-                    'garment_type' => $order->garmentType->name,
-                    'status' => $order->stitchingStatus->name,
-                    'status_color' => $order->stitchingStatus->color,
-                    'order_date' => $order->order_date,
-                    'delivery_date' => $order->delivery_date,
-                    'total_amount' => $order->total_amount,
-                    'paid_amount' => $order->payments->sum('amount'),
-                    'balance_due' => $order->total_amount - $order->payments->sum('amount'),
-                ];
-            });
+        $orders = collect();
+        $measurements = collect();
 
-        $measurements = $customer->measurements()
-            ->with('tailor')
-            ->latest()
-            ->get();
+        if ($user->hasPermission('view_own_orders')) {
+            $orders = $customer->orders()
+                ->with(['garmentType', 'stitchingStatus', 'payments'])
+                ->latest()
+                ->get()
+                ->map(function($order) {
+                    return [
+                        'id' => $order->id,
+                        'order_number' => $order->order_number,
+                        'garment_type' => $order->garmentType->name,
+                        'status' => $order->stitchingStatus->name,
+                        'status_color' => $order->stitchingStatus->color,
+                        'order_date' => $order->order_date,
+                        'delivery_date' => $order->delivery_date,
+                        'total_amount' => $order->total_amount,
+                        'paid_amount' => $order->payments->sum('amount'),
+                        'balance_due' => $order->total_amount - $order->payments->sum('amount'),
+                    ];
+                });
+        }
+
+        if ($user->hasPermission('view_own_measurements')) {
+            $measurements = $customer->measurements()
+                ->with('tailor')
+                ->latest()
+                ->get();
+        }
 
         return Inertia::render('customer-dashboard/index', [
             'customer' => $customer,
@@ -53,6 +60,10 @@ class CustomerDashboardController extends Controller
     {
         $user = auth()->user();
         $customer = $user->customer;
+
+        if (!$user->hasPermission('view_own_orders')) {
+            abort(403, 'Permission denied');
+        }
 
         $order = Order::where('customer_id', $customer->id)
             ->with(['garmentType', 'tailor', 'measurement', 'fabric', 'stitchingStatus', 'payments'])
@@ -83,6 +94,10 @@ class CustomerDashboardController extends Controller
     {
         $user = auth()->user();
         $customer = $user->customer;
+
+        if (!$user->hasPermission('download_own_invoices')) {
+            abort(403, 'Permission denied');
+        }
 
         $order = Order::where('customer_id', $customer->id)
             ->with(['customer', 'garmentType', 'tailor', 'measurement', 'fabric', 'stitchingStatus', 'payments'])

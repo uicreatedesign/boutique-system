@@ -13,12 +13,66 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem, type NavGroup } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutGrid, Users2Icon, Shield, Scissors, Ruler, Shirt, Package, ListChecks, ShoppingCart, Bell, BarChart3, Settings, Folder } from 'lucide-react';
+import { LayoutGrid, Users2Icon, Shield, Scissors, Ruler, Shirt, Package, ListChecks, ShoppingCart, Bell, BarChart3, Settings, Folder, User, Download, CreditCard } from 'lucide-react';
 import AppLogo from './app-logo';
 import { usePermissions } from '@/hooks/use-permissions';
-
 const getNavGroups = (permissions: string[]): NavGroup[] => {
     const hasPermission = (permission: string) => permissions.includes(permission);
+    const { auth } = usePage().props as any;
+    const user = auth?.user;
+    const isCustomer = user?.roles?.some((role: any) => role.name === 'Customer');
+    if (isCustomer) {
+        return [
+            {
+                label: 'My Account',
+                items: [
+                    {
+                        title: 'Dashboard',
+                        href: '/customer-dashboard',
+                        icon: LayoutGrid,
+                        permission: 'view_own_orders',
+                    },
+                ],
+            },
+            {
+                label: 'My Orders',
+                items: [
+                    {
+                        title: 'All Orders',
+                        href: '/customer-dashboard',
+                        icon: ShoppingCart,
+                        permission: 'view_own_orders',
+                    },
+                ],
+            },
+            {
+                label: 'My Profile',
+                items: [
+                    {
+                        title: 'Measurements',
+                        href: '/customer-dashboard#measurements',
+                        icon: Ruler,
+                        permission: 'view_own_measurements',
+                    },
+                    // {
+                    //     title: 'Profile Settings',
+                    //     href: '/settings/profile',
+                    //     icon: User,
+                    //     permission: 'access_profile_settings',
+                    // },
+                    {
+                        title: 'Account Settings',
+                        href: '/settings',
+                        icon: Settings,
+                        permission: 'access_profile_settings',
+                    },
+                ],
+            },
+        ].map(group => ({
+            ...group,
+            items: group.items.filter(item => !item.permission || hasPermission(item.permission)),
+        })).filter(group => group.items.length > 0);
+    }
 
     return [
         {
@@ -128,12 +182,12 @@ const getNavGroups = (permissions: string[]): NavGroup[] => {
                     icon: Shield,
                     permission: 'view_roles',
                 },
-                // {
-                //     title: 'Settings',
-                //     href: '/settings',
-                //     icon: Settings,
-                //     permission: 'access_settings',
-                // },
+                {
+                    title: 'Settings',
+                    href: '/settings',
+                    icon: Settings,
+                    permission: 'access_settings',
+                },
             ],
         },
     ].map(group => ({
@@ -160,7 +214,12 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <Link href={(() => {
+                                const { auth } = usePage().props as any;
+                                const user = auth?.user;
+                                const isCustomer = user?.roles?.some((role: any) => role.name === 'Customer');
+                                return isCustomer ? '/customer-dashboard' : dashboard();
+                            })()} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
