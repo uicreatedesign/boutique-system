@@ -15,13 +15,23 @@ export default function CustomerCreateModal({ open, onClose }: CustomerCreateMod
   const handleSubmit = async (data: any) => {
     try {
       setLoading(true);
-      await createCustomer(data);
+      console.log('Submitting customer data:', data);
+      const response = await createCustomer(data);
+      console.log('Customer created successfully:', response);
       toast.success('Customer created successfully');
       onClose();
       window.location.reload();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to create customer:', error);
-      toast.error('Failed to create customer. Please try again.');
+      console.error('Error response:', error.response?.data);
+      
+      if (error.response?.status === 422) {
+        const errors = error.response.data.errors;
+        const errorMessages = Object.values(errors).flat().join(', ');
+        toast.error(`Validation error: ${errorMessages}`);
+      } else {
+        toast.error('Failed to create customer. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
