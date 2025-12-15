@@ -30,12 +30,25 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $perPage = min($request->get('per_page', 10), 100);
-        $orders = Order::with(['customer', 'garmentType', 'tailor', 'stitchingStatus'])
-            ->latest()
-            ->paginate($perPage);
+        $query = Order::with(['customer', 'garmentType', 'tailor', 'stitchingStatus']);
+
+        if ($request->filled('status')) {
+            $query->where('stitching_status_id', $request->status);
+        }
+
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('order_number', 'like', '%' . $request->search . '%')
+                  ->orWhereHas('customer', fn($q) => $q->where('name', 'like', '%' . $request->search . '%'));
+            });
+        }
+
+        $orders = $query->latest()->paginate($perPage)->withQueryString();
 
         return Inertia::render('Orders/Index', [
             'orders' => $orders,
+            'statuses' => StitchingStatus::where('status', 'active')->orderBy('order')->get(),
+            'filters' => $request->only(['search', 'status', 'per_page']),
             'canCreate' => auth()->user()->can('create_orders'),
             'canEdit' => auth()->user()->can('edit_orders'),
         ]);
