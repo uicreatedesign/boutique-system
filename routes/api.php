@@ -17,6 +17,7 @@ Route::get('/user', function (Request $request) {
 Route::middleware('web')->group(function () {
     Route::apiResource('customers', CustomerController::class);
     Route::get('customers/{customer}/orders', [CustomerController::class, 'orders']);
+    Route::post('customers/register', [\App\Http\Controllers\Api\CustomerRegistrationController::class, 'store']);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('permissions', PermissionController::class);
     Route::apiResource('tailors', TailorController::class);

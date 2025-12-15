@@ -29,3 +29,4 @@ require __DIR__.'/orders.php';
 require __DIR__.'/reports.php';
 require __DIR__.'/notifications.php';
 require __DIR__.'/search.php';
+require __DIR__.'/customer-dashboard.php';

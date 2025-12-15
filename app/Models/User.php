@@ -94,6 +94,16 @@ class User extends Authenticatable
         return $this->roles()->where('name', 'Tailor')->exists();
     }
 
+    public function isCustomer(): bool
+    {
+        return $this->roles()->where('name', 'Customer')->exists();
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
+
     public function notifications(): HasMany
     {
         return $this->hasMany(Notification::class);

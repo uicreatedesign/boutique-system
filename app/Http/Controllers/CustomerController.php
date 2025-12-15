@@ -36,7 +36,14 @@ class CustomerController extends Controller
 
     public function store(StoreCustomerRequest $request): CustomerResource
     {
-        $customer = $this->customerService->create($request->validated());
+        $data = $request->validated();
+        
+        // Generate random password if portal access is enabled
+        if ($request->boolean('enable_portal_access')) {
+            $data['password'] = bcrypt($request->input('portal_password', 'password123'));
+        }
+        
+        $customer = $this->customerService->create($data);
         return new CustomerResource($customer);
     }
 
@@ -48,7 +55,14 @@ class CustomerController extends Controller
 
     public function update(UpdateCustomerRequest $request, Customer $customer): CustomerResource
     {
-        $customer->update($request->validated());
+        $data = $request->validated();
+        
+        // Update password if provided
+        if ($request->filled('portal_password')) {
+            $data['password'] = bcrypt($request->input('portal_password'));
+        }
+        
+        $customer->update($data);
         return new CustomerResource($customer);
     }
 

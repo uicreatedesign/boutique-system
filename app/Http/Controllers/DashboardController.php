@@ -15,11 +15,19 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:view_dashboard');
     }
 
     public function index()
     {
+        // Redirect customers to their dashboard
+        if (auth()->user()->isCustomer()) {
+            return redirect()->route('customer-dashboard.index');
+        }
+
+        // Check permission for non-customers
+        if (!auth()->user()->can('view_dashboard')) {
+            abort(403);
+        }
         // Revenue Statistics
         $todayRevenue = OrderPayment::whereDate('payment_date', today())->sum('amount');
         $monthRevenue = OrderPayment::whereMonth('payment_date', now()->month)
