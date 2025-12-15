@@ -45,4 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('api/settings/backup/create', [\App\Http\Controllers\Settings\BackupController::class, 'create'])->name('backup.create');
     Route::get('api/settings/backup/download/{id}', [\App\Http\Controllers\Settings\BackupController::class, 'download'])->name('backup.download');
     Route::put('api/settings/backup/settings', [\App\Http\Controllers\Settings\BackupController::class, 'updateSettings'])->name('backup.settings.update');
+    
+    Route::get('settings/notifications', [\App\Http\Controllers\Settings\NotificationController::class, 'index'])->name('notifications.index');
+    Route::put('api/settings/notifications', [\App\Http\Controllers\Settings\NotificationController::class, 'update'])->name('notifications.update');
 });

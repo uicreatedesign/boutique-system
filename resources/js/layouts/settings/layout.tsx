@@ -42,6 +42,11 @@ const sidebarNavItems: NavItem[] = [
         icon: null,
     },
     {
+        title: 'Notifications',
+        href: '/settings/notifications',
+        icon: null,
+    },
+    {
         title: 'Backup',
         href: '/settings/backup',
         icon: null,
