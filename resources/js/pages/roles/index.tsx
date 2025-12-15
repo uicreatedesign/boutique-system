@@ -8,6 +8,19 @@ import RoleCreateModal from '@/components/roles/role-create-modal';
 import PermissionManagement from '@/components/roles/permission-management';
 import { Plus } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Roles & Permissions',
+    href: '/roles',
+  },
+];
 
 interface Role {
   id: number;
@@ -31,7 +44,7 @@ export default function RolesIndex({ roles, permissions }: Props) {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Roles & Permissions" />
       
       <div className="space-y-6 p-4">

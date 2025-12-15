@@ -8,6 +8,19 @@ import TailorTable from '@/components/tailors/tailor-table';
 import TailorCreateModal from '@/components/tailors/tailor-create-modal';
 import { Plus, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Tailors',
+    href: '/tailors',
+  },
+];
 
 export default function TailorsIndex() {
   const { url } = usePage();
@@ -25,7 +38,7 @@ export default function TailorsIndex() {
   }, [url]);
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Tailors" />
       
       <div className="space-y-6 p-4">

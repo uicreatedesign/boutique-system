@@ -7,6 +7,14 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Package, Download, User, Ruler, Info } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
 import { useHasPermission } from '@/hooks/use-permissions';
+import { type BreadcrumbItem } from '@/types';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'My Dashboard',
+    href: '/customer-dashboard',
+  },
+];
 
 interface Order {
   id: number;
@@ -44,7 +52,7 @@ export default function CustomerDashboard({ customer, orders, measurements }: Pr
   const { hasPermission } = useHasPermission();
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="My Dashboard" />
       
       <div className="container mx-auto px-4 py-8 space-y-6">

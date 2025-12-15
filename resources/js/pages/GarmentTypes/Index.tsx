@@ -8,6 +8,19 @@ import GarmentTypeTable from '@/components/garment-types/garment-type-table';
 import GarmentTypeCreateModal from '@/components/garment-types/garment-type-create-modal';
 import { Plus, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Garment Types',
+    href: '/garment-types',
+  },
+];
 
 interface Props {
   canCreate?: boolean;
@@ -19,7 +32,7 @@ export default function GarmentTypesIndex({ canCreate = false }: Props) {
   const [statusFilter, setStatusFilter] = useState('');
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Garment Types" />
       
       <div className="space-y-6 p-4">

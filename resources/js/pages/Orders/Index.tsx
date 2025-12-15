@@ -10,6 +10,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Plus, Eye, Search, Edit, Printer } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
 import { Skeleton } from '@/components/ui/skeleton';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Orders',
+    href: '/orders',
+  },
+];
 
 interface Order {
   id: number;
@@ -66,7 +79,7 @@ export default function OrdersIndex({ orders, statuses, filters, canCreate = fal
   }, [url]);
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Orders" />
       
       <div className="space-y-6 p-4">

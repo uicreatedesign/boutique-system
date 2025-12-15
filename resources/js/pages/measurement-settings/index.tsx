@@ -4,10 +4,27 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CategoryManagement from '@/components/measurement-settings/category-management';
 import FieldManagement from '@/components/measurement-settings/field-management';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Measurements',
+    href: '/measurements',
+  },
+  {
+    title: 'Settings',
+    href: '/measurement-settings',
+  },
+];
 
 export default function MeasurementSettings() {
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Measurement Settings" />
       
       <div className="space-y-6 p-4">

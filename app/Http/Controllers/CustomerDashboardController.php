@@ -90,6 +90,40 @@ class CustomerDashboardController extends Controller
         ]);
     }
 
+    public function orders()
+    {
+        $user = auth()->user();
+        $customer = $user->customer;
+
+        if (!$customer || !$user->hasPermission('view_own_orders')) {
+            abort(403, 'Permission denied');
+        }
+
+        $orders = $customer->orders()
+            ->with(['garmentType', 'stitchingStatus', 'payments', 'tailor'])
+            ->latest()
+            ->paginate(10)
+            ->through(function($order) {
+                return [
+                    'id' => $order->id,
+                    'order_number' => $order->order_number,
+                    'garment_type' => $order->garmentType->name,
+                    'tailor' => $order->tailor->name,
+                    'status' => $order->stitchingStatus->name,
+                    'status_color' => $order->stitchingStatus->color,
+                    'order_date' => $order->order_date,
+                    'delivery_date' => $order->delivery_date,
+                    'total_amount' => $order->total_amount,
+                    'paid_amount' => $order->payments->sum('amount'),
+                    'balance_due' => $order->total_amount - $order->payments->sum('amount'),
+                ];
+            });
+
+        return Inertia::render('customer/orders/index', [
+            'orders' => $orders,
+        ]);
+    }
+
     public function downloadInvoice($id)
     {
         $user = auth()->user();

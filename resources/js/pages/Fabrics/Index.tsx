@@ -8,6 +8,19 @@ import FabricTable from '@/components/fabrics/fabric-table';
 import FabricCreateModal from '@/components/fabrics/fabric-create-modal';
 import { Plus, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Fabrics',
+    href: '/fabrics',
+  },
+];
 
 interface Props {
   canCreate?: boolean;
@@ -19,7 +32,7 @@ export default function FabricsIndex({ canCreate = false }: Props) {
   const [statusFilter, setStatusFilter] = useState('');
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Fabrics & Materials" />
       
       <div className="space-y-4 sm:space-y-6 p-3 sm:p-4">

@@ -8,12 +8,25 @@ import TailorPerformanceReport from '@/components/reports/tailor-performance-rep
 import CustomerReport from '@/components/reports/customer-report';
 import InventoryReport from '@/components/reports/inventory-report';
 import { BarChart3, Users, Scissors, Package } from 'lucide-react';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Reports',
+    href: '/reports',
+  },
+];
 
 export default function ReportsIndex() {
   const [activeTab, setActiveTab] = useState('sales');
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Reports & Analytics" />
       
       <div className="space-y-6 p-4">

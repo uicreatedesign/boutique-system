@@ -9,6 +9,19 @@ import { Bell, Check, CheckCheck, Trash2, Filter, Mail, MailOpen } from 'lucide-
 import { formatDistanceToNow } from 'date-fns';
 import NotificationCreateModal from '@/components/notifications/notification-create-modal';
 import NotificationDeleteDialog from '@/components/notifications/notification-delete-dialog';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Notifications',
+    href: '/notifications',
+  },
+];
 
 interface Notification {
   id: number;
@@ -84,7 +97,7 @@ export default function NotificationsIndex({ notifications, stats, types, filter
   };
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Notifications" />
       
       <div className="container mx-auto px-4 py-6 space-y-6">

@@ -7,6 +7,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import CustomerTable from '@/components/customers/customer-table';
 import CustomerCreateModal from '@/components/customers/customer-create-modal';
 import { Plus, Search } from 'lucide-react';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Customers',
+    href: '/customers',
+  },
+];
 
 export default function CustomersIndex() {
   const { url } = usePage();
@@ -23,7 +36,7 @@ export default function CustomersIndex() {
   }, [url]);
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Customers" />
       
       <div className="space-y-6 p-4">

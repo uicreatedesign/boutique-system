@@ -39,7 +39,7 @@ const getNavGroups = (permissions: string[]): NavGroup[] => {
                 items: [
                     {
                         title: 'All Orders',
-                        href: '/customer-dashboard',
+                        href: '/customer/orders',
                         icon: ShoppingCart,
                         permission: 'view_own_orders',
                     },

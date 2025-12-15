@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Download, Package, DollarSign } from 'lucide-react';
 import { useCurrency } from '@/hooks/use-currency';
+import { type BreadcrumbItem } from '@/types';
 
 interface Props {
   order: {
@@ -34,8 +35,23 @@ interface Props {
 export default function OrderDetails({ order }: Props) {
   const { formatCurrency } = useCurrency();
 
+  const breadcrumbs: BreadcrumbItem[] = [
+    {
+      title: 'My Dashboard',
+      href: '/customer-dashboard',
+    },
+    {
+      title: 'My Orders',
+      href: '/customer/orders',
+    },
+    {
+      title: order.order_number,
+      href: '',
+    },
+  ];
+
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title={`Order ${order.order_number}`} />
       
       <div className="container mx-auto px-4 py-8 space-y-6">

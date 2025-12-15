@@ -6,6 +6,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import StitchingStatusList from '@/components/stitching-statuses/stitching-status-list';
 import StitchingStatusCreateModal from '@/components/stitching-statuses/stitching-status-create-modal';
 import { Plus } from 'lucide-react';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Stitching Statuses',
+    href: '/stitching-statuses',
+  },
+];
 
 interface Props {
   canCreate?: boolean;
@@ -15,7 +28,7 @@ export default function StitchingStatusesIndex({ canCreate = false }: Props) {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Stitching Statuses" />
       
       <div className="space-y-6 p-4">

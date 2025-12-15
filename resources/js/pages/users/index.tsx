@@ -7,13 +7,26 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Search } from 'lucide-react';
 import UserTable from '@/components/users/user-table';
 import UserCreateModal from '@/components/users/user-create-modal';
+import { type BreadcrumbItem } from '@/types';
+import { dashboard } from '@/routes';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: dashboard(),
+  },
+  {
+    title: 'Users',
+    href: '/users',
+  },
+];
 
 export default function UsersIndex() {
   const [search, setSearch] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   return (
-    <AppLayout>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Users" />
       
       <div className="space-y-6 p-4">

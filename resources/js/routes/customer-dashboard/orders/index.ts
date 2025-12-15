@@ -98,7 +98,7 @@ show.head = (args: { id: string | number } | [id: string | number ] | string | n
     show.form = showForm
 /**
 * @see \App\Http\Controllers\CustomerDashboardController::invoice
- * @see app/Http/Controllers/CustomerDashboardController.php:93
+ * @see app/Http/Controllers/CustomerDashboardController.php:127
  * @route '/customer-dashboard/orders/{id}/invoice'
  */
 export const invoice = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -113,7 +113,7 @@ invoice.definition = {
 
 /**
 * @see \App\Http\Controllers\CustomerDashboardController::invoice
- * @see app/Http/Controllers/CustomerDashboardController.php:93
+ * @see app/Http/Controllers/CustomerDashboardController.php:127
  * @route '/customer-dashboard/orders/{id}/invoice'
  */
 invoice.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -141,7 +141,7 @@ invoice.url = (args: { id: string | number } | [id: string | number ] | string |
 
 /**
 * @see \App\Http\Controllers\CustomerDashboardController::invoice
- * @see app/Http/Controllers/CustomerDashboardController.php:93
+ * @see app/Http/Controllers/CustomerDashboardController.php:127
  * @route '/customer-dashboard/orders/{id}/invoice'
  */
 invoice.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -150,7 +150,7 @@ invoice.get = (args: { id: string | number } | [id: string | number ] | string |
 })
 /**
 * @see \App\Http\Controllers\CustomerDashboardController::invoice
- * @see app/Http/Controllers/CustomerDashboardController.php:93
+ * @see app/Http/Controllers/CustomerDashboardController.php:127
  * @route '/customer-dashboard/orders/{id}/invoice'
  */
 invoice.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -160,7 +160,7 @@ invoice.head = (args: { id: string | number } | [id: string | number ] | string 
 
     /**
 * @see \App\Http\Controllers\CustomerDashboardController::invoice
- * @see app/Http/Controllers/CustomerDashboardController.php:93
+ * @see app/Http/Controllers/CustomerDashboardController.php:127
  * @route '/customer-dashboard/orders/{id}/invoice'
  */
     const invoiceForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -170,7 +170,7 @@ invoice.head = (args: { id: string | number } | [id: string | number ] | string 
 
             /**
 * @see \App\Http\Controllers\CustomerDashboardController::invoice
- * @see app/Http/Controllers/CustomerDashboardController.php:93
+ * @see app/Http/Controllers/CustomerDashboardController.php:127
  * @route '/customer-dashboard/orders/{id}/invoice'
  */
         invoiceForm.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -179,7 +179,7 @@ invoice.head = (args: { id: string | number } | [id: string | number ] | string 
         })
             /**
 * @see \App\Http\Controllers\CustomerDashboardController::invoice
- * @see app/Http/Controllers/CustomerDashboardController.php:93
+ * @see app/Http/Controllers/CustomerDashboardController.php:127
  * @route '/customer-dashboard/orders/{id}/invoice'
  */
         invoiceForm.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
