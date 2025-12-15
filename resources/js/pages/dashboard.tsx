@@ -366,7 +366,7 @@ export default function Dashboard({ stats, pendingPayments = [], upcomingDeliver
 
                     {/* Top Customers & Tailor Performance */}
                     <div className="space-y-4">
-                        <Card>
+                        <Card className="h-full">
                             <CardHeader>
                                 <CardTitle>Top Customers</CardTitle>
                             </CardHeader>

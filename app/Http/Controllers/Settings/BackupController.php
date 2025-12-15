@@ -3,12 +3,36 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backup;
+use App\Models\BackupSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class BackupController extends Controller
 {
+    public function index()
+    {
+        $backups = Backup::latest()->get()->map(function($backup) {
+            return [
+                'id' => $backup->id,
+                'filename' => $backup->filename,
+                'date' => $backup->created_at->format('Y-m-d H:i:s'),
+                'size' => $this->formatBytes($backup->size),
+                'status' => $backup->status,
+                'type' => $backup->type,
+            ];
+        });
+
+        $settings = BackupSetting::first();
+
+        return Inertia::render('settings/backup', [
+            'backups' => $backups,
+            'settings' => $settings,
+        ]);
+    }
+
     public function create()
     {
         try {
@@ -61,10 +85,54 @@ class BackupController extends Controller
             
             file_put_contents($filePath, $sql);
             
-            return response()->download($filePath, $filename)->deleteFileAfterSend(true);
+            // Save backup record
+            Backup::create([
+                'filename' => $filename,
+                'path' => $filePath,
+                'size' => filesize($filePath),
+                'type' => 'manual',
+                'status' => 'completed',
+            ]);
+            
+            return response()->download($filePath, $filename);
             
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function download($id)
+    {
+        $backup = Backup::findOrFail($id);
+        
+        if (file_exists($backup->path)) {
+            return response()->download($backup->path, $backup->filename);
+        }
+        
+        return back()->with('error', 'Backup file not found');
+    }
+
+    public function updateSettings(Request $request)
+    {
+        $validated = $request->validate([
+            'auto_backup_enabled' => 'required|boolean',
+            'retention_days' => 'required|integer|min:1|max:365',
+        ]);
+
+        $settings = BackupSetting::first();
+        $settings->update($validated);
+
+        return back()->with('success', 'Backup settings updated successfully');
+    }
+
+    private function formatBytes($bytes, $precision = 2)
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        
+        for ($i = 0; $bytes > 1024 && $i < count($units) - 1; $i++) {
+            $bytes /= 1024;
+        }
+        
+        return round($bytes, $precision) . ' ' . $units[$i];
     }
 }

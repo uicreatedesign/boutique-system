@@ -41,9 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::put('api/settings/smtp', [SmtpController::class, 'update'])->name('smtp.update');
     Route::post('api/settings/smtp/test', [SmtpController::class, 'testEmail'])->name('smtp.test');
     
-    Route::get('settings/backup', function () {
-        return Inertia::render('settings/backup');
-    })->name('backup.index');
-    
+    Route::get('settings/backup', [\App\Http\Controllers\Settings\BackupController::class, 'index'])->name('backup.index');
     Route::get('api/settings/backup/create', [\App\Http\Controllers\Settings\BackupController::class, 'create'])->name('backup.create');
+    Route::get('api/settings/backup/download/{id}', [\App\Http\Controllers\Settings\BackupController::class, 'download'])->name('backup.download');
+    Route::put('api/settings/backup/settings', [\App\Http\Controllers\Settings\BackupController::class, 'updateSettings'])->name('backup.settings.update');
 });
