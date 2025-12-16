@@ -89,17 +89,17 @@ const getNavGroups = (permissions: string[]): NavGroup[] => {
         {
             label: 'Business',
             items: [
+                 {
+                    title: 'Customers',
+                    href: '/customers',
+                    icon: Users2Icon,
+                    permission: 'view_customers',
+                },
                 {
                     title: 'Orders',
                     href: '/orders',
                     icon: ShoppingCart,
                     permission: 'view_orders',
-                },
-                {
-                    title: 'Customers',
-                    href: '/customers',
-                    icon: Users2Icon,
-                    permission: 'view_customers',
                 },
                 {
                     title: 'Tailors',

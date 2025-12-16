@@ -41,13 +41,8 @@ class CustomerService
 
     public function create(array $data): Customer
     {
-        // If portal access is enabled, create with user account
-        if (isset($data['enable_portal_access']) && $data['enable_portal_access']) {
-            return $this->createCustomerWithUser($data);
-        }
-        
-        // Otherwise, create customer only
         return Customer::create([
+            'user_id' => $data['user_id'] ?? null,
             'name' => $data['name'],
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'] ?? null,

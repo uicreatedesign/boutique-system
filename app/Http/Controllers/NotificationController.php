@@ -12,8 +12,6 @@ class NotificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:view_notifications')->only(['index', 'getUnreadCount']);
-        $this->middleware('can:manage_notifications')->only(['store', 'destroy', 'markAsRead', 'markAllAsRead']);
     }
 
     public function index(Request $request)

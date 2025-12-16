@@ -38,9 +38,20 @@ class CustomerController extends Controller
     {
         $data = $request->validated();
         
-        // Generate random password if portal access is enabled
-        if ($request->boolean('enable_portal_access')) {
-            $data['password'] = bcrypt($request->input('portal_password', 'password123'));
+        // Create user with Customer role if requested
+        if ($request->boolean('create_user_account')) {
+            $user = \App\Models\User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($request->input('user_password')),
+            ]);
+            
+            $customerRole = \App\Models\Role::where('name', 'Customer')->first();
+            if ($customerRole) {
+                $user->roles()->attach($customerRole->id);
+            }
+            
+            $data['user_id'] = $user->id;
         }
         
         $customer = $this->customerService->create($data);
@@ -57,9 +68,27 @@ class CustomerController extends Controller
     {
         $data = $request->validated();
         
-        // Update password if provided
-        if ($request->filled('portal_password')) {
-            $data['password'] = bcrypt($request->input('portal_password'));
+        // Update password if user exists
+        if ($customer->user && $request->filled('user_password')) {
+            $customer->user->update([
+                'password' => bcrypt($request->input('user_password')),
+            ]);
+        }
+        
+        // Create user with Customer role if doesn't exist
+        if (!$customer->user && $request->boolean('create_user_account')) {
+            $user = \App\Models\User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($request->input('user_password')),
+            ]);
+            
+            $customerRole = \App\Models\Role::where('name', 'Customer')->first();
+            if ($customerRole) {
+                $user->roles()->attach($customerRole->id);
+            }
+            
+            $data['user_id'] = $user->id;
         }
         
         $customer->update($data);

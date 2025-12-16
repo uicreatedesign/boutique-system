@@ -13,13 +13,25 @@ class UpdateCustomerRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
+        $customer = $this->route('customer');
+        
+        $rules = [
             'name' => 'required|string|max:191',
             'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:191|unique:customers,email,' . $this->route('customer')->id,
+            'email' => 'nullable|email|max:191',
             'address' => 'nullable|string',
             'dob' => 'nullable|date',
             'meta' => 'nullable|array',
+            'create_user_account' => 'nullable|boolean',
+            'user_password' => 'nullable|string|min:6',
         ];
+        
+        // If creating user account, validate email uniqueness in users table
+        if ($this->boolean('create_user_account') && !$customer->user_id) {
+            $rules['email'] = 'required|email|max:191|unique:users,email';
+            $rules['user_password'] = 'required|string|min:6';
+        }
+        
+        return $rules;
     }
 }

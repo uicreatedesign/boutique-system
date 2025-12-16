@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { useState } from 'react';
 
 const customerSchema = z.object({
   name: z.string().min(1, 'Name is required').max(191),
@@ -12,6 +14,8 @@ const customerSchema = z.object({
   email: z.string().email('Invalid email').max(191).optional().or(z.literal('')),
   address: z.string().optional().or(z.literal('')),
   dob: z.string().optional().or(z.literal('')),
+  create_user_account: z.boolean().optional(),
+  user_password: z.string().min(6, 'Password must be at least 6 characters').optional().or(z.literal('')),
 });
 
 type CustomerFormData = z.infer<typeof customerSchema>;
@@ -23,10 +27,13 @@ interface CustomerFormProps {
 }
 
 export default function CustomerForm({ onSubmit, loading, initialData }: CustomerFormProps) {
+  const [createUserAccount, setCreateUserAccount] = useState(initialData?.create_user_account || false);
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<CustomerFormData>({
     resolver: zodResolver(customerSchema),
     defaultValues: initialData,
@@ -85,6 +92,33 @@ export default function CustomerForm({ onSubmit, loading, initialData }: Custome
         />
         {errors.dob && <p className="text-red-500 text-sm mt-1">{errors.dob.message}</p>}
       </div>
+
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="create_user_account"
+          checked={createUserAccount}
+          onCheckedChange={(checked) => {
+            setCreateUserAccount(!!checked);
+            setValue('create_user_account', !!checked);
+          }}
+        />
+        <Label htmlFor="create_user_account">Create User Account</Label>
+      </div>
+
+      {createUserAccount && (
+        <div>
+          <Label htmlFor="user_password">Password</Label>
+          <Input
+            id="user_password"
+            type="password"
+            placeholder="Enter password"
+            {...register('user_password')}
+            className={errors.user_password ? 'border-red-500' : ''}
+          />
+          {errors.user_password && <p className="text-red-500 text-sm mt-1">{errors.user_password.message}</p>}
+          <p className="text-sm text-gray-500 mt-1">Customer can login with email and password</p>
+        </div>
+      )}
 
       <Button type="submit" disabled={loading} className="w-full">
         {loading ? 'Saving...' : 'Save Customer'}
