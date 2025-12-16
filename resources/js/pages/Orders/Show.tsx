@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Edit, Download, Plus } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useState } from 'react';
 import PaymentModal from '@/components/orders/payment-modal';
 import { useCurrency } from '@/hooks/use-currency';
@@ -19,6 +20,7 @@ interface Order {
   fabric: { name: string } | null;
   customer_fabric: boolean;
   customer_fabric_photo: string | null;
+  design_image: string | null;
   stitching_status: { name: string; color: string };
   order_date: string;
   delivery_date: string;
@@ -160,15 +162,22 @@ export default function OrdersShow({ order, canEdit = false }: Props) {
                   {order.customer_fabric ? 'Customer Provided' : order.fabric?.name || 'Not specified'}
                 </p>
               </div>
-              {order.customer_fabric && order.customer_fabric_photo && (
+              {order.customer_fabric_photo && (
                 <div>
                   <p className="text-sm text-gray-600 mb-2">Fabric Photo</p>
-                  <img 
-                    src={`/storage/${order.customer_fabric_photo}`} 
-                    alt="Customer Fabric" 
-                    className="w-full max-w-xs rounded-lg border shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-                    onClick={() => window.open(`/storage/${order.customer_fabric_photo}`, '_blank')}
-                  />
+                  <Avatar className="h-16 w-16 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.customer_fabric_photo}`, '_blank')}>
+                    <AvatarImage src={`/storage/${order.customer_fabric_photo}`} alt="Fabric" className="object-cover" />
+                    <AvatarFallback className="rounded-md">Fabric</AvatarFallback>
+                  </Avatar>
+                </div>
+              )}
+              {order.design_image && (
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Design Image</p>
+                  <Avatar className="h-16 w-16 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.design_image}`, '_blank')}>
+                    <AvatarImage src={`/storage/${order.design_image}`} alt="Design" className="object-cover" />
+                    <AvatarFallback className="rounded-md">Design</AvatarFallback>
+                  </Avatar>
                 </div>
               )}
               {order.special_instructions && (

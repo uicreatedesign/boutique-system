@@ -81,6 +81,8 @@ class OrderController extends Controller
             'fabric_id' => 'nullable|exists:fabrics,id',
             'customer_fabric' => 'boolean',
             'customer_fabric_photo' => 'nullable|image|max:2048',
+            'design_image' => 'nullable|image|max:2048',
+            'payment_method' => 'nullable|in:cash,card,upi,bank_transfer,other',
             'stitching_status_id' => 'required|exists:stitching_statuses,id',
             'order_date' => 'required|date',
             'delivery_date' => 'required|date|after_or_equal:order_date',
@@ -110,6 +112,12 @@ class OrderController extends Controller
             $validated['customer_fabric_photo'] = $path;
         }
 
+        // Handle design image upload
+        if ($request->hasFile('design_image')) {
+            $path = $request->file('design_image')->store('design-images', 'public');
+            $validated['design_image'] = $path;
+        }
+
         $order = Order::create($validated);
 
         if (!empty($validated['advance_paid']) && $validated['advance_paid'] > 0) {
@@ -117,7 +125,7 @@ class OrderController extends Controller
                 'order_id' => $order->id,
                 'payment_date' => $validated['order_date'],
                 'amount' => $validated['advance_paid'],
-                'payment_method' => 'cash',
+                'payment_method' => $validated['payment_method'] ?? 'cash',
                 'payment_type' => 'advance',
             ]);
         }
@@ -160,6 +168,7 @@ class OrderController extends Controller
             'fabric_id' => 'nullable|exists:fabrics,id',
             'customer_fabric' => 'boolean',
             'customer_fabric_photo' => 'nullable|image|max:2048',
+            'design_image' => 'nullable|image|max:2048',
             'stitching_status_id' => 'required|exists:stitching_statuses,id',
             'order_date' => 'required|date',
             'delivery_date' => 'required|date|after_or_equal:order_date',
@@ -174,6 +183,12 @@ class OrderController extends Controller
         if ($request->hasFile('customer_fabric_photo')) {
             $path = $request->file('customer_fabric_photo')->store('fabric-photos', 'public');
             $validated['customer_fabric_photo'] = $path;
+        }
+
+        // Handle design image upload
+        if ($request->hasFile('design_image')) {
+            $path = $request->file('design_image')->store('design-images', 'public');
+            $validated['design_image'] = $path;
         }
 
         $order->update($validated);

@@ -8,10 +8,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { toast } from 'sonner';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Camera, Trash2, Image as ImageIcon } from 'lucide-react';
 
 interface MeasurementField {
   id: number;
@@ -43,6 +44,12 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
   const [showMeasurements, setShowMeasurements] = useState(false);
   const [newMeasurements, setNewMeasurements] = useState<Record<string, string>>({});
   const [selectedMeasurementType, setSelectedMeasurementType] = useState('');
+  const [designPreview, setDesignPreview] = useState<string | null>(null);
+  const [fabricPreview, setFabricPreview] = useState<string | null>(null);
+  const designInputRef = useRef<HTMLInputElement>(null);
+  const fabricInputRef = useRef<HTMLInputElement>(null);
+
+
 
   const { data, setData, post, processing, errors } = useForm({
     customer_id: '',
@@ -56,6 +63,8 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
     fabric_id: '',
     customer_fabric: false,
     customer_fabric_photo: null as File | null,
+    design_image: null as File | null,
+    payment_method: 'cash',
     stitching_status_id: statuses[0]?.id.toString() || '',
     order_date: new Date().toISOString().split('T')[0],
     delivery_date: '',
@@ -136,8 +145,23 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                       <SelectValue placeholder="Select customer" />
                     </SelectTrigger>
                     <SelectContent>
+                      <div className="px-2 pb-2 sticky top-0 bg-popover z-10">
+                        <Input
+                          placeholder="Search customer..."
+                          className="h-8"
+                          onChange={(e) => {
+                            const search = e.target.value.toLowerCase();
+                            const items = document.querySelectorAll('[data-customer-item]');
+                            items.forEach((item) => {
+                              const text = item.textContent?.toLowerCase() || '';
+                              (item as HTMLElement).style.display = text.includes(search) ? '' : 'none';
+                            });
+                          }}
+                          onKeyDown={(e) => e.stopPropagation()}
+                        />
+                      </div>
                       {customers.map((customer) => (
-                        <SelectItem key={customer.id} value={customer.id.toString()}>
+                        <SelectItem key={customer.id} value={customer.id.toString()} data-customer-item>
                           {customer.name}
                         </SelectItem>
                       ))}
@@ -321,10 +345,10 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
             </Card>
           )}
 
-          {/* Fabric & Pricing */}
+          {/* Fabric & Design */}
           <Card>
             <CardHeader>
-              <CardTitle>Fabric & Pricing</CardTitle>
+              <CardTitle>Fabric & Design</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center space-x-2">
@@ -337,21 +361,6 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                   Customer provided fabric
                 </label>
               </div>
-
-              {data.customer_fabric && (
-                <div>
-                  <Label>Fabric Photo</Label>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) setData('customer_fabric_photo', file);
-                    }}
-                  />
-                  {errors.customer_fabric_photo && <p className="text-sm text-red-500 mt-1">{errors.customer_fabric_photo}</p>}
-                </div>
-              )}
 
               {!data.customer_fabric && (
                 <div>
@@ -371,6 +380,122 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                 </div>
               )}
 
+              {data.customer_fabric && (
+                <div>
+                  <Label>Fabric Photo</Label>
+                  <div className="flex items-center gap-4 mt-2">
+                    <Avatar className="h-24 w-24 rounded-md">
+                      <AvatarImage src={fabricPreview || undefined} alt="Fabric" className="object-cover" />
+                      <AvatarFallback className="rounded-md bg-muted">
+                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => fabricInputRef.current?.click()}
+                      >
+                        <Camera className="h-4 w-4 mr-2" />
+                        {fabricPreview ? 'Change' : 'Upload'}
+                      </Button>
+                      {fabricPreview && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setFabricPreview(null);
+                            setData('customer_fabric_photo', null);
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                  <input
+                    ref={fabricInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setData('customer_fabric_photo', file);
+                        setFabricPreview(URL.createObjectURL(file));
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Upload customer fabric photo (JPG, PNG or GIF. Max 2MB)
+                  </p>
+                </div>
+              )}
+
+              <div>
+                <Label>Design Image</Label>
+                <div className="flex items-center gap-4 mt-2">
+                  <Avatar className="h-24 w-24 rounded-md">
+                    <AvatarImage src={designPreview || undefined} alt="Design" className="object-cover" />
+                    <AvatarFallback className="rounded-md bg-muted">
+                      <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => designInputRef.current?.click()}
+                    >
+                      <Camera className="h-4 w-4 mr-2" />
+                      {designPreview ? 'Change' : 'Upload'}
+                    </Button>
+                    {designPreview && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setDesignPreview(null);
+                          setData('design_image', null);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Remove
+                      </Button>
+                    )}
+                  </div>
+                </div>
+                <input
+                  ref={designInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setData('design_image', file);
+                      setDesignPreview(URL.createObjectURL(file));
+                    }
+                  }}
+                  className="hidden"
+                />
+                <p className="text-sm text-muted-foreground mt-2">
+                  Upload design reference image (JPG, PNG or GIF. Max 2MB)
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Pricing & Payment */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Pricing & Payment</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <Label>Total Amount *</Label>
@@ -385,17 +510,6 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                 </div>
 
                 <div>
-                  <Label>Advance Paid</Label>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    value={data.advance_paid}
-                    onChange={(e) => setData('advance_paid', e.target.value)}
-                    placeholder="0.00"
-                  />
-                </div>
-
-                <div>
                   <Label>Discount</Label>
                   <Input
                     type="number"
@@ -405,6 +519,33 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                     placeholder="0.00"
                   />
                 </div>
+
+                <div>
+                  <Label>Advance Paid</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    value={data.advance_paid}
+                    onChange={(e) => setData('advance_paid', e.target.value)}
+                    placeholder="0.00"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label>Payment Method</Label>
+                <Select value={data.payment_method} onValueChange={(value) => setData('payment_method', value)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="cash">Cash</SelectItem>
+                    <SelectItem value="card">Card</SelectItem>
+                    <SelectItem value="upi">UPI</SelectItem>
+                    <SelectItem value="bank_transfer">Bank Transfer</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
           </Card>
