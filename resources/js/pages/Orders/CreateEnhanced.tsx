@@ -46,8 +46,10 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
   const [selectedMeasurementType, setSelectedMeasurementType] = useState('');
   const [designPreview, setDesignPreview] = useState<string | null>(null);
   const [fabricPreview, setFabricPreview] = useState<string | null>(null);
+  const [boutiqueFabricPreview, setBoutiqueFabricPreview] = useState<string | null>(null);
   const designInputRef = useRef<HTMLInputElement>(null);
   const fabricInputRef = useRef<HTMLInputElement>(null);
+  const boutiqueFabricInputRef = useRef<HTMLInputElement>(null);
 
 
 
@@ -62,7 +64,9 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
     measurement_notes: '',
     fabric_id: '',
     customer_fabric: false,
+    boutique_fabric: false,
     customer_fabric_photo: null as File | null,
+    boutique_fabric_photo: null as File | null,
     design_image: null as File | null,
     payment_method: 'cash',
     stitching_status_id: statuses[0]?.id.toString() || '',
@@ -351,18 +355,31 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
               <CardTitle>Fabric & Design</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="customer_fabric"
-                  checked={data.customer_fabric}
-                  onCheckedChange={(checked) => setData('customer_fabric', checked as boolean)}
-                />
-                <label htmlFor="customer_fabric" className="text-sm cursor-pointer">
-                  Customer provided fabric
-                </label>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="customer_fabric"
+                    checked={data.customer_fabric}
+                    onCheckedChange={(checked) => setData('customer_fabric', checked as boolean)}
+                  />
+                  <label htmlFor="customer_fabric" className="text-sm cursor-pointer">
+                    Customer provided fabric
+                  </label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="boutique_fabric"
+                    checked={data.boutique_fabric}
+                    onCheckedChange={(checked) => setData('boutique_fabric', checked as boolean)}
+                  />
+                  <label htmlFor="boutique_fabric" className="text-sm cursor-pointer">
+                    Boutique provided fabric
+                  </label>
+                </div>
               </div>
 
-              {!data.customer_fabric && (
+              {data.boutique_fabric && (
                 <div>
                   <Label>Fabric</Label>
                   <Select value={data.fabric_id} onValueChange={(value) => setData('fabric_id', value)}>
@@ -380,9 +397,64 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                 </div>
               )}
 
+              {data.boutique_fabric && (
+                <div>
+                  <Label>Boutique Fabric Photo</Label>
+                  <div className="flex items-center gap-4 mt-2">
+                    <Avatar className="h-24 w-24 rounded-md">
+                      <AvatarImage src={boutiqueFabricPreview || undefined} alt="Boutique Fabric" className="object-cover" />
+                      <AvatarFallback className="rounded-md bg-muted">
+                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => boutiqueFabricInputRef.current?.click()}
+                      >
+                        <Camera className="h-4 w-4 mr-2" />
+                        {boutiqueFabricPreview ? 'Change' : 'Upload'}
+                      </Button>
+                      {boutiqueFabricPreview && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setBoutiqueFabricPreview(null);
+                            setData('boutique_fabric_photo', null);
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                  <input
+                    ref={boutiqueFabricInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setData('boutique_fabric_photo', file);
+                        setBoutiqueFabricPreview(URL.createObjectURL(file));
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Upload boutique fabric photo (JPG, PNG or GIF. Max 2MB)
+                  </p>
+                </div>
+              )}
+
               {data.customer_fabric && (
                 <div>
-                  <Label>Fabric Photo</Label>
+                  <Label>Customer Fabric Photo</Label>
                   <div className="flex items-center gap-4 mt-2">
                     <Avatar className="h-24 w-24 rounded-md">
                       <AvatarImage src={fabricPreview || undefined} alt="Fabric" className="object-cover" />

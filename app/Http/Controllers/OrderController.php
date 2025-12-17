@@ -80,7 +80,9 @@ class OrderController extends Controller
             'measurement_notes' => 'nullable|string',
             'fabric_id' => 'nullable|exists:fabrics,id',
             'customer_fabric' => 'boolean',
+            'boutique_fabric' => 'boolean',
             'customer_fabric_photo' => 'nullable|image|max:2048',
+            'boutique_fabric_photo' => 'nullable|image|max:2048',
             'design_image' => 'nullable|image|max:2048',
             'payment_method' => 'nullable|in:cash,card,upi,bank_transfer,other',
             'stitching_status_id' => 'required|exists:stitching_statuses,id',
@@ -110,6 +112,12 @@ class OrderController extends Controller
         if ($request->hasFile('customer_fabric_photo')) {
             $path = $request->file('customer_fabric_photo')->store('fabric-photos', 'public');
             $validated['customer_fabric_photo'] = $path;
+        }
+
+        // Handle boutique fabric photo upload
+        if ($request->hasFile('boutique_fabric_photo')) {
+            $path = $request->file('boutique_fabric_photo')->store('fabric-photos', 'public');
+            $validated['boutique_fabric_photo'] = $path;
         }
 
         // Handle design image upload
@@ -167,7 +175,9 @@ class OrderController extends Controller
             'measurement_id' => 'nullable|exists:customer_measurements,id',
             'fabric_id' => 'nullable|exists:fabrics,id',
             'customer_fabric' => 'boolean',
+            'boutique_fabric' => 'boolean',
             'customer_fabric_photo' => 'nullable|image|max:2048',
+            'boutique_fabric_photo' => 'nullable|image|max:2048',
             'design_image' => 'nullable|image|max:2048',
             'stitching_status_id' => 'required|exists:stitching_statuses,id',
             'order_date' => 'required|date',
@@ -183,6 +193,12 @@ class OrderController extends Controller
         if ($request->hasFile('customer_fabric_photo')) {
             $path = $request->file('customer_fabric_photo')->store('fabric-photos', 'public');
             $validated['customer_fabric_photo'] = $path;
+        }
+
+        // Handle boutique fabric photo upload
+        if ($request->hasFile('boutique_fabric_photo')) {
+            $path = $request->file('boutique_fabric_photo')->store('fabric-photos', 'public');
+            $validated['boutique_fabric_photo'] = $path;
         }
 
         // Handle design image upload
