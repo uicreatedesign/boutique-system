@@ -67,9 +67,13 @@ class Order extends Model
         return $this->hasMany(OrderPayment::class);
     }
 
+    public function scopeWithPaymentTotals($query)
+    {
+        return $query->withSum('payments', 'amount');
+    }
+
     public function getBalanceDueAttribute()
     {
-        $totalPaid = $this->payments()->sum('amount');
-        return $this->total_amount - $this->discount - $totalPaid;
+        return $this->total_amount - $this->discount - ($this->payments_sum_amount ?? 0);
     }
 }
