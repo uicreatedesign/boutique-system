@@ -9,14 +9,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('boutique_fabric_photo')->nullable()->after('customer_fabric_photo');
+            if (!Schema::hasColumn('orders', 'boutique_fabric_photo')) {
+                $table->string('boutique_fabric_photo')->nullable()->after('customer_fabric_photo');
+            }
         });
     }
 
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('boutique_fabric_photo');
+            if (Schema::hasColumn('orders', 'boutique_fabric_photo')) {
+                $table->dropColumn('boutique_fabric_photo');
+            }
         });
     }
 };

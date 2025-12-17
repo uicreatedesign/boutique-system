@@ -12,8 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->foreignId('user_id')->nullable()->after('id')->constrained()->onDelete('cascade');
-            $table->dropColumn(['password', 'remember_token', 'email_verified_at']);
+            if (!Schema::hasColumn('customers', 'user_id')) {
+                $table->foreignId('user_id')->nullable()->after('id')->constrained()->onDelete('cascade');
+            }
+            
+            $columnsToDrop = [];
+            if (Schema::hasColumn('customers', 'password')) {
+                $columnsToDrop[] = 'password';
+            }
+            if (Schema::hasColumn('customers', 'remember_token')) {
+                $columnsToDrop[] = 'remember_token';
+            }
+            if (Schema::hasColumn('customers', 'email_verified_at')) {
+                $columnsToDrop[] = 'email_verified_at';
+            }
+            
+            if (!empty($columnsToDrop)) {
+                $table->dropColumn($columnsToDrop);
+            }
         });
     }
 
@@ -23,7 +39,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('customers', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('customers', 'user_id')) {
+                $table->dropForeign(['user_id']);
+                $table->dropColumn('user_id');
+            }
         });
     }
 };
