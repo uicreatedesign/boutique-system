@@ -453,6 +453,84 @@ getUnreadCount.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => 
         })
     
     getUnreadCount.form = getUnreadCountForm
-const NotificationController = { index, store, markAsRead, markAllAsRead, destroy, getUnreadCount }
+/**
+* @see \App\Http\Controllers\NotificationController::getRecent
+ * @see app/Http/Controllers/NotificationController.php:112
+ * @route '/api/notifications/recent'
+ */
+export const getRecent = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: getRecent.url(options),
+    method: 'get',
+})
+
+getRecent.definition = {
+    methods: ["get","head"],
+    url: '/api/notifications/recent',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\NotificationController::getRecent
+ * @see app/Http/Controllers/NotificationController.php:112
+ * @route '/api/notifications/recent'
+ */
+getRecent.url = (options?: RouteQueryOptions) => {
+    return getRecent.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\NotificationController::getRecent
+ * @see app/Http/Controllers/NotificationController.php:112
+ * @route '/api/notifications/recent'
+ */
+getRecent.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: getRecent.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\NotificationController::getRecent
+ * @see app/Http/Controllers/NotificationController.php:112
+ * @route '/api/notifications/recent'
+ */
+getRecent.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: getRecent.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\NotificationController::getRecent
+ * @see app/Http/Controllers/NotificationController.php:112
+ * @route '/api/notifications/recent'
+ */
+    const getRecentForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: getRecent.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\NotificationController::getRecent
+ * @see app/Http/Controllers/NotificationController.php:112
+ * @route '/api/notifications/recent'
+ */
+        getRecentForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: getRecent.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\NotificationController::getRecent
+ * @see app/Http/Controllers/NotificationController.php:112
+ * @route '/api/notifications/recent'
+ */
+        getRecentForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: getRecent.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    getRecent.form = getRecentForm
+const NotificationController = { index, store, markAsRead, markAllAsRead, destroy, getUnreadCount, getRecent }
 
 export default NotificationController

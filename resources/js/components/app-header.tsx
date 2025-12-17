@@ -36,6 +36,7 @@ import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
 import { ThemeToggle } from './theme-toggle';
+import NotificationBell from './notifications/notification-bell';
 
 const mainNavItems: NavItem[] = [
     {
@@ -200,6 +201,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             >
                                 <Search className="!size-5 opacity-80 group-hover:opacity-100" />
                             </Button>
+                            <NotificationBell />
                             <ThemeToggle />
                             <div className="hidden lg:flex">
                                 {rightNavItems.map((item) => (
