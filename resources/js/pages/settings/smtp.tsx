@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { type BreadcrumbItem } from '@/types';
 import TestEmailModal from '@/components/settings/test-email-modal';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -41,6 +42,7 @@ export default function SmtpSettings() {
     mail_from_name: '',
   });
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -53,6 +55,8 @@ export default function SmtpSettings() {
       setSettings(response.data);
     } catch (error) {
       console.error('Failed to fetch SMTP settings:', error);
+    } finally {
+      setPageLoading(false);
     }
   };
 
@@ -78,6 +82,74 @@ export default function SmtpSettings() {
   const handleChange = (key: keyof SmtpSettings, value: string) => {
     setSettings(prev => ({ ...prev, [key]: value }));
   };
+
+  if (pageLoading) {
+    return (
+      <AppLayout breadcrumbs={breadcrumbs}>
+        <Head title="SMTP Settings" />
+        <SettingsLayout>
+          <div className="space-y-6">
+            {/* Header Skeleton */}
+            <div className="space-y-2">
+              <Skeleton className="h-7 w-32" />
+              <Skeleton className="h-4 w-80" />
+            </div>
+
+            {/* Form Skeleton */}
+            <div className="space-y-6">
+              {/* SMTP Host & Port */}
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid gap-2">
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+                <div className="grid gap-2">
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+              </div>
+
+              {/* SMTP Username */}
+              <div className="grid gap-2">
+                <Skeleton className="h-4 w-28" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+
+              {/* SMTP Password */}
+              <div className="grid gap-2">
+                <Skeleton className="h-4 w-28" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+
+              {/* Encryption */}
+              <div className="grid gap-2">
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+
+              {/* From Email & Name */}
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid gap-2">
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+                <div className="grid gap-2">
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex items-center gap-4">
+                <Skeleton className="h-10 w-16" />
+                <Skeleton className="h-10 w-24" />
+              </div>
+            </div>
+          </div>
+        </SettingsLayout>
+      </AppLayout>
+    );
+  }
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>

@@ -127,8 +127,7 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
 
   return (
     <AppLayout>
-      <Head title="Create Order" />
-      
+      <Head title="Create Order" />      
       <div className="space-y-6 p-4 max-w-6xl mx-auto">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Create Order</h1>

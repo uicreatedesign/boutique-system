@@ -9,13 +9,8 @@ import FabricCreateModal from '@/components/fabrics/fabric-create-modal';
 import { Plus, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { type BreadcrumbItem } from '@/types';
-import { dashboard } from '@/routes';
 
 const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: dashboard(),
-  },
   {
     title: 'Fabrics',
     href: '/fabrics',

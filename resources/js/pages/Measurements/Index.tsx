@@ -9,13 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Search, Eye, Edit, Trash2, Printer } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { type BreadcrumbItem } from '@/types';
-import { dashboard } from '@/routes';
 
 const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: dashboard(),
-  },
   {
     title: 'Measurements',
     href: '/measurements',

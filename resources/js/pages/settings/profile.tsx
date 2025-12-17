@@ -17,6 +17,7 @@ import SettingsLayout from '@/layouts/settings/layout';
 import { edit } from '@/routes/profile';
 import { Camera, Trash2 } from 'lucide-react';
 import { useInitials } from '@/hooks/use-initials';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -35,7 +36,14 @@ export default function Profile({
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    
+    // Simulate loading state
+    useState(() => {
+        const timer = setTimeout(() => setLoading(false), 800);
+        return () => clearTimeout(timer);
+    });
     
     const { data, setData, patch, processing, errors, recentlySuccessful } = useForm({
         name: auth.user.name,
@@ -84,6 +92,60 @@ export default function Profile({
     };
 
     const avatarUrl = previewUrl || (auth.user.avatar ? `/storage/${auth.user.avatar}` : null);
+
+    if (loading) {
+        return (
+            <AppLayout breadcrumbs={breadcrumbs}>
+                <Head title="Profile settings" />
+                <SettingsLayout>
+                    <div className="space-y-6">
+                        {/* Header Skeleton */}
+                        <div className="space-y-2">
+                            <Skeleton className="h-7 w-48" />
+                            <Skeleton className="h-4 w-80" />
+                        </div>
+
+                        {/* Avatar Section Skeleton */}
+                        <div className="space-y-4">
+                            <Skeleton className="h-4 w-24" />
+                            <div className="flex items-center gap-4">
+                                <Skeleton className="h-20 w-20 rounded-full" />
+                                <div className="flex gap-2">
+                                    <Skeleton className="h-9 w-20" />
+                                    <Skeleton className="h-9 w-20" />
+                                </div>
+                            </div>
+                            <Skeleton className="h-4 w-48" />
+                        </div>
+
+                        {/* Form Skeleton */}
+                        <div className="space-y-6">
+                            <div className="grid gap-2">
+                                <Skeleton className="h-4 w-12" />
+                                <Skeleton className="h-10 w-full" />
+                            </div>
+                            <div className="grid gap-2">
+                                <Skeleton className="h-4 w-24" />
+                                <Skeleton className="h-10 w-full" />
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <Skeleton className="h-10 w-16" />
+                            </div>
+                        </div>
+
+                        {/* Delete User Section Skeleton */}
+                        <div className="space-y-4 pt-6 border-t">
+                            <div className="space-y-2">
+                                <Skeleton className="h-6 w-32" />
+                                <Skeleton className="h-4 w-96" />
+                            </div>
+                            <Skeleton className="h-10 w-32" />
+                        </div>
+                    </div>
+                </SettingsLayout>
+            </AppLayout>
+        );
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

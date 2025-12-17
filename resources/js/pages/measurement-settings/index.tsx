@@ -9,10 +9,6 @@ import { dashboard } from '@/routes';
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
-    title: 'Dashboard',
-    href: dashboard(),
-  },
-  {
     title: 'Measurements',
     href: '/measurements',
   },

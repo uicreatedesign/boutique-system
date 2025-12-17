@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Edit, Trash2, Check, X } from 'lucide-react';
 import { toast } from 'sonner';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Category {
   id: number;
@@ -122,7 +123,64 @@ export default function FieldManagement() {
     setFormData({ category_id: '', name: '', unit: '', is_required: false, sort_order: 0 });
   };
 
-  if (loading) return <div className="text-center py-4">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="lg:col-span-1">
+          <CardHeader>
+            <Skeleton className="h-6 w-24" />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Skeleton className="h-4 w-20 mb-2" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <div>
+              <Skeleton className="h-4 w-24 mb-2" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <div>
+              <Skeleton className="h-4 w-12 mb-2" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <div>
+              <Skeleton className="h-4 w-20 mb-2" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <Skeleton className="h-10 w-full" />
+          </CardContent>
+        </Card>
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <Skeleton className="h-6 w-32" />
+              <Skeleton className="h-10 w-48" />
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="border rounded-lg p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Skeleton className="h-5 w-20" />
+                      <Skeleton className="h-5 w-12" />
+                      <Skeleton className="h-5 w-16" />
+                    </div>
+                    <Skeleton className="h-3 w-24" />
+                  </div>
+                  <div className="flex gap-2">
+                    <Skeleton className="h-8 w-8" />
+                    <Skeleton className="h-8 w-8" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -164,13 +222,24 @@ export default function FieldManagement() {
             </div>
             <div>
               <Label htmlFor="unit">Unit *</Label>
-              <Input
-                id="unit"
+              <Select
                 value={formData.unit}
-                onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
-                placeholder="e.g., inches, cm"
+                onValueChange={(value) => setFormData({ ...formData, unit: value })}
                 required
-              />
+              >
+                <SelectTrigger className={!formData.unit ? 'border-red-500' : ''}>
+                  <SelectValue placeholder="Select unit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="inches">Inches (in)</SelectItem>
+                  <SelectItem value="cm">Centimeters (cm)</SelectItem>
+                  <SelectItem value="mm">Millimeters (mm)</SelectItem>
+                  <SelectItem value="meters">Meters (m)</SelectItem>
+                  <SelectItem value="feet">Feet (ft)</SelectItem>
+                  <SelectItem value="yards">Yards (yd)</SelectItem>
+                </SelectContent>
+              </Select>
+              {!formData.unit && <p className="text-red-500 text-sm mt-1">Unit is required</p>}
             </div>
             <div>
               <Label htmlFor="sort_order">Sort Order</Label>

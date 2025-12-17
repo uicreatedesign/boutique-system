@@ -9,13 +9,8 @@ import GarmentTypeCreateModal from '@/components/garment-types/garment-type-crea
 import { Plus, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { type BreadcrumbItem } from '@/types';
-import { dashboard } from '@/routes';
 
 const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: dashboard(),
-  },
   {
     title: 'Garment Types',
     href: '/garment-types',
