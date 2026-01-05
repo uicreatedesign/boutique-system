@@ -109,7 +109,7 @@ class NotificationService
             $customerData = [
                 'type' => 'payment_received',
                 'title' => 'Payment Received',
-                'message' => "Payment of ${$payment->amount} received for your order #{$payment->order->order_number}",
+                'message' => "Payment of {$payment->amount} received for your order #{$payment->order->order_number}",
                 'data' => ['payment_id' => $payment->id, 'order_id' => $payment->order_id],
                 'user_id' => $payment->order->customer->user_id,
                 'priority' => 'normal',
@@ -122,7 +122,7 @@ class NotificationService
         $staffData = [
             'type' => 'payment_received',
             'title' => 'Payment Received',
-            'message' => "Payment of ${$payment->amount} received for Order #{$payment->order->order_number}",
+            'message' => "Payment of {$payment->amount} received for Order #{$payment->order->order_number}",
             'data' => ['payment_id' => $payment->id, 'order_id' => $payment->order_id],
             'priority' => 'normal',
             'color' => '#3b82f6',
@@ -196,16 +196,6 @@ class NotificationService
             'priority' => 'high',
             'color' => '#ef4444',
         ];
-        return self::send($data);
-    }
-
-    public static function createForUser(User $user, array $data)
-    {
-        return self::send(array_merge($data, ['user_id' => $user->id]));
-    }
-
-    public static function createSystemWide(array $data)
-    {
         return self::send($data);
     }
 }

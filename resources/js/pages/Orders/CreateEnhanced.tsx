@@ -9,10 +9,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from 'sonner';
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ChevronDown, ChevronUp, Camera, Trash2, Image as ImageIcon } from 'lucide-react';
+import { ChevronDown, ChevronUp, Camera, Trash2, Image as ImageIcon, CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface MeasurementField {
   id: number;
@@ -71,7 +75,7 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
     payment_method: 'cash',
     stitching_status_id: statuses[0]?.id.toString() || '',
     order_date: new Date().toISOString().split('T')[0],
-    delivery_date: '',
+    delivery_date: new Date().toISOString().split('T')[0],
     priority: 'normal',
     total_amount: '',
     advance_paid: '',
@@ -630,21 +634,55 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <Label>Order Date *</Label>
-                  <Input
-                    type="date"
-                    value={data.order_date}
-                    onChange={(e) => setData('order_date', e.target.value)}
-                  />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !data.order_date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {data.order_date ? format(new Date(data.order_date), "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={data.order_date ? new Date(data.order_date) : undefined}
+                        onSelect={(date) => setData('order_date', date ? format(date, 'yyyy-MM-dd') : '')}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                   {errors.order_date && <p className="text-sm text-red-500 mt-1">{errors.order_date}</p>}
                 </div>
 
                 <div>
                   <Label>Delivery Date *</Label>
-                  <Input
-                    type="date"
-                    value={data.delivery_date}
-                    onChange={(e) => setData('delivery_date', e.target.value)}
-                  />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !data.delivery_date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {data.delivery_date ? format(new Date(data.delivery_date), "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={data.delivery_date ? new Date(data.delivery_date) : undefined}
+                        onSelect={(date) => setData('delivery_date', date ? format(date, 'yyyy-MM-dd') : '')}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                   {errors.delivery_date && <p className="text-sm text-red-500 mt-1">{errors.delivery_date}</p>}
                 </div>
 
