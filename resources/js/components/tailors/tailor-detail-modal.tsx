@@ -3,6 +3,7 @@ import { getTailor } from '@/api/tailors';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { usePage } from '@inertiajs/react';
 
 interface Tailor {
   id: number;
@@ -24,6 +25,8 @@ interface TailorDetailModalProps {
 }
 
 export default function TailorDetailModal({ tailor, open, onClose }: TailorDetailModalProps) {
+  const { appSettings } = usePage().props as any;
+  const currencySymbol = appSettings?.currency_symbol || '$';
   const [tailorDetail, setTailorDetail] = useState<Tailor | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -109,7 +112,7 @@ export default function TailorDetailModal({ tailor, open, onClose }: TailorDetai
                   </Badge>
                 </div>
                 {tailorDetail?.hourly_rate && (
-                  <div><strong>Hourly Rate:</strong> ${tailorDetail.hourly_rate}/hr</div>
+                  <div><strong>Hourly Rate:</strong> {currencySymbol}{tailorDetail.hourly_rate}/hr</div>
                 )}
                 {tailorDetail?.specialization && (
                   <div><strong>Specialization:</strong> {tailorDetail.specialization}</div>

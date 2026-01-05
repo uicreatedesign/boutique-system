@@ -142,6 +142,61 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
         })
     
     update.form = updateForm
-const NotificationController = { index, update }
+/**
+* @see \App\Http\Controllers\Settings\NotificationController::testNotification
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+export const testNotification = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: testNotification.url(options),
+    method: 'post',
+})
+
+testNotification.definition = {
+    methods: ["post"],
+    url: '/api/settings/notifications/test',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Settings\NotificationController::testNotification
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+testNotification.url = (options?: RouteQueryOptions) => {
+    return testNotification.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Settings\NotificationController::testNotification
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+testNotification.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: testNotification.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\Settings\NotificationController::testNotification
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+    const testNotificationForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: testNotification.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Settings\NotificationController::testNotification
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+        testNotificationForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: testNotification.url(options),
+            method: 'post',
+        })
+    
+    testNotification.form = testNotificationForm
+const NotificationController = { index, update, testNotification }
 
 export default NotificationController

@@ -8,6 +8,7 @@ import TailorDetailModal from './tailor-detail-modal';
 import TailorDeleteDialog from './tailor-delete-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import { usePage } from '@inertiajs/react';
+import Pagination from '@/components/ui/pagination';
 
 interface Tailor {
   id: number;
@@ -34,16 +35,26 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
   const [editTailor, setEditTailor] = useState<Tailor | null>(null);
   const [detailTailor, setDetailTailor] = useState<Tailor | null>(null);
   const [deleteTailor, setDeleteTailor] = useState<Tailor | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [from, setFrom] = useState(0);
+  const [to, setTo] = useState(0);
 
-  const fetchTailors = async () => {
+  const fetchTailors = async (page = 1) => {
     try {
       setLoading(true);
-      const params: any = { search };
+      const params: any = { search, page };
       if (statusFilter && statusFilter !== 'all') {
         params.status = statusFilter;
       }
       const response = await getTailors(params);
       setTailors(response.data.data);
+      setCurrentPage(response.data.current_page);
+      setTotalPages(response.data.last_page);
+      setTotal(response.data.total);
+      setFrom(response.data.from || 0);
+      setTo(response.data.to || 0);
     } catch (error) {
       console.error('Failed to fetch tailors:', error);
     } finally {
@@ -53,10 +64,16 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      fetchTailors();
+      setCurrentPage(1);
+      fetchTailors(1);
     }, 300);
     return () => clearTimeout(timer);
   }, [search, statusFilter]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    fetchTailors(page);
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -82,6 +99,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b">
+              <th className="text-left p-4">#</th>
               <th className="text-left p-4">Name</th>
               <th className="text-left p-4">Contact</th>
               <th className="text-left p-4">Skill Level</th>
@@ -94,6 +112,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
           <tbody>
             {[...Array(5)].map((_, i) => (
               <tr key={i} className="border-b">
+                <td className="p-4"><Skeleton className="h-4 w-8" /></td>
                 <td className="p-4"><Skeleton className="h-5 w-32" /></td>
                 <td className="p-4">
                   <div className="space-y-2">
@@ -126,6 +145,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b">
+              <th className="text-left p-4">#</th>
               <th className="text-left p-4">Name</th>
               <th className="text-left p-4">Contact</th>
               <th className="text-left p-4">Skill Level</th>
@@ -136,8 +156,9 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
             </tr>
           </thead>
           <tbody>
-            {tailors.map((tailor) => (
+            {tailors.map((tailor, index) => (
               <tr key={tailor.id} className="border-b hover:bg-gray-50 dark:hover:bg-[oklch(0.269_0_0)]">
+                <td className="p-4 text-sm text-gray-600">{from + index}</td>
                 <td className="p-4 font-medium">{tailor.name}</td>
                 <td className="p-4">
                   <div className="space-y-1">
@@ -192,6 +213,15 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
         </table>
       </div>
 
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        showingFrom={from}
+        showingTo={to}
+        total={total}
+      />
+
       {editTailor && (
         <TailorEditModal
           tailor={editTailor}
@@ -199,7 +229,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
           onClose={() => setEditTailor(null)}
           onSuccess={() => {
             setEditTailor(null);
-            fetchTailors();
+            fetchTailors(currentPage);
           }}
         />
       )}
@@ -218,7 +248,7 @@ export default function TailorTable({ search, statusFilter }: TailorTableProps) 
         onClose={() => setDeleteTailor(null)}
         onSuccess={() => {
           setDeleteTailor(null);
-          fetchTailors();
+          fetchTailors(currentPage);
         }}
       />
     </>

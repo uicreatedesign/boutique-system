@@ -16,11 +16,16 @@ return new class extends Migration
             $table->id();
             $table->boolean('email_enabled')->default(true);
             $table->boolean('whatsapp_enabled')->default(false);
+            $table->boolean('sms_enabled')->default(false);
+            $table->boolean('push_enabled')->default(true);
             $table->boolean('order_created')->default(true);
             $table->boolean('order_status_changed')->default(true);
             $table->boolean('payment_received')->default(true);
             $table->boolean('delivery_reminder')->default(true);
+            $table->boolean('low_stock_alert')->default(true);
             $table->integer('delivery_reminder_days')->default(1);
+            $table->json('email_templates')->nullable();
+            $table->json('whatsapp_templates')->nullable();
             $table->timestamps();
         });
 
@@ -28,10 +33,13 @@ return new class extends Migration
         DB::table('notification_settings')->insert([
             'email_enabled' => true,
             'whatsapp_enabled' => false,
+            'sms_enabled' => false,
+            'push_enabled' => true,
             'order_created' => true,
             'order_status_changed' => true,
             'payment_received' => true,
             'delivery_reminder' => true,
+            'low_stock_alert' => true,
             'delivery_reminder_days' => 1,
             'created_at' => now(),
             'updated_at' => now(),

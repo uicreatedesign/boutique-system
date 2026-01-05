@@ -31,7 +31,7 @@ class TailorController extends Controller
             $query->where('status', $status);
         }
 
-        return $query->paginate($request->get('per_page', 15));
+        return response()->json($query->paginate($request->get('per_page', 15)));
     }
 
     public function store(Request $request)

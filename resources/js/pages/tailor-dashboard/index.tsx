@@ -83,7 +83,7 @@ export default function TailorDashboard({ tailor, stats, orders }: TailorDashboa
               </Badge>
             </div>
             {tailor.hourly_rate && (
-              <div><strong>Hourly Rate:</strong> ${tailor.hourly_rate}/hr</div>
+              <div><strong>Hourly Rate:</strong> {formatCurrency(tailor.hourly_rate)}/hr</div>
             )}
             {tailor.specialization && (
               <div><strong>Specialization:</strong> {tailor.specialization}</div>

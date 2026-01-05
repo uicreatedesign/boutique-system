@@ -306,7 +306,7 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                         </div>
 
                         {showMeasurements && (
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 rounded-lg border border-muted">
                             {selectedCategory.fields.map((field) => (
                               <div key={field.id}>
                                 <Label htmlFor={field.slug} className="text-sm">
@@ -332,7 +332,7 @@ export default function OrdersCreateEnhanced({ customers, garmentTypes, tailors,
                         )}
 
                         <div>
-                          <Label>Measurement Notes</Label>
+                          <Label className="mb-2">Measurement Notes</Label>
                           <Textarea
                             value={data.measurement_notes}
                             onChange={(e) => setData('measurement_notes', e.target.value)}

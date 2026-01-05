@@ -74,5 +74,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware('permission:view_own_notifications')->group(function () {
         Route::get('settings/notifications', [\App\Http\Controllers\Settings\NotificationController::class, 'index'])->name('notifications.index');
         Route::put('api/settings/notifications', [\App\Http\Controllers\Settings\NotificationController::class, 'update'])->name('notifications.update');
+        Route::post('api/settings/notifications/test', [\App\Http\Controllers\Settings\NotificationController::class, 'testNotification'])->name('notifications.test');
     });
 });

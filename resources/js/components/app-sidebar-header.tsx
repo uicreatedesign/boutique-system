@@ -10,6 +10,7 @@ import { type SharedData } from '@/types';
 import { ChevronDown } from 'lucide-react';
 import NotificationBell from '@/components/notifications/notification-bell';
 import SimpleSearch from '@/components/simple-search';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export function AppSidebarHeader({
     breadcrumbs = [],
@@ -27,11 +28,12 @@ export function AppSidebarHeader({
             <div className="flex items-center gap-2">
                 <SimpleSearch />
                 <NotificationBell />
+                <ThemeToggle />
                 <div className="hidden md:block">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="sm" className="gap-2">
-                                <UserInfo user={auth.user} />
+                                <UserInfo user={auth.user} showName={false} showEmail={false} />
                                 <ChevronDown className="h-4 w-4" />
                             </Button>
                         </DropdownMenuTrigger>

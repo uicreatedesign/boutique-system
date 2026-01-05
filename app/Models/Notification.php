@@ -44,6 +44,14 @@ class Notification extends Model
 
     public function scopeForUser($query, $userId)
     {
+        $user = User::find($userId);
+        
+        // Customers only see their own notifications
+        if ($user && $user->isCustomer()) {
+            return $query->where('user_id', $userId);
+        }
+        
+        // Staff see their own + system-wide notifications
         return $query->where(function($q) use ($userId) {
             $q->where('user_id', $userId)->orWhereNull('user_id');
         });

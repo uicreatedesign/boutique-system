@@ -1,49 +1,64 @@
 import { Button } from '@/components/ui/button';
-import { Moon, Sun } from 'lucide-react';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Moon, Sun, Monitor } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+type Theme = 'light' | 'dark' | 'system';
+
 export function ThemeToggle() {
-    const [isDark, setIsDark] = useState(false);
+    const [theme, setTheme] = useState<Theme>('system');
 
     useEffect(() => {
-        const theme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (theme === 'dark' || (!theme && systemPrefersDark)) {
-            setIsDark(true);
-            document.documentElement.classList.add('dark');
-        } else {
-            setIsDark(false);
-            document.documentElement.classList.remove('dark');
-        }
+        const savedTheme = (localStorage.getItem('theme') as Theme) || 'system';
+        setTheme(savedTheme);
+        applyTheme(savedTheme);
     }, []);
 
-    const toggleTheme = () => {
-        const newTheme = !isDark;
-        setIsDark(newTheme);
+    const applyTheme = (newTheme: Theme) => {
+        const root = document.documentElement;
         
-        if (newTheme) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
+        if (newTheme === 'system') {
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            root.classList.toggle('dark', systemPrefersDark);
         } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
+            root.classList.toggle('dark', newTheme === 'dark');
         }
     };
 
+    const changeTheme = (newTheme: Theme) => {
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+    };
+
     return (
-        <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
-            className="h-9 w-9"
-        >
-            {isDark ? (
-                <Sun className="h-5 w-5" />
-            ) : (
-                <Moon className="h-5 w-5" />
-            )}
-            <span className="sr-only">Toggle theme</span>
-        </Button>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-9 w-9">
+                    <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                    <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                    <span className="sr-only">Toggle theme</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => changeTheme('light')}>
+                    <Sun className="mr-2 h-4 w-4" />
+                    <span>Light</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => changeTheme('dark')}>
+                    <Moon className="mr-2 h-4 w-4" />
+                    <span>Dark</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => changeTheme('system')}>
+                    <Monitor className="mr-2 h-4 w-4" />
+                    <span>System</span>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }

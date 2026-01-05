@@ -160,7 +160,11 @@ export default function MeasurementsIndex({ measurements, search }: Props) {
                                 <Eye className="h-4 w-4" />
                               </Button>
                             </Link>
-
+                            <Link href={`/measurements/${measurement.id}/edit`}>
+                              <Button size="sm" variant="outline">
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                            </Link>
                             <Button size="sm" variant="outline">
                               <Printer className="h-4 w-4" />
                             </Button>

@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { usePage } from '@inertiajs/react';
 
 const tailorSchema = z.object({
   name: z.string().min(1, 'Name is required').max(191),
@@ -31,6 +32,8 @@ interface TailorFormProps {
 }
 
 export default function TailorForm({ onSubmit, loading, initialData }: TailorFormProps) {
+  const { appSettings } = usePage().props as any;
+  const currencySymbol = appSettings?.currency_symbol || '$';
   const {
     register,
     handleSubmit,
@@ -120,7 +123,7 @@ export default function TailorForm({ onSubmit, loading, initialData }: TailorFor
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="hourly_rate">Hourly Rate ($)</Label>
+          <Label htmlFor="hourly_rate">Hourly Rate ({currencySymbol})</Label>
           <Input
             id="hourly_rate"
             type="number"

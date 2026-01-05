@@ -221,6 +221,61 @@ update.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     
     update.form = updateForm
 /**
+* @see \App\Http\Controllers\Settings\NotificationController::test
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+export const test = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: test.url(options),
+    method: 'post',
+})
+
+test.definition = {
+    methods: ["post"],
+    url: '/api/settings/notifications/test',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\Settings\NotificationController::test
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+test.url = (options?: RouteQueryOptions) => {
+    return test.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Settings\NotificationController::test
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+test.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: test.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\Settings\NotificationController::test
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+    const testForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: test.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\Settings\NotificationController::test
+ * @see app/Http/Controllers/Settings/NotificationController.php:42
+ * @route '/api/settings/notifications/test'
+ */
+        testForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: test.url(options),
+            method: 'post',
+        })
+    
+    test.form = testForm
+/**
 * @see \App\Http\Controllers\NotificationController::store
  * @see app/Http/Controllers/NotificationController.php:84
  * @route '/notifications'
@@ -677,6 +732,7 @@ recent.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 const notifications = {
     index: Object.assign(index, index),
 update: Object.assign(update, update),
+test: Object.assign(test, test),
 store: Object.assign(store, store),
 read: Object.assign(read, read),
 markAllRead: Object.assign(markAllRead, markAllRead),
