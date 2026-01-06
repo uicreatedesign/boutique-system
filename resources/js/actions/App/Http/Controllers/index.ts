@@ -1,5 +1,5 @@
-import Api from './Api'
 import CustomerController from './CustomerController'
+import Api from './Api'
 import RoleController from './RoleController'
 import PermissionController from './PermissionController'
 import TailorController from './TailorController'
@@ -20,8 +20,8 @@ import NotificationController from './NotificationController'
 import SearchController from './SearchController'
 import CustomerDashboardController from './CustomerDashboardController'
 const Controllers = {
-    Api: Object.assign(Api, Api),
-CustomerController: Object.assign(CustomerController, CustomerController),
+    CustomerController: Object.assign(CustomerController, CustomerController),
+Api: Object.assign(Api, Api),
 RoleController: Object.assign(RoleController, RoleController),
 PermissionController: Object.assign(PermissionController, PermissionController),
 TailorController: Object.assign(TailorController, TailorController),
