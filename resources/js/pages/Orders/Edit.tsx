@@ -45,10 +45,10 @@ interface Props {
 
 export default function OrdersEdit({ order, customers, garmentTypes, tailors, fabrics, statuses, categories = [] }: Props) {
   const [existingMeasurements, setExistingMeasurements] = useState<any[]>([]);
-  const [measurementOption, setMeasurementOption] = useState<'existing' | 'new' | 'skip'>('skip');
+  const [measurementOption, setMeasurementOption] = useState<'existing' | 'new' | 'skip'>(order.measurement_id ? 'existing' : 'skip');
   const [showMeasurements, setShowMeasurements] = useState(false);
-  const [newMeasurements, setNewMeasurements] = useState<Record<string, string>>({});
-  const [selectedMeasurementType, setSelectedMeasurementType] = useState('');
+  const [newMeasurements, setNewMeasurements] = useState<Record<string, string>>(order.measurement?.measurements || {});
+  const [selectedMeasurementType, setSelectedMeasurementType] = useState(order.measurement?.measurement_type || '');
   const [designPreview, setDesignPreview] = useState<string | null>(order.design_image || null);
   const [fabricPreview, setFabricPreview] = useState<string | null>(order.customer_fabric_photo || null);
   const [boutiqueFabricPreview, setBoutiqueFabricPreview] = useState<string | null>(order.boutique_fabric_photo || null);
@@ -83,7 +83,6 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
     notes: order.notes || '',
   });
 
-  // Load measurements when component mounts (for existing customer)
   useEffect(() => {
     if (order.customer_id) {
       loadMeasurements(order.customer_id.toString());
@@ -119,6 +118,7 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
   };
 
   const selectedCategory = categories?.find(cat => cat.slug === selectedMeasurementType);
+  const showMeasurementFields = measurementOption === 'new' && selectedCategory;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -320,9 +320,9 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                           </Button>
                         </div>
 
-                        {showMeasurements && (
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
-                            {selectedCategory.fields.map((field) => (
+                        {showMeasurementFields && (
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 rounded-lg border border-muted">
+                            {selectedCategory?.fields.map((field) => (
                               <div key={field.id}>
                                 <Label htmlFor={field.slug} className="text-sm">
                                   {field.name} ({field.unit})
@@ -347,7 +347,7 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                         )}
 
                         <div>
-                          <Label>Measurement Notes</Label>
+                          <Label className="mb-2">Measurement Notes</Label>
                           <Textarea
                             value={data.measurement_notes}
                             onChange={(e) => setData('measurement_notes', e.target.value)}

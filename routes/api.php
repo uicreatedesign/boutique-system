@@ -10,14 +10,15 @@ use App\Http\Controllers\MeasurementFieldController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('customers/register', [\App\Http\Controllers\Api\CustomerRegistrationController::class, 'store']);
 
-Route::middleware('web')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
     Route::apiResource('customers', CustomerController::class);
     Route::get('customers/{customer}/orders', [CustomerController::class, 'orders']);
-    Route::post('customers/register', [\App\Http\Controllers\Api\CustomerRegistrationController::class, 'store']);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('permissions', PermissionController::class);
     Route::apiResource('tailors', TailorController::class);

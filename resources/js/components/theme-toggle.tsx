@@ -11,10 +11,11 @@ import { useEffect, useState } from 'react';
 type Theme = 'light' | 'dark' | 'system';
 
 export function ThemeToggle() {
+    
     const [theme, setTheme] = useState<Theme>('system');
 
     useEffect(() => {
-        const savedTheme = (localStorage.getItem('theme') as Theme) || 'system';
+        const savedTheme = (localStorage.getItem('appearance') as Theme) || 'system';
         setTheme(savedTheme);
         applyTheme(savedTheme);
     }, []);
@@ -32,7 +33,7 @@ export function ThemeToggle() {
 
     const changeTheme = (newTheme: Theme) => {
         setTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
+        localStorage.setItem('appearance', newTheme);
         applyTheme(newTheme);
     };
 

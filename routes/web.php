@@ -3,12 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\Auth\GoogleController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
+
+Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
@@ -30,3 +34,4 @@ require __DIR__.'/reports.php';
 require __DIR__.'/notifications.php';
 require __DIR__.'/search.php';
 require __DIR__.'/customer-dashboard.php';
+require __DIR__.'/deploy.php';

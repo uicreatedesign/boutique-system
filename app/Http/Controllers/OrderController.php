@@ -143,8 +143,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load(['customer', 'garmentType', 'tailor', 'measurement', 'fabric', 'stitchingStatus', 'payments']);
-        $order->balance_due = $order->getBalanceDueAttribute();
+        $order = Order::with(['customer', 'garmentType', 'tailor', 'measurement', 'fabric', 'stitchingStatus', 'payments'])->find($order->id);
         
         return Inertia::render('Orders/Show', [
             'order' => $order,
@@ -163,6 +162,7 @@ class OrderController extends Controller
             'tailors' => Tailor::where('status', 'active')->select('id', 'name')->get(),
             'fabrics' => Fabric::where('status', 'available')->select('id', 'name', 'price_per_meter')->get(),
             'statuses' => StitchingStatus::where('status', 'active')->orderBy('order')->select('id', 'name', 'color')->get(),
+            'categories' => \App\Models\MeasurementCategory::with('fields')->where('is_active', true)->orderBy('sort_order')->get(),
         ]);
     }
 

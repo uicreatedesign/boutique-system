@@ -8,7 +8,7 @@ class StoreCustomerRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('customer-create');
     }
 
     public function rules(): array

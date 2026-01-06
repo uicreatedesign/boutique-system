@@ -35,7 +35,7 @@ export default function FieldManagement() {
   const [formData, setFormData] = useState({
     category_id: '',
     name: '',
-    unit: '',
+    unit: 'inches',
     is_required: false,
     sort_order: 0,
   });
@@ -86,7 +86,7 @@ export default function FieldManagement() {
         await createField(formData);
         toast.success('Field created successfully');
       }
-      setFormData({ category_id: '', name: '', unit: '', is_required: false, sort_order: 0 });
+      setFormData({ category_id: '', name: '', unit: 'inches', is_required: false, sort_order: 0 });
       setEditingId(null);
       fetchFields();
     } catch (error: any) {
@@ -120,7 +120,7 @@ export default function FieldManagement() {
 
   const handleCancel = () => {
     setEditingId(null);
-    setFormData({ category_id: '', name: '', unit: '', is_required: false, sort_order: 0 });
+    setFormData({ category_id: '', name: '', unit: 'inches', is_required: false, sort_order: 0 });
   };
 
   if (loading) {

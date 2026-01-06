@@ -1,11 +1,12 @@
-import CustomerController from './CustomerController'
 import Api from './Api'
+import CustomerController from './CustomerController'
 import RoleController from './RoleController'
 import PermissionController from './PermissionController'
 import TailorController from './TailorController'
 import UserController from './UserController'
 import MeasurementCategoryController from './MeasurementCategoryController'
 import MeasurementFieldController from './MeasurementFieldController'
+import Auth from './Auth'
 import DashboardController from './DashboardController'
 import Settings from './Settings'
 import TailorDashboardController from './TailorDashboardController'
@@ -19,14 +20,15 @@ import NotificationController from './NotificationController'
 import SearchController from './SearchController'
 import CustomerDashboardController from './CustomerDashboardController'
 const Controllers = {
-    CustomerController: Object.assign(CustomerController, CustomerController),
-Api: Object.assign(Api, Api),
+    Api: Object.assign(Api, Api),
+CustomerController: Object.assign(CustomerController, CustomerController),
 RoleController: Object.assign(RoleController, RoleController),
 PermissionController: Object.assign(PermissionController, PermissionController),
 TailorController: Object.assign(TailorController, TailorController),
 UserController: Object.assign(UserController, UserController),
 MeasurementCategoryController: Object.assign(MeasurementCategoryController, MeasurementCategoryController),
 MeasurementFieldController: Object.assign(MeasurementFieldController, MeasurementFieldController),
+Auth: Object.assign(Auth, Auth),
 DashboardController: Object.assign(DashboardController, DashboardController),
 Settings: Object.assign(Settings, Settings),
 TailorDashboardController: Object.assign(TailorDashboardController, TailorDashboardController),

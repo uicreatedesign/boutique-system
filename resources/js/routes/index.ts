@@ -211,7 +211,7 @@ register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     register.form = registerForm
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 export const home = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -225,7 +225,7 @@ home.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 home.url = (options?: RouteQueryOptions) => {
@@ -233,7 +233,7 @@ home.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -241,7 +241,7 @@ home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -250,7 +250,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
     const homeForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -259,7 +259,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
         homeForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -267,7 +267,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
         homeForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -359,3 +359,74 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
     
     dashboard.form = dashboardForm
+/**
+ * @see routes/deploy.php:5
+ * @route '/deploy'
+ */
+export const deploy = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: deploy.url(options),
+    method: 'get',
+})
+
+deploy.definition = {
+    methods: ["get","head"],
+    url: '/deploy',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/deploy.php:5
+ * @route '/deploy'
+ */
+deploy.url = (options?: RouteQueryOptions) => {
+    return deploy.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/deploy.php:5
+ * @route '/deploy'
+ */
+deploy.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: deploy.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/deploy.php:5
+ * @route '/deploy'
+ */
+deploy.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: deploy.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/deploy.php:5
+ * @route '/deploy'
+ */
+    const deployForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: deploy.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/deploy.php:5
+ * @route '/deploy'
+ */
+        deployForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: deploy.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/deploy.php:5
+ * @route '/deploy'
+ */
+        deployForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: deploy.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    deploy.form = deployForm

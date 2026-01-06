@@ -314,7 +314,7 @@ show.head = (args: { order: number | { id: number } } | [order: number | { id: n
     show.form = showForm
 /**
 * @see \App\Http\Controllers\OrderController::edit
- * @see app/Http/Controllers/OrderController.php:155
+ * @see app/Http/Controllers/OrderController.php:154
  * @route '/orders/{order}/edit'
  */
 export const edit = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -329,7 +329,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\OrderController::edit
- * @see app/Http/Controllers/OrderController.php:155
+ * @see app/Http/Controllers/OrderController.php:154
  * @route '/orders/{order}/edit'
  */
 edit.url = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -362,7 +362,7 @@ edit.url = (args: { order: number | { id: number } } | [order: number | { id: nu
 
 /**
 * @see \App\Http\Controllers\OrderController::edit
- * @see app/Http/Controllers/OrderController.php:155
+ * @see app/Http/Controllers/OrderController.php:154
  * @route '/orders/{order}/edit'
  */
 edit.get = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -371,7 +371,7 @@ edit.get = (args: { order: number | { id: number } } | [order: number | { id: nu
 })
 /**
 * @see \App\Http\Controllers\OrderController::edit
- * @see app/Http/Controllers/OrderController.php:155
+ * @see app/Http/Controllers/OrderController.php:154
  * @route '/orders/{order}/edit'
  */
 edit.head = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -381,7 +381,7 @@ edit.head = (args: { order: number | { id: number } } | [order: number | { id: n
 
     /**
 * @see \App\Http\Controllers\OrderController::edit
- * @see app/Http/Controllers/OrderController.php:155
+ * @see app/Http/Controllers/OrderController.php:154
  * @route '/orders/{order}/edit'
  */
     const editForm = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -391,7 +391,7 @@ edit.head = (args: { order: number | { id: number } } | [order: number | { id: n
 
             /**
 * @see \App\Http\Controllers\OrderController::edit
- * @see app/Http/Controllers/OrderController.php:155
+ * @see app/Http/Controllers/OrderController.php:154
  * @route '/orders/{order}/edit'
  */
         editForm.get = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -400,7 +400,7 @@ edit.head = (args: { order: number | { id: number } } | [order: number | { id: n
         })
             /**
 * @see \App\Http\Controllers\OrderController::edit
- * @see app/Http/Controllers/OrderController.php:155
+ * @see app/Http/Controllers/OrderController.php:154
  * @route '/orders/{order}/edit'
  */
         editForm.head = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

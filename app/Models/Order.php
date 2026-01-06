@@ -74,6 +74,7 @@ class Order extends Model
 
     public function getBalanceDueAttribute()
     {
-        return $this->total_amount - $this->discount - ($this->payments_sum_amount ?? 0);
+        $totalPaid = $this->payments ? $this->payments->sum('amount') : 0;
+        return $this->total_amount - $this->discount - $totalPaid;
     }
 }
