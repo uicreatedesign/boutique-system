@@ -158,51 +158,44 @@ export default function OrdersShow({ order, canEdit = false }: Props) {
             <CardTitle>Fabric & Design</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-gray-600">Fabric Type</p>
-                <p className="font-medium">
-                  {order.customer_fabric ? 'Customer Provided' : order.fabric?.name || 'Not specified'}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-600">Priority</p>
-                <Badge variant={order.priority === 'urgent' ? 'destructive' : 'secondary'}>
-                  {order.priority}
-                </Badge>
-              </div>
+            <div>
+              <p className="text-sm text-gray-600">Fabric Type</p>
+              <p className="font-medium">
+                {order.customer_fabric ? 'Customer Provided' : order.fabric?.name || 'Not specified'}
+              </p>
             </div>
 
-            {order.customer_fabric_photo && (
-              <div>
-                <p className="text-sm text-gray-600 mb-2">Customer Fabric Photo</p>
-                <Avatar className="h-24 w-24 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.customer_fabric_photo}`, '_blank')}>
-                  <AvatarImage src={`/storage/${order.customer_fabric_photo}`} alt="Fabric" className="object-cover" />
-                  <AvatarFallback className="rounded-md">Fabric</AvatarFallback>
-                </Avatar>
-              </div>
-            )}
+            <div className="space-y-4">
+              {order.customer_fabric_photo && (
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Customer Fabric Photo</p>
+                  <Avatar className="h-32 w-32 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.customer_fabric_photo}`, '_blank')}>
+                    <AvatarImage src={`/storage/${order.customer_fabric_photo}`} alt="Fabric" className="object-cover" />
+                    <AvatarFallback className="rounded-md">Fabric</AvatarFallback>
+                  </Avatar>
+                </div>
+              )}
 
-            {order.boutique_fabric_photo && (
-              <div>
-                <p className="text-sm text-gray-600 mb-2">Boutique Fabric Photo</p>
-                <Avatar className="h-24 w-24 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.boutique_fabric_photo}`, '_blank')}>
-                  <AvatarImage src={`/storage/${order.boutique_fabric_photo}`} alt="Boutique Fabric" className="object-cover" />
-                  <AvatarFallback className="rounded-md">Fabric</AvatarFallback>
-                </Avatar>
-              </div>
-            )}
+              {order.boutique_fabric_photo && (
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Boutique Fabric Photo</p>
+                  <Avatar className="h-32 w-32 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.boutique_fabric_photo}`, '_blank')}>
+                    <AvatarImage src={`/storage/${order.boutique_fabric_photo}`} alt="Boutique Fabric" className="object-cover" />
+                    <AvatarFallback className="rounded-md">Fabric</AvatarFallback>
+                  </Avatar>
+                </div>
+              )}
 
-            {order.design_image && (
-              <div>
-                <p className="text-sm text-gray-600 mb-2">Design Image</p>
-                <Avatar className="h-24 w-24 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.design_image}`, '_blank')}>
-                  <AvatarImage src={`/storage/${order.design_image}`} alt="Design" className="object-cover" />
-                  <AvatarFallback className="rounded-md">Design</AvatarFallback>
-                </Avatar>
-              </div>
-            )}
+              {order.design_image && (
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Design Image</p>
+                  <Avatar className="h-32 w-32 rounded-md cursor-pointer" onClick={() => window.open(`/storage/${order.design_image}`, '_blank')}>
+                    <AvatarImage src={`/storage/${order.design_image}`} alt="Design" className="object-cover" />
+                    <AvatarFallback className="rounded-md">Design</AvatarFallback>
+                  </Avatar>
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
 

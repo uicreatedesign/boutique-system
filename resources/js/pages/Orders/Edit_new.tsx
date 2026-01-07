@@ -56,10 +56,10 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
   const fabricInputRef = useRef<HTMLInputElement>(null);
   const boutiqueFabricInputRef = useRef<HTMLInputElement>(null);
 
-  const { data, setData, post, put, processing, errors } = useForm({
-    customer_id: order.customer_id ? order.customer_id.toString() : '',
-    garment_type_id: order.garment_type_id ? order.garment_type_id.toString() : '',
-    tailor_id: order.tailor_id ? order.tailor_id.toString() : '',
+  const { data, setData, put, processing, errors } = useForm({
+    customer_id: order.customer_id?.toString() || '',
+    garment_type_id: order.garment_type_id?.toString() || '',
+    tailor_id: order.tailor_id?.toString() || '',
     measurement_id: order.measurement_id?.toString() || '',
     measurement_option: order.measurement_id ? 'existing' : 'skip',
     new_measurement_type: '',
@@ -72,7 +72,7 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
     boutique_fabric_photo: null as File | null,
     design_image: null as File | null,
     payment_method: 'cash',
-    stitching_status_id: order.stitching_status_id ? order.stitching_status_id.toString() : '',
+    stitching_status_id: order.stitching_status_id?.toString() || '',
     order_date: order.order_date ? format(new Date(order.order_date), 'yyyy-MM-dd') : '',
     delivery_date: order.delivery_date ? format(new Date(order.delivery_date), 'yyyy-MM-dd') : '',
     priority: order.priority || 'normal',
@@ -120,17 +120,20 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
   const selectedCategory = categories?.find(cat => cat.slug === selectedMeasurementType);
   const showMeasurementFields = measurementOption === 'new' && selectedCategory;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // ensure method override is present so multipart FormData is handled correctly by Laravel
-    setData('_method', 'PUT');
-    post(`/orders/${order.id}`, {
-      forceFormData: true,
+    
+    const formData = {
+      ...data,
+      new_measurements: measurementOption === 'new' ? newMeasurements : {},
+    };
+
+    put(`/orders/${order.id}`, {
+      data: formData,
       onSuccess: () => {
         toast.success('Order updated successfully');
       },
-      onError: (errors: any) => {
-        console.log('Validation errors:', errors);
+      onError: () => {
         toast.error('Failed to update order');
       }
     });
@@ -217,7 +220,6 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                       ))}
                     </SelectContent>
                   </Select>
-                  <input type="hidden" name="stitching_status_id" value={data.stitching_status_id} />
                 </div>
               </div>
             </CardContent>
@@ -686,7 +688,6 @@ export default function OrdersEdit({ order, customers, garmentTypes, tailors, fa
                       <SelectItem value="urgent">Urgent</SelectItem>
                     </SelectContent>
                   </Select>
-                  <input type="hidden" name="priority" value={data.priority} />
                 </div>
               </div>
 
