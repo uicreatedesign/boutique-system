@@ -24,6 +24,10 @@ return Application::configure(basePath: dirname(__DIR__))
             AddLinkHeadersForPreloadedAssets::class,
         ]);
 
+        $middleware->validateCsrfTokens(except: [
+            'api/*',
+        ]);
+
         $middleware->alias([
             'permission' => CheckPermission::class,
             'customer' => \App\Http\Middleware\EnsureCustomerRole::class,
