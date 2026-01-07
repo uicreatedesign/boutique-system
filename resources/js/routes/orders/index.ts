@@ -426,9 +426,9 @@ export const update = (args: { order: number | { id: number } } | [order: number
 })
 
 update.definition = {
-    methods: ["put"],
+    methods: ["put","post"],
     url: '/orders/{order}',
-} satisfies RouteDefinition<["put"]>
+} satisfies RouteDefinition<["put","post"]>
 
 /**
 * @see \App\Http\Controllers\OrderController::update
@@ -472,6 +472,15 @@ update.put = (args: { order: number | { id: number } } | [order: number | { id: 
     url: update.url(args, options),
     method: 'put',
 })
+/**
+* @see \App\Http\Controllers\OrderController::update
+ * @see app/Http/Controllers/OrderController.php:169
+ * @route '/orders/{order}'
+ */
+update.post = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: update.url(args, options),
+    method: 'post',
+})
 
     /**
 * @see \App\Http\Controllers\OrderController::update
@@ -500,6 +509,15 @@ update.put = (args: { order: number | { id: number } } | [order: number | { id: 
                             ...(options?.query ?? options?.mergeQuery ?? {}),
                         }
                     }),
+            method: 'post',
+        })
+            /**
+* @see \App\Http\Controllers\OrderController::update
+ * @see app/Http/Controllers/OrderController.php:169
+ * @route '/orders/{order}'
+ */
+        updateForm.post = (args: { order: number | { id: number } } | [order: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, options),
             method: 'post',
         })
     

@@ -1,0 +1,541 @@
+{
+  "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [],
+  "resources/js/actions/App/Http/Controllers/Settings/PasswordController.ts": [
+    "/build/assets/password-Csd2TyRf.js"
+  ],
+  "resources/js/actions/App/Http/Controllers/Settings/ProfileController.ts": [
+    "/build/assets/profile-DSx2JXlR.js"
+  ],
+  "resources/js/api/customers.js": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/api/measurement-settings.js": [
+    "/build/assets/index-4_kw0tvx.js"
+  ],
+  "resources/js/api/roles.js": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/api/tailors.js": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/api/users.js": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/components/alert-error.tsx": [
+    "/build/assets/two-factor-Cm0lBTTn.js"
+  ],
+  "resources/js/components/app-content.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/app-footer.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/app-logo-icon.tsx": [
+    "/build/assets/app-logo-icon-yMlft2ma.js"
+  ],
+  "resources/js/components/app-logo.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/app-shell.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/app-sidebar-header.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/app-sidebar.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/appearance-tabs.tsx": [
+    "/build/assets/appearance-SoAaKsU9.js"
+  ],
+  "resources/js/components/breadcrumbs.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/customers/customer-bulk-delete-dialog.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/components/customers/customer-create-modal.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/components/customers/customer-delete-dialog.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/components/customers/customer-detail-modal.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/components/customers/customer-edit-modal.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/components/customers/customer-form.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/components/customers/customer-table.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/components/delete-user.tsx": [
+    "/build/assets/profile-DSx2JXlR.js"
+  ],
+  "resources/js/components/fabrics/fabric-create-modal.tsx": [
+    "/build/assets/Index-e7GctObr.js"
+  ],
+  "resources/js/components/fabrics/fabric-delete-dialog.tsx": [
+    "/build/assets/Index-e7GctObr.js"
+  ],
+  "resources/js/components/fabrics/fabric-edit-modal.tsx": [
+    "/build/assets/Index-e7GctObr.js"
+  ],
+  "resources/js/components/fabrics/fabric-form.tsx": [
+    "/build/assets/Index-e7GctObr.js"
+  ],
+  "resources/js/components/fabrics/fabric-table.tsx": [
+    "/build/assets/Index-e7GctObr.js"
+  ],
+  "resources/js/components/garment-types/garment-type-create-modal.tsx": [
+    "/build/assets/Index-Bu-icbKt.js"
+  ],
+  "resources/js/components/garment-types/garment-type-delete-dialog.tsx": [
+    "/build/assets/Index-Bu-icbKt.js"
+  ],
+  "resources/js/components/garment-types/garment-type-edit-modal.tsx": [
+    "/build/assets/Index-Bu-icbKt.js"
+  ],
+  "resources/js/components/garment-types/garment-type-form.tsx": [
+    "/build/assets/Index-Bu-icbKt.js"
+  ],
+  "resources/js/components/garment-types/garment-type-table.tsx": [
+    "/build/assets/Index-Bu-icbKt.js"
+  ],
+  "resources/js/components/heading-small.tsx": [
+    "/build/assets/heading-small-CT3emyQQ.js"
+  ],
+  "resources/js/components/heading.tsx": [
+    "/build/assets/layout-DBoo5xPq.js"
+  ],
+  "resources/js/components/icon.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/input-error.tsx": [
+    "/build/assets/input-error-6hokYpE7.js"
+  ],
+  "resources/js/components/measurement-settings/category-management.tsx": [
+    "/build/assets/index-4_kw0tvx.js"
+  ],
+  "resources/js/components/measurement-settings/field-management.tsx": [
+    "/build/assets/index-4_kw0tvx.js"
+  ],
+  "resources/js/components/nav-footer.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/nav-main.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/nav-user.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/notifications/notification-bell.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/notifications/notification-create-modal.tsx": [
+    "/build/assets/Index-CiDvMj43.js"
+  ],
+  "resources/js/components/notifications/notification-delete-dialog.tsx": [
+    "/build/assets/Index-CiDvMj43.js"
+  ],
+  "resources/js/components/orders/payment-modal.tsx": [
+    "/build/assets/Show-BLq6l1pF.js"
+  ],
+  "resources/js/components/reports/customer-report.tsx": [
+    "/build/assets/Index-CxDy47A9.js"
+  ],
+  "resources/js/components/reports/inventory-report.tsx": [
+    "/build/assets/Index-CxDy47A9.js"
+  ],
+  "resources/js/components/reports/sales-report.tsx": [
+    "/build/assets/Index-CxDy47A9.js"
+  ],
+  "resources/js/components/reports/tailor-performance-report.tsx": [
+    "/build/assets/Index-CxDy47A9.js"
+  ],
+  "resources/js/components/roles/permission-management.tsx": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/components/roles/role-create-modal.tsx": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/components/roles/role-delete-dialog.tsx": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/components/roles/role-edit-modal.tsx": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/components/roles/role-form.tsx": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/components/roles/role-table.tsx": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/components/settings/test-email-modal.tsx": [
+    "/build/assets/smtp-BfSqp2TR.js"
+  ],
+  "resources/js/components/simple-search.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/stitching-statuses/stitching-status-create-modal.tsx": [
+    "/build/assets/Index-Dft70MNP.js"
+  ],
+  "resources/js/components/stitching-statuses/stitching-status-delete-dialog.tsx": [
+    "/build/assets/Index-Dft70MNP.js"
+  ],
+  "resources/js/components/stitching-statuses/stitching-status-edit-modal.tsx": [
+    "/build/assets/Index-Dft70MNP.js"
+  ],
+  "resources/js/components/stitching-statuses/stitching-status-form.tsx": [
+    "/build/assets/Index-Dft70MNP.js"
+  ],
+  "resources/js/components/stitching-statuses/stitching-status-list.tsx": [
+    "/build/assets/Index-Dft70MNP.js"
+  ],
+  "resources/js/components/tailors/tailor-create-modal.tsx": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/components/tailors/tailor-delete-dialog.tsx": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/components/tailors/tailor-detail-modal.tsx": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/components/tailors/tailor-edit-modal.tsx": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/components/tailors/tailor-form.tsx": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/components/tailors/tailor-table.tsx": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/components/text-link.tsx": [
+    "/build/assets/text-link-DpGkSOGE.js"
+  ],
+  "resources/js/components/theme-toggle.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/two-factor-recovery-codes.tsx": [
+    "/build/assets/two-factor-Cm0lBTTn.js"
+  ],
+  "resources/js/components/two-factor-setup-modal.tsx": [
+    "/build/assets/two-factor-Cm0lBTTn.js"
+  ],
+  "resources/js/components/ui/alert.tsx": [
+    "/build/assets/alert-CciJvyAJ.js"
+  ],
+  "resources/js/components/ui/avatar.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/ui/badge.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/ui/breadcrumb.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/ui/button.tsx": [
+    "/build/assets/app-logo-icon-yMlft2ma.js"
+  ],
+  "resources/js/components/ui/calendar.tsx": [
+    "/build/assets/popover-CImn5mfV.js"
+  ],
+  "resources/js/components/ui/card.tsx": [
+    "/build/assets/card-fzyh6nXg.js"
+  ],
+  "resources/js/components/ui/chart.tsx": [
+    "/build/assets/dashboard-CFgcUvWV.js"
+  ],
+  "resources/js/components/ui/checkbox.tsx": [
+    "/build/assets/checkbox-DbX0FY8V.js"
+  ],
+  "resources/js/components/ui/collapsible.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/ui/dialog.tsx": [
+    "/build/assets/dialog-DqkYa_S8.js"
+  ],
+  "resources/js/components/ui/dropdown-menu.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/ui/input-otp.tsx": [
+    "/build/assets/use-two-factor-auth-Br0qoVp8.js"
+  ],
+  "resources/js/components/ui/input.tsx": [
+    "/build/assets/input-DRU_9M1j.js"
+  ],
+  "resources/js/components/ui/label.tsx": [
+    "/build/assets/label-HS0cC0xf.js"
+  ],
+  "resources/js/components/ui/pagination.tsx": [
+    "/build/assets/pagination-DvZWC5ih.js"
+  ],
+  "resources/js/components/ui/popover.tsx": [
+    "/build/assets/popover-CImn5mfV.js"
+  ],
+  "resources/js/components/ui/radio-group.tsx": [
+    "/build/assets/radio-group-C8KfI6PF.js"
+  ],
+  "resources/js/components/ui/select.tsx": [
+    "/build/assets/select-mdHWliXL.js"
+  ],
+  "resources/js/components/ui/separator.tsx": [
+    "/build/assets/layout-DBoo5xPq.js"
+  ],
+  "resources/js/components/ui/sheet.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/ui/sidebar.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/ui/skeleton.tsx": [
+    "/build/assets/skeleton-GNTkvGbs.js"
+  ],
+  "resources/js/components/ui/spinner.tsx": [
+    "/build/assets/spinner-CHOqoWxj.js"
+  ],
+  "resources/js/components/ui/tabs.tsx": [
+    "/build/assets/tabs-DxUnHL7O.js"
+  ],
+  "resources/js/components/ui/textarea.tsx": [
+    "/build/assets/textarea-B9zFq2cw.js"
+  ],
+  "resources/js/components/ui/tooltip.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/user-info.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/user-menu-content.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/components/users/user-create-modal.tsx": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/components/users/user-delete-dialog.tsx": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/components/users/user-detail-modal.tsx": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/components/users/user-edit-modal.tsx": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/components/users/user-form.tsx": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/components/users/user-table.tsx": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/hooks/use-appearance.tsx": [
+    "/build/assets/appearance-SoAaKsU9.js"
+  ],
+  "resources/js/hooks/use-clipboard.ts": [
+    "/build/assets/two-factor-Cm0lBTTn.js"
+  ],
+  "resources/js/hooks/use-currency.ts": [
+    "/build/assets/use-currency-Dhhwwk5V.js"
+  ],
+  "resources/js/hooks/use-initials.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/hooks/use-mobile-navigation.ts": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/hooks/use-mobile.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/hooks/use-permissions.ts": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/hooks/use-two-factor-auth.ts": [
+    "/build/assets/use-two-factor-auth-Br0qoVp8.js"
+  ],
+  "resources/js/layouts/app-layout.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/layouts/app/app-sidebar-layout.tsx": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/layouts/auth-layout.tsx": [
+    "/build/assets/auth-layout-Ck0h1brf.js"
+  ],
+  "resources/js/layouts/auth/auth-simple-layout.tsx": [
+    "/build/assets/auth-layout-Ck0h1brf.js"
+  ],
+  "resources/js/layouts/settings/layout.tsx": [
+    "/build/assets/layout-DBoo5xPq.js"
+  ],
+  "resources/js/lib/utils.ts": [
+    "/build/assets/app-logo-icon-yMlft2ma.js"
+  ],
+  "resources/js/pages/Fabrics/Index.tsx": [
+    "/build/assets/Index-e7GctObr.js"
+  ],
+  "resources/js/pages/GarmentTypes/Index.tsx": [
+    "/build/assets/Index-Bu-icbKt.js"
+  ],
+  "resources/js/pages/Measurements/Create.tsx": [
+    "/build/assets/Create-Clf6vTtD.js"
+  ],
+  "resources/js/pages/Measurements/Edit.tsx": [
+    "/build/assets/Edit-CwyTGsBA.js"
+  ],
+  "resources/js/pages/Measurements/Index.tsx": [
+    "/build/assets/Index-fNohuwwt.js"
+  ],
+  "resources/js/pages/Measurements/Show.tsx": [
+    "/build/assets/Show-C2KLQduK.js"
+  ],
+  "resources/js/pages/Notifications/Index.tsx": [
+    "/build/assets/Index-CiDvMj43.js"
+  ],
+  "resources/js/pages/Orders/Create.tsx": [
+    "/build/assets/Create-BstxZWLI.js"
+  ],
+  "resources/js/pages/Orders/CreateEnhanced.tsx": [
+    "/build/assets/CreateEnhanced-6fWtAWk9.js"
+  ],
+  "resources/js/pages/Orders/Edit.tsx": [
+    "/build/assets/Edit-CFb5aPCc.js"
+  ],
+  "resources/js/pages/Orders/Edit_new.tsx": [
+    "/build/assets/Edit_new-Ctlqce9f.js"
+  ],
+  "resources/js/pages/Orders/Index.tsx": [
+    "/build/assets/Index-B5S4h5uk.js"
+  ],
+  "resources/js/pages/Orders/Show.tsx": [
+    "/build/assets/Show-BLq6l1pF.js"
+  ],
+  "resources/js/pages/Reports/Index.tsx": [
+    "/build/assets/Index-CxDy47A9.js"
+  ],
+  "resources/js/pages/Search/Index.tsx": [
+    "/build/assets/Index-C1AETDLa.js"
+  ],
+  "resources/js/pages/StitchingStatuses/Index.tsx": [
+    "/build/assets/Index-Dft70MNP.js"
+  ],
+  "resources/js/pages/auth/confirm-password.tsx": [
+    "/build/assets/confirm-password-Cy5uXMWw.js"
+  ],
+  "resources/js/pages/auth/forgot-password.tsx": [
+    "/build/assets/forgot-password-v9ocYfpa.js"
+  ],
+  "resources/js/pages/auth/login.tsx": [
+    "/build/assets/login-DTHPnYUR.js"
+  ],
+  "resources/js/pages/auth/register.tsx": [
+    "/build/assets/register-yUKkgJr8.js"
+  ],
+  "resources/js/pages/auth/reset-password.tsx": [
+    "/build/assets/reset-password-CsCNO1fr.js"
+  ],
+  "resources/js/pages/auth/two-factor-challenge.tsx": [
+    "/build/assets/two-factor-challenge-BV8opar3.js"
+  ],
+  "resources/js/pages/auth/verify-email.tsx": [
+    "/build/assets/verify-email-vQOsEExc.js"
+  ],
+  "resources/js/pages/customer-dashboard/index.tsx": [
+    "/build/assets/index-DcnzhJnz.js"
+  ],
+  "resources/js/pages/customer-dashboard/order-details.tsx": [
+    "/build/assets/order-details-UjRRmdQM.js"
+  ],
+  "resources/js/pages/customer/orders/index.tsx": [
+    "/build/assets/index-Co66SOAk.js"
+  ],
+  "resources/js/pages/customers/index.tsx": [
+    "/build/assets/index-5LMdMS7m.js"
+  ],
+  "resources/js/pages/dashboard.tsx": [
+    "/build/assets/dashboard-CFgcUvWV.js"
+  ],
+  "resources/js/pages/measurement-settings/index.tsx": [
+    "/build/assets/index-4_kw0tvx.js"
+  ],
+  "resources/js/pages/roles/index.tsx": [
+    "/build/assets/index-C8jZdV1n.js"
+  ],
+  "resources/js/pages/settings/appearance.tsx": [
+    "/build/assets/appearance-SoAaKsU9.js"
+  ],
+  "resources/js/pages/settings/backup.tsx": [
+    "/build/assets/backup-Cw0vGGq2.js"
+  ],
+  "resources/js/pages/settings/general.tsx": [
+    "/build/assets/general-DNyoYUu6.js"
+  ],
+  "resources/js/pages/settings/notifications.tsx": [
+    "/build/assets/notifications-DdWhiq0O.js"
+  ],
+  "resources/js/pages/settings/password.tsx": [
+    "/build/assets/password-Csd2TyRf.js"
+  ],
+  "resources/js/pages/settings/profile.tsx": [
+    "/build/assets/profile-DSx2JXlR.js"
+  ],
+  "resources/js/pages/settings/smtp.tsx": [
+    "/build/assets/smtp-BfSqp2TR.js"
+  ],
+  "resources/js/pages/settings/two-factor.tsx": [
+    "/build/assets/two-factor-Cm0lBTTn.js"
+  ],
+  "resources/js/pages/tailor-dashboard/index.tsx": [
+    "/build/assets/index-CaSoMqZU.js"
+  ],
+  "resources/js/pages/tailors/index.tsx": [
+    "/build/assets/index-ZahIFZas.js"
+  ],
+  "resources/js/pages/users/index.tsx": [
+    "/build/assets/index-DX-A_nj4.js"
+  ],
+  "resources/js/pages/welcome.tsx": [
+    "/build/assets/welcome-Cb7QbS--.js"
+  ],
+  "resources/js/routes/appearance/index.ts": [
+    "/build/assets/layout-DBoo5xPq.js"
+  ],
+  "resources/js/routes/index.ts": [
+    "/build/assets/index-BSn8jdXv.js"
+  ],
+  "resources/js/routes/login/index.ts": [
+    "/build/assets/login-DTHPnYUR.js"
+  ],
+  "resources/js/routes/password/confirm/index.ts": [
+    "/build/assets/index-lTztsZCp.js"
+  ],
+  "resources/js/routes/password/index.ts": [
+    "/build/assets/index-D6E4jEdI.js"
+  ],
+  "resources/js/routes/profile/avatar/index.ts": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/routes/profile/index.ts": [
+    "/build/assets/app-layout-BNU1zxoI.js"
+  ],
+  "resources/js/routes/register/index.ts": [
+    "/build/assets/register-yUKkgJr8.js"
+  ],
+  "resources/js/routes/two-factor/index.ts": [
+    "/build/assets/index-t_V3m3ZX.js"
+  ],
+  "resources/js/routes/two-factor/login/index.ts": [
+    "/build/assets/index-t_V3m3ZX.js"
+  ],
+  "resources/js/routes/user-password/index.ts": [
+    "/build/assets/layout-DBoo5xPq.js"
+  ],
+  "resources/js/routes/verification/index.ts": [
+    "/build/assets/index-Dll6oKrP.js"
+  ],
+  "resources/js/ssr.tsx": [],
+  "resources/js/wayfinder/index.ts": [
+    "/build/assets/index-BSn8jdXv.js"
+  ]
+}

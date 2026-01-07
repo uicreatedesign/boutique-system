@@ -9,7 +9,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+    Route::match(['put', 'post'], '/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
     Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice');
     Route::get('/orders/{order}/measurement-slip', [OrderController::class, 'measurementSlip'])->name('orders.measurement-slip');
