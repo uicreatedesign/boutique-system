@@ -106,4 +106,11 @@ class CustomerController extends Controller
         $orders = $customer->orders()->with(['garmentType', 'stitchingStatus'])->latest()->get();
         return response()->json(['data' => $orders, 'total' => $orders->count()]);
     }
+
+    public function bulkDelete(\Illuminate\Http\Request $request): \Illuminate\Http\JsonResponse
+    {
+        $ids = $request->input('ids', []);
+        Customer::whereIn('id', $ids)->delete();
+        return response()->json(['message' => 'Customers deleted successfully']);
+    }
 }

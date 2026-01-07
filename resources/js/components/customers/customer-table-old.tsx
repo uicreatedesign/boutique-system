@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import { getCustomers } from '@/api/customers';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Trash2, Edit, Eye, Plus } from 'lucide-react';
+import { Trash2, Edit, Eye, Plus, Users } from 'lucide-react';
 import CustomerEditModal from './customer-edit-modal';
 import CustomerDetailModal from './customer-detail-modal';
 import CustomerDeleteDialog from './customer-delete-dialog';
-import CustomerBulkDeleteDialog from './customer-bulk-delete-dialog';
 import Pagination from '@/components/ui/pagination';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -36,16 +34,19 @@ export default function CustomerTable({ search }: CustomerTableProps) {
   const [from, setFrom] = useState(0);
   const [to, setTo] = useState(0);
   const [perPage, setPerPage] = useState(10);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [showBulkDelete, setShowBulkDelete] = useState(false);
 
   const fetchCustomers = async (page = 1, pageSize = perPage) => {
     try {
       setLoading(true);
       const response = await getCustomers({ search, page, per_page: pageSize });
       
+      console.log('Full Response:', response.data);
+      
+      // Laravel Resource collections have meta and links
       const data = response.data.data || [];
       const meta = response.data.meta || response.data;
+      
+      console.log('Meta:', meta);
       
       setCustomers(data);
       setCurrentPage(meta.current_page || 1);
@@ -53,7 +54,6 @@ export default function CustomerTable({ search }: CustomerTableProps) {
       setTotal(meta.total || 0);
       setFrom(meta.from || 0);
       setTo(meta.to || 0);
-      setSelectedIds([]);
     } catch (error) {
       console.error('Failed to fetch customers:', error);
       setCustomers([]);
@@ -94,19 +94,7 @@ export default function CustomerTable({ search }: CustomerTableProps) {
     setCurrentPage(1);
   };
 
-  const toggleSelectAll = () => {
-    if (selectedIds.length === customers.length) {
-      setSelectedIds([]);
-    } else {
-      setSelectedIds(customers.map(c => c.id));
-    }
-  };
 
-  const toggleSelect = (id: number) => {
-    setSelectedIds(prev =>
-      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-    );
-  };
 
   if (loading && customers.length === 0) {
     return (
@@ -114,7 +102,6 @@ export default function CustomerTable({ search }: CustomerTableProps) {
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b">
-              <th className="text-left p-4 w-12"><Checkbox disabled /></th>
               <th className="text-left p-4">Name</th>
               <th className="text-left p-4">Contact</th>
               <th className="text-left p-4">Orders</th>
@@ -125,12 +112,28 @@ export default function CustomerTable({ search }: CustomerTableProps) {
           <tbody>
             {[...Array(5)].map((_, i) => (
               <tr key={i} className="border-b">
-                <td className="p-4"><Skeleton className="h-5 w-5" /></td>
-                <td className="p-4"><Skeleton className="h-5 w-32" /></td>
-                <td className="p-4"><Skeleton className="h-4 w-28" /></td>
-                <td className="p-4"><Skeleton className="h-6 w-8" /></td>
-                <td className="p-4"><Skeleton className="h-4 w-24" /></td>
-                <td className="p-4"><div className="flex space-x-2"><Skeleton className="h-9 w-9" /></div></td>
+                <td className="p-4">
+                  <Skeleton className="h-5 w-32" />
+                </td>
+                <td className="p-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-4 w-36" />
+                  </div>
+                </td>
+                <td className="p-4">
+                  <Skeleton className="h-6 w-8" />
+                </td>
+                <td className="p-4">
+                  <Skeleton className="h-4 w-24" />
+                </td>
+                <td className="p-4">
+                  <div className="flex space-x-2">
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                    <Skeleton className="h-9 w-9" />
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -141,24 +144,20 @@ export default function CustomerTable({ search }: CustomerTableProps) {
 
   return (
     <>
-      {selectedIds.length > 0 && (
-        <div className="mb-4 p-4 bg-blue-50 rounded-lg flex items-center justify-between">
-          <span className="text-sm font-medium">{selectedIds.length} customer(s) selected</span>
-          <Button
-            size="sm"
-            variant="destructive"
-            onClick={() => setShowBulkDelete(true)}
-          >
-            <Trash2 className="h-4 w-4 mr-2" />
-            Delete Selected
-          </Button>
-        </div>
-      )}
-
       {customers.length === 0 && !loading ? (
         <div className="flex flex-col items-center justify-center py-16 px-4">
-          <svg className="w-48 h-48 mb-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          <svg
+            className="w-48 h-48 mb-6 text-gray-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1}
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            />
           </svg>
           <h3 className="text-xl font-semibold text-gray-700 mb-2">No Customers Found</h3>
           <p className="text-gray-500 text-center mb-6 max-w-md">
@@ -171,12 +170,6 @@ export default function CustomerTable({ search }: CustomerTableProps) {
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left p-4 w-12">
-                    <Checkbox
-                      checked={selectedIds.length === customers.length && customers.length > 0}
-                      onCheckedChange={toggleSelectAll}
-                    />
-                  </th>
                   <th className="text-left p-4">Name</th>
                   <th className="text-left p-4">Contact</th>
                   <th className="text-left p-4">Orders</th>
@@ -187,12 +180,6 @@ export default function CustomerTable({ search }: CustomerTableProps) {
               <tbody>
                 {customers.map((customer) => (
                   <tr key={customer.id} className="border-b hover:bg-gray-50 dark:hover:bg-[oklch(0.269_0_0)]">
-                    <td className="p-4">
-                      <Checkbox
-                        checked={selectedIds.includes(customer.id)}
-                        onCheckedChange={() => toggleSelect(customer.id)}
-                      />
-                    </td>
                     <td className="p-4 font-medium">{customer.name}</td>
                     <td className="p-4">
                       <div className="space-y-1">
@@ -208,13 +195,25 @@ export default function CustomerTable({ search }: CustomerTableProps) {
                     </td>
                     <td className="p-4">
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline" onClick={() => setDetailCustomer(customer)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setDetailCustomer(customer)}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setEditCustomer(customer)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setEditCustomer(customer)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setDeleteCustomer(customer)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setDeleteCustomer(customer)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -266,16 +265,6 @@ export default function CustomerTable({ search }: CustomerTableProps) {
         onClose={() => setDeleteCustomer(null)}
         onSuccess={() => {
           setDeleteCustomer(null);
-          fetchCustomers(currentPage);
-        }}
-      />
-
-      <CustomerBulkDeleteDialog
-        open={showBulkDelete}
-        selectedIds={selectedIds}
-        onClose={() => setShowBulkDelete(false)}
-        onSuccess={() => {
-          setShowBulkDelete(false);
           fetchCustomers(currentPage);
         }}
       />

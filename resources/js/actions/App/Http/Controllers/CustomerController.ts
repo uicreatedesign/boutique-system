@@ -436,6 +436,61 @@ destroy.delete = (args: { customer: number | { id: number } } | [customer: numbe
     
     destroy.form = destroyForm
 /**
+* @see \App\Http\Controllers\CustomerController::bulkDelete
+ * @see app/Http/Controllers/CustomerController.php:110
+ * @route '/api/customers/bulk-delete'
+ */
+export const bulkDelete = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: bulkDelete.url(options),
+    method: 'post',
+})
+
+bulkDelete.definition = {
+    methods: ["post"],
+    url: '/api/customers/bulk-delete',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\CustomerController::bulkDelete
+ * @see app/Http/Controllers/CustomerController.php:110
+ * @route '/api/customers/bulk-delete'
+ */
+bulkDelete.url = (options?: RouteQueryOptions) => {
+    return bulkDelete.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\CustomerController::bulkDelete
+ * @see app/Http/Controllers/CustomerController.php:110
+ * @route '/api/customers/bulk-delete'
+ */
+bulkDelete.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: bulkDelete.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\CustomerController::bulkDelete
+ * @see app/Http/Controllers/CustomerController.php:110
+ * @route '/api/customers/bulk-delete'
+ */
+    const bulkDeleteForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: bulkDelete.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\CustomerController::bulkDelete
+ * @see app/Http/Controllers/CustomerController.php:110
+ * @route '/api/customers/bulk-delete'
+ */
+        bulkDeleteForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: bulkDelete.url(options),
+            method: 'post',
+        })
+    
+    bulkDelete.form = bulkDeleteForm
+/**
 * @see \App\Http\Controllers\CustomerController::orders
  * @see app/Http/Controllers/CustomerController.php:104
  * @route '/api/customers/{customer}/orders'
@@ -537,6 +592,6 @@ orders.head = (args: { customer: number | { id: number } } | [customer: number |
         })
     
     orders.form = ordersForm
-const CustomerController = { index, store, show, update, destroy, orders }
+const CustomerController = { index, store, show, update, destroy, bulkDelete, orders }
 
 export default CustomerController
